@@ -34,6 +34,15 @@ class Navigation {
             const ProfilesView(key: GlobalObjectKey(PageLabel.profiles)),
       ),
       NavigationItem(
+        icon: Icon(Icons.web),
+        label: PageLabel.tianque,
+        builder: (_) => const TianqueView(
+          key: GlobalObjectKey(
+            PageLabel.tianque,
+          ),
+        ),
+      ),
+      NavigationItem(
         icon: Icon(Icons.view_timeline),
         label: PageLabel.requests,
         builder: (_) =>
