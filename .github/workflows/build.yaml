@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 env:
   IS_STABLE: ${{ !contains(github.ref, '-') }}
 
@@ -207,6 +208,7 @@ jobs:
           done
 
       - name: Push to telegram
+        if: ${{ secrets.TELEGRAM_BOT_TOKEN != '' }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TAG: ${{ github.ref_name }}
