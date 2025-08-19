@@ -102,12 +102,23 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             powershell -Command "(Get-Content pubspec.yaml) -replace 'version: .*', 'version: $VERSION+$(Get-Date -Format 'yyyyMMddHH')' | Set-Content pubspec.yaml"
           else
-            # Use a simple file replacement approach that works on all Unix systems
+            # Use a safer approach that preserves YAML structure
             TIMESTAMP=$(date +%Y%m%d%H)
-            head -n 2 pubspec.yaml > pubspec.yaml.new
-            echo "version: $VERSION+$TIMESTAMP" >> pubspec.yaml.new
-            tail -n +4 pubspec.yaml >> pubspec.yaml.new
-            mv pubspec.yaml.new pubspec.yaml
+            # Create a backup first
+            cp pubspec.yaml pubspec.yaml.backup
+            # Use sed with proper escaping for macOS compatibility
+            if [[ "$RUNNER_OS" == "macOS" ]]; then
+              sed -i '' "s/^version: .*/version: $VERSION+$TIMESTAMP/" pubspec.yaml
+            else
+              sed -i "s/^version: .*/version: $VERSION+$TIMESTAMP/" pubspec.yaml
+            fi
+            # Verify the file is still valid YAML
+            if ! python3 -c "import yaml; yaml.safe_load(open('pubspec.yaml'))" 2>/dev/null; then
+              echo "YAML validation failed, restoring backup"
+              mv pubspec.yaml.backup pubspec.yaml
+              exit 1
+            fi
+            rm pubspec.yaml.backup
           fi
           
           echo "Updated version to: $VERSION"
