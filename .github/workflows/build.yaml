@@ -4,10 +4,8 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 env:
   IS_STABLE: ${{ !contains(github.ref, '-') }}
-  BUILD_TIMESTAMP: ${{ github.run_number }}
 
 jobs:
   build:
@@ -72,56 +70,16 @@ jobs:
         with:
           channel: 'master'
           cache: true
-          cache-key: 'flutter-${{ runner.os }}-${{ env.BUILD_TIMESTAMP }}'
       - name: Setup Flutter
         if: ${{ !(startsWith(matrix.os, 'windows-11-arm') || startsWith(matrix.os, 'ubuntu-24.04-arm')) }}
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-          cache-key: 'flutter-${{ runner.os }}-${{ env.BUILD_TIMESTAMP }}'
+      #          flutter-version: 3.29.3
 
       - name: Get Flutter Dependency
         run: flutter pub get
-
-      - name: Invalidate cache for code changes
-        run: |
-          # Force rebuild by touching key files
-          touch pubspec.yaml
-          touch lib/main.dart
-          echo "Cache invalidated for build ${{ env.BUILD_TIMESTAMP }}"
-
-      - name: Update version from tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          # Extract version from tag (remove 'v' prefix)
-          VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION#v}
-          
-          # Update pubspec.yaml version using a more compatible approach
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            powershell -Command "(Get-Content pubspec.yaml) -replace 'version: .*', 'version: $VERSION+$(Get-Date -Format 'yyyyMMddHH')' | Set-Content pubspec.yaml"
-          else
-            # Use a safer approach that preserves YAML structure
-            TIMESTAMP=$(date +%Y%m%d%H)
-            # Create a backup first
-            cp pubspec.yaml pubspec.yaml.backup
-            # Use sed with proper escaping for macOS compatibility
-            if [[ "$RUNNER_OS" == "macOS" ]]; then
-              sed -i '' "s/^version: .*/version: $VERSION+$TIMESTAMP/" pubspec.yaml
-            else
-              sed -i "s/^version: .*/version: $VERSION+$TIMESTAMP/" pubspec.yaml
-            fi
-            # Verify the file is still valid YAML
-            if ! python3 -c "import yaml; yaml.safe_load(open('pubspec.yaml'))" 2>/dev/null; then
-              echo "YAML validation failed, restoring backup"
-              mv pubspec.yaml.backup pubspec.yaml
-              exit 1
-            fi
-            rm pubspec.yaml.backup
-          fi
-          
-          echo "Updated version to: $VERSION"
 
       - name: Setup
         run: dart setup.dart ${{ matrix.platform }} ${{ matrix.arch && format('--arch {0}', matrix.arch) }} ${{ env.IS_STABLE == 'true' && '--env stable' || '' }}
@@ -191,16 +149,16 @@ jobs:
               echo "Push failed"
               exit 1
             fi
-          fi
+                     fi
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  upload:
-    permissions: write-all
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
+   upload:
+     permissions: write-all
+     needs: [ build ]
+     runs-on: ubuntu-latest
+     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -240,6 +198,16 @@ jobs:
             currentTag=$tag
           done
 
+             # - name: Push to telegram
+       #   env:
+       #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+       #     TAG: ${{ github.ref_name }}
+       #     RUN_ID: ${{ github.run_id }}
+       #   run: |
+       #     python -m pip install --upgrade pip
+       #     pip install requests
+       #     python release_telegram.py
+
       - name: Patch release.md
         run: |
           version=$(echo "${{ github.ref_name }}" | sed 's/^v//')
@@ -260,3 +228,24 @@ jobs:
           files: ./dist/*
           body_path: './release.md'
 
+      - name: Create Fdroid Source Dir
+        if: ${{ env.IS_STABLE == 'true' }}
+        run: |
+          mkdir -p ./tmp
+          cp ./dist/*android-arm64-v8a* ./tmp/ || true
+          echo "Files copied successfully"
+
+      - name: Push to fdroid repo
+        if: ${{ env.IS_STABLE == 'true' }}
+        uses: cpina/github-action-push-to-another-repository@v1.7.2
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        with:
+          source-directory: ./tmp/
+          destination-github-username: chen08209
+          destination-repository-name: FlClash-fdroid-repo
+          user-name: 'github-actions[bot]'
+          user-email: 'github-actions[bot]@users.noreply.github.com'
+          target-branch: main
+          commit-message: Update from ${{ github.ref_name }}
+          target-directory: /tmp/
