@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppStateManager extends ConsumerStatefulWidget {
   final Widget child;
@@ -260,6 +261,21 @@ class AppSidebarContainer extends ConsumerWidget {
                         Icons.menu,
                         color: context.colorScheme.onSurfaceVariant,
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    IconButton(
+                      onPressed: () async {
+                        const url = 'https://www.tianque.cc';
+                        final uri = Uri.parse(url);
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(uri, mode: LaunchMode.externalApplication);
+                        }
+                      },
+                      icon: Icon(
+                        Icons.web,
+                        color: context.colorScheme.onSurfaceVariant,
+                      ),
+                      tooltip: '天阙官网',
                     ),
                     const SizedBox(height: 16),
                   ],
