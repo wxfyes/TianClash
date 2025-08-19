@@ -22,8 +22,6 @@
 
 - Add android separates the core process
 
-- Support core status check and force restart
-
 - Optimize proxies page and access page
 
 - Update flutter and pub dependencies
