@@ -272,10 +272,9 @@ class AppSidebarContainer extends ConsumerWidget {
                         }
                       },
                       icon: Icon(
-                        Icons.web,
+                        Icons.language,
                         color: context.colorScheme.onSurfaceVariant,
                       ),
-                      tooltip: '天阙官网',
                     ),
                     const SizedBox(height: 16),
                   ],
