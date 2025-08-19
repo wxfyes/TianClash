@@ -102,8 +102,14 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             powershell -Command "(Get-Content pubspec.yaml) -replace 'version: .*', 'version: $VERSION+$(Get-Date -Format 'yyyyMMddHH')' | Set-Content pubspec.yaml"
           else
-            # Use perl instead of sed for better cross-platform compatibility
-            perl -pi -e "s/version: .*/version: $VERSION+$(date +%Y%m%d%H)/" pubspec.yaml
+            # Use awk for maximum compatibility across all Unix systems
+            awk -v version="$VERSION" -v timestamp="$(date +%Y%m%d%H)" '{
+              if ($0 ~ /^version: /) {
+                print "version: " version "+" timestamp
+              } else {
+                print $0
+              }
+            }' pubspec.yaml > pubspec.yaml.tmp && mv pubspec.yaml.tmp pubspec.yaml
           fi
           
           echo "Updated version to: $VERSION"
