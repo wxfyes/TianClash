@@ -70,16 +70,21 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'master'
-          cache: true
+          cache: false
       - name: Setup Flutter
         if: ${{ !(startsWith(matrix.os, 'windows-11-arm') || startsWith(matrix.os, 'ubuntu-24.04-arm')) }}
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
+          cache: false
 
       - name: Get Flutter Dependency
         run: flutter pub get
+
+      - name: Clear cache and force rebuild
+        run: |
+          flutter clean
+          flutter pub get
 
       - name: Update version from tag
         if: startsWith(github.ref, 'refs/tags/')
@@ -88,16 +93,12 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}
           
-          # Update pubspec.yaml version
+          # Update pubspec.yaml version using a more compatible approach
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             powershell -Command "(Get-Content pubspec.yaml) -replace 'version: .*', 'version: $VERSION+$(Get-Date -Format 'yyyyMMddHH')' | Set-Content pubspec.yaml"
           else
-            # Use different sed syntax for macOS and Linux
-            if [[ "$RUNNER_OS" == "macOS" ]]; then
-              sed -i '' "s/version: .*/version: $VERSION+$(date +%Y%m%d%H)/" pubspec.yaml
-            else
-              sed -i "s/version: .*/version: $VERSION+$(date +%Y%m%d%H)/" pubspec.yaml
-            fi
+            # Use perl instead of sed for better cross-platform compatibility
+            perl -pi -e "s/version: .*/version: $VERSION+$(date +%Y%m%d%H)/" pubspec.yaml
           fi
           
           echo "Updated version to: $VERSION"
