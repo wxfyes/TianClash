@@ -1,3 +1,27 @@
 app_name: 'TianQue'
 output: 'dist/'
 artifact_name: 'TianQue-{{build_name}}-{{platform}}-{{arch}}.{{ext}}'
+releases:
+  - name: default
+    jobs:
+      - name: release-deb-arm64
+        package:
+          platform: linux
+          target: deb
+          build_args:
+            target-platform: linux-arm64
+        publish:
+          target: github
+      - name: release-deb-x64
+        package:
+          platform: linux
+          target: deb
+          build_args:
+            target-platform: linux-x64
+        publish:
+          target: github
+makers_config:
+  deb:
+    maintainer: wxfyes
+    section: utils
+    priority: optional
