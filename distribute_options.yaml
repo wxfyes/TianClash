@@ -22,6 +22,8 @@ releases:
           target: github
 makers_config:
   deb:
+    display_name: TianQue
     maintainer: wxfyes
+    homepage: https://github.com/wxfyes/FlClash
     section: utils
     priority: optional
