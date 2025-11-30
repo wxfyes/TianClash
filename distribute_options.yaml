@@ -1,2 +1,3 @@
 app_name: 'TianQue'
 output: 'dist/'
+artifact_name: 'TianQue-{{build_name}}-{{platform}}-{{arch}}.{{ext}}'
