@@ -224,7 +224,6 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth > 800;
