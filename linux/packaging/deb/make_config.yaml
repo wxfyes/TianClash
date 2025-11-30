@@ -1,11 +1,3 @@
-display_name: FlClash
-package_name: FlClash
-maintainer:
-  name: chen08209
-  email: chen08209@gmail.com
-
-priority: optional
-section: x11
 installed_size: 6604
 essential: false
 icon: ./assets/images/icon.png
@@ -20,7 +12,7 @@ keywords:
   - ClashMeta
   - Proxy
 
-generic_name: FlClash
+generic_name: TianQue
 
 categories:
   - Network

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -17,6 +18,72 @@ class V2BoardService {
   }
 
   Future<({String url, String token})?> loginAndGetSubscribeUrl(
+      String baseUrl, String email, String password) async {
+    print('V2BoardService: loginAndGetSubscribeUrl called with baseUrl: $baseUrl');
+    var realBaseUrl = baseUrl;
+    if (realBaseUrl.startsWith('BASE64:')) {
+      final base64Str = realBaseUrl.substring(7);
+      try {
+        realBaseUrl = utf8.decode(base64.decode(base64Str));
+        print('V2BoardService: Decoded BASE64 URL: $realBaseUrl');
+      } catch (_) {}
+    }
+
+    // Try to fetch as remote config
+    try {
+      print('V2BoardService: Attempting to fetch as remote config: $realBaseUrl');
+      final response = await _dio.get(realBaseUrl,
+          options: Options(responseType: ResponseType.plain));
+      if (response.statusCode == 200) {
+        final content = response.data.toString();
+        print('V2BoardService: Remote config fetched. Content: $content');
+        final lines = content.split('\n');
+        final urls = lines
+            .map((e) => e.trim())
+            .where((e) => e.isNotEmpty)
+            .where((e) => e.startsWith('http') || e.startsWith('BASE64:'))
+            .toList();
+
+        print('V2BoardService: Parsed ${urls.length} URLs from config');
+
+        if (urls.isNotEmpty) {
+          for (var url in urls) {
+            print('V2BoardService: Processing candidate URL: $url');
+            var candidateUrl = url;
+            if (candidateUrl.startsWith('BASE64:')) {
+              final base64Str = candidateUrl.substring(7);
+              try {
+                candidateUrl = utf8.decode(base64.decode(base64Str));
+                print('V2BoardService: Decoded candidate BASE64 URL: $candidateUrl');
+              } catch (_) {
+                continue;
+              }
+            }
+            print('V2BoardService: Trying login with: $candidateUrl');
+            final result = await _login(candidateUrl, email, password);
+            if (result != null) {
+              print('V2BoardService: Login successful with: $candidateUrl');
+              return result;
+            } else {
+              print('V2BoardService: Login failed with: $candidateUrl');
+            }
+          }
+           
+           if (urls.length > 1 || (urls.length == 1 && urls.first != realBaseUrl)) {
+             print('V2BoardService: All candidates failed. Returning null.');
+             return null; 
+           }
+        }
+      }
+    } catch (e) {
+      print('V2BoardService: Fetch remote config failed or not a config file: $e');
+    }
+
+    print('V2BoardService: Fallback to direct login with: $realBaseUrl');
+    return await _login(realBaseUrl, email, password);
+  }
+
+  Future<({String url, String token})?> _login(
       String baseUrl, String email, String password) async {
     final cleanBaseUrl =
         baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl;

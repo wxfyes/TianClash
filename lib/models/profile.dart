@@ -164,7 +164,14 @@ extension ProfileExtension on Profile {
   }
 
   Future<Profile> update() async {
-    final response = await request.getFileResponseForUrl(url);
+    var realUrl = url;
+    if (realUrl.startsWith('BASE64:')) {
+      final base64Str = realUrl.substring(7);
+      try {
+        realUrl = utf8.decode(base64.decode(base64Str));
+      } catch (_) {}
+    }
+    final response = await request.getFileResponseForUrl(realUrl);
     final disposition = response.headers.value('content-disposition');
     final userinfo = response.headers.value('subscription-userinfo');
     return await copyWith(
