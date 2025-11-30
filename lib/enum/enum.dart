@@ -283,12 +283,20 @@ enum FunctionTag {
 }
 
 enum DashboardWidget {
-  networkSpeed(GridItem(crossAxisCellCount: 4, child: NetworkSpeed())),
+  networkSpeed(GridItem(
+      crossAxisCellCount: 4,
+      mainAxisCellCount: 2,
+      child: NetworkSpeed(),
+    )),
   outboundModeV2(GridItem(crossAxisCellCount: 8, child: OutboundModeV2())),
   outboundMode(GridItem(crossAxisCellCount: 4, child: OutboundMode())),
   trafficUsage(GridItem(crossAxisCellCount: 4, child: TrafficUsage())),
   networkDetection(GridItem(crossAxisCellCount: 4, child: NetworkDetection())),
-  remainingTraffic(GridItem(crossAxisCellCount: 4, child: RemainingTraffic())),
+  remainingTraffic(GridItem(
+      crossAxisCellCount: 4,
+      mainAxisCellCount: 2,
+      child: RemainingTraffic(),
+    )),
   tunButton(
     GridItem(crossAxisCellCount: 4, child: TUNButton()),
     platforms: desktopPlatforms,

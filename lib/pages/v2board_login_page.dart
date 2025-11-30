@@ -227,58 +227,71 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isDesktop = constraints.maxWidth > 800;
-          return Row(
-            children: [
-              if (isDesktop)
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF1a237e), // Deep Blue
-                          Color(0xFF000000), // Black
-                        ],
-                      ),
+          final isDesktop = constraints.maxWidth > 600;
+          return Container(
+            decoration: !isDesktop
+                ? const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF1a237e), // Deep Blue
+                        Color(0xFF000000), // Black
+                      ],
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            '天阙 VPN',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 56,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2,
+                  )
+                : null,
+            child: Row(
+              children: [
+                if (isDesktop)
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF1a237e), // Deep Blue
+                            Color(0xFF000000), // Black
+                          ],
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              '天阙 VPN',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 56,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 2,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 24),
-                          Text(
-                            '安全高效的网络管理工具',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 20,
-                              letterSpacing: 1,
+                            const SizedBox(height: 24),
+                            Text(
+                              '安全高效的网络管理工具',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 20,
+                                letterSpacing: 1,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 60),
-                          Text(
-                            '© 2026 天阙 VPN. 保留所有权利。',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
-                              fontSize: 12,
+                            const SizedBox(height: 60),
+                            Text(
+                              '© 2026 天阙 VPN. 保留所有权利。',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
               // Right Side - Form
               Expanded(
                 flex: 1,

@@ -125,7 +125,7 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
     final progress = total > 0 ? (remaining / total).clamp(0.0, 1.0) : 0.0;
 
     return SizedBox(
-      height: getWidgetHeight(1),
+      height: getWidgetHeight(2),
       child: CommonCard(
         info: Info(
           label: '剩余流量',
@@ -140,11 +140,14 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _formatBytes(remaining),
-                      style: context.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: context.colorScheme.primary,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        _formatBytes(remaining),
+                        style: context.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: context.colorScheme.primary,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
