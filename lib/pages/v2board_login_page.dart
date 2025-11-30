@@ -224,333 +224,339 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          // ... (keep left side)
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF1a237e), // Deep Blue
-                    Color(0xFF000000), // Black
-                  ],
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth > 800;
+          return Row(
+            children: [
+              if (isDesktop)
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF1a237e), // Deep Blue
+                          Color(0xFF000000), // Black
+                        ],
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            '天阙 VPN',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 56,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          Text(
+                            '安全高效的网络管理工具',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 20,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          const SizedBox(height: 60),
+                          Text(
+                            '© 2026 天阙 VPN. 保留所有权利。',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.5),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '天阙 VPN',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 56,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      '安全高效的网络管理工具',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontSize: 20,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(height: 60),
-                    Text(
-                      '© 2026 天阙 VPN. 保留所有权利。',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.5),
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          // Right Side - Form
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  padding: const EdgeInsets.all(40),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          _loginMode == LoginMode.login
-                              ? '登录'
-                              : _loginMode == LoginMode.register
-                                  ? '注册账号'
-                                  : '找回密码',
-                          style: const TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1565C0),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          _loginMode == LoginMode.login
-                              ? '欢迎回来，请登录您的账号'
-                              : _loginMode == LoginMode.register
-                                  ? '创建一个新账号'
-                                  : '重置您的密码',
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        const Text('邮箱', style: TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 8),
-                        TextFormField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            hintText: '请输入邮箱',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.email_outlined),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(context).enterEmail;
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        if (_loginMode != LoginMode.login) ...[
-                          const Text('验证码', style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: _verifyCodeController,
-                                  decoration: const InputDecoration(
-                                    hintText: '请输入验证码',
-                                    border: OutlineInputBorder(),
-                                    prefixIcon: Icon(Icons.verified_user_outlined),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return '请输入验证码';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              OutlinedButton(
-                                onPressed: _loading ? null : _sendVerifyCode,
-                                style: OutlinedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                                ),
-                                child: const Text('发送'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
-                        ],
-                        Text(
-                          _loginMode == LoginMode.forgotPassword ? '新密码' : '密码',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: _obscurePassword,
-                            decoration: InputDecoration(
-                              hintText: _loginMode == LoginMode.forgotPassword ? '请输入新密码' : '请输入密码',
-                              border: const OutlineInputBorder(),
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscurePassword = !_obscurePassword;
-                                  });
-                                },
+              // Right Side - Form
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      padding: const EdgeInsets.all(40),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              _loginMode == LoginMode.login
+                                  ? '登录'
+                                  : _loginMode == LoginMode.register
+                                      ? '注册账号'
+                                      : '找回密码',
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF1565C0),
                               ),
                             ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(context).enterPassword;
-                            }
-                            return null;
-                          },
-                        ),
-                        if (_loginMode == LoginMode.register) ...[
-                          const SizedBox(height: 24),
-                          const Text('确认密码', style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _confirmPasswordController,
-                            obscureText: _obscureConfirmPassword,
-                            decoration: InputDecoration(
-                              hintText: '请再次输入密码',
-                              border: const OutlineInputBorder(),
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscureConfirmPassword
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscureConfirmPassword = !_obscureConfirmPassword;
-                                  });
-                                },
+                            const SizedBox(height: 8),
+                            Text(
+                              _loginMode == LoginMode.login
+                                  ? '欢迎回来，请登录您的账号'
+                                  : _loginMode == LoginMode.register
+                                      ? '创建一个新账号'
+                                      : '重置您的密码',
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
                               ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return '请确认密码';
-                              }
-                              if (value != _passwordController.text) {
-                                return '两次输入的密码不一致';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 24),
-                          const Text('邀请码 (可选)', style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _inviteCodeController,
-                            decoration: const InputDecoration(
-                              hintText: '请输入邀请码',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.card_giftcard),
-                            ),
-                          ),
-                        ],
-                        if (_loginMode == LoginMode.login) ...[
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _rememberMe,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _rememberMe = value ?? false;
-                                  });
-                                },
+                            const SizedBox(height: 40),
+                            const Text('邮箱', style: TextStyle(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                hintText: '请输入邮箱',
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.email_outlined),
                               ),
-                              const Text('记住我'),
-                              const Spacer(),
-                              Checkbox(
-                                value: _autoLogin,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _autoLogin = value ?? false;
-                                  });
-                                },
-                              ),
-                              const Text('自动登录'),
-                            ],
-                          ),
-                        ],
-                        const SizedBox(height: 32),
-                        FilledButton(
-                          onPressed: _loading ? null : _submit,
-                          style: FilledButton.styleFrom(
-                            backgroundColor: const Color(0xFF0D47A1),
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: _loading
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _loginMode == LoginMode.login
-                                          ? AppLocalizations.of(context).loginAndImport
-                                          : _loginMode == LoginMode.register
-                                              ? '注册'
-                                              : '重置密码',
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    const Icon(Icons.arrow_forward, size: 20),
-                                  ],
-                                ),
-                        ),
-                        const SizedBox(height: 24),
-                        if (_loginMode == LoginMode.login)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton.icon(
-                                onPressed: () {
-                                  _formKey.currentState?.reset();
-                                  setState(() {
-                                    _loginMode = LoginMode.register;
-                                  });
-                                },
-                                icon: const Icon(Icons.person_add_outlined),
-                                label: const Text('注册账号'),
-                              ),
-                              TextButton.icon(
-                                onPressed: () {
-                                  _formKey.currentState?.reset();
-                                  setState(() {
-                                    _loginMode = LoginMode.forgotPassword;
-                                  });
-                                },
-                                icon: const Icon(Icons.help_outline),
-                                label: const Text('忘记密码'),
-                              ),
-                            ],
-                          )
-                        else
-                          Center(
-                            child: TextButton.icon(
-                              onPressed: () {
-                                _formKey.currentState?.reset();
-                                setState(() {
-                                  _loginMode = LoginMode.login;
-                                });
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppLocalizations.of(context).enterEmail;
+                                }
+                                return null;
                               },
-                              icon: const Icon(Icons.arrow_back),
-                              label: const Text('返回登录'),
                             ),
-                          ),
-                      ],
+                            const SizedBox(height: 24),
+                            if (_loginMode != LoginMode.login) ...[
+                              const Text('验证码', style: TextStyle(fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _verifyCodeController,
+                                      decoration: const InputDecoration(
+                                        hintText: '请输入验证码',
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(Icons.verified_user_outlined),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return '请输入验证码';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  OutlinedButton(
+                                    onPressed: _loading ? null : _sendVerifyCode,
+                                    style: OutlinedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                                    ),
+                                    child: const Text('发送'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+                            ],
+                            Text(
+                              _loginMode == LoginMode.forgotPassword ? '新密码' : '密码',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                              TextFormField(
+                                controller: _passwordController,
+                                obscureText: _obscurePassword,
+                                decoration: InputDecoration(
+                                  hintText: _loginMode == LoginMode.forgotPassword ? '请输入新密码' : '请输入密码',
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.lock_outline),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppLocalizations.of(context).enterPassword;
+                                }
+                                return null;
+                              },
+                            ),
+                            if (_loginMode == LoginMode.register) ...[
+                              const SizedBox(height: 24),
+                              const Text('确认密码', style: TextStyle(fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: _confirmPasswordController,
+                                obscureText: _obscureConfirmPassword,
+                                decoration: InputDecoration(
+                                  hintText: '请再次输入密码',
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.lock_outline),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscureConfirmPassword
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureConfirmPassword = !_obscureConfirmPassword;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return '请确认密码';
+                                  }
+                                  if (value != _passwordController.text) {
+                                    return '两次输入的密码不一致';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 24),
+                              const Text('邀请码 (可选)', style: TextStyle(fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: _inviteCodeController,
+                                decoration: const InputDecoration(
+                                  hintText: '请输入邀请码',
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(Icons.card_giftcard),
+                                ),
+                              ),
+                            ],
+                            if (_loginMode == LoginMode.login) ...[
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: _rememberMe,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _rememberMe = value ?? false;
+                                      });
+                                    },
+                                  ),
+                                  const Text('记住我'),
+                                  const Spacer(),
+                                  Checkbox(
+                                    value: _autoLogin,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _autoLogin = value ?? false;
+                                      });
+                                    },
+                                  ),
+                                  const Text('自动登录'),
+                                ],
+                              ),
+                            ],
+                            const SizedBox(height: 32),
+                            FilledButton(
+                              onPressed: _loading ? null : _submit,
+                              style: FilledButton.styleFrom(
+                                backgroundColor: const Color(0xFF0D47A1),
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: _loading
+                                  ? const SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          _loginMode == LoginMode.login
+                                              ? AppLocalizations.of(context).loginAndImport
+                                              : _loginMode == LoginMode.register
+                                                  ? '注册'
+                                                  : '重置密码',
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        const Icon(Icons.arrow_forward, size: 20),
+                                      ],
+                                    ),
+                            ),
+                            const SizedBox(height: 24),
+                            if (_loginMode == LoginMode.login)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextButton.icon(
+                                    onPressed: () {
+                                      _formKey.currentState?.reset();
+                                      setState(() {
+                                        _loginMode = LoginMode.register;
+                                      });
+                                    },
+                                    icon: const Icon(Icons.person_add_outlined),
+                                    label: const Text('注册账号'),
+                                  ),
+                                  TextButton.icon(
+                                    onPressed: () {
+                                      _formKey.currentState?.reset();
+                                      setState(() {
+                                        _loginMode = LoginMode.forgotPassword;
+                                      });
+                                    },
+                                    icon: const Icon(Icons.help_outline),
+                                    label: const Text('忘记密码'),
+                                  ),
+                                ],
+                              )
+                            else
+                              Center(
+                                child: TextButton.icon(
+                                  onPressed: () {
+                                    _formKey.currentState?.reset();
+                                    setState(() {
+                                      _loginMode = LoginMode.login;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.arrow_back),
+                                  label: const Text('返回登录'),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
