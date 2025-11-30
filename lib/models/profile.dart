@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' as convert;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -169,7 +169,7 @@ extension ProfileExtension on Profile {
     if (realUrl.startsWith('BASE64:')) {
       final base64Str = realUrl.substring(7);
       try {
-        realUrl = utf8.decode(base64.decode(base64Str));
+        realUrl = convert.utf8.decode(convert.base64.decode(base64Str));
       } catch (_) {}
     }
     final response = await request.getFileResponseForUrl(realUrl);
