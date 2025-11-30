@@ -135,34 +135,25 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
         child: _loading && total == 0
             ? const Center(child: CircularProgressIndicator())
             : Padding(
-                padding: const EdgeInsets.all(16).copyWith(top: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        _formatBytes(remaining),
-                        style: context.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.colorScheme.primary,
-                        ),
+                    Text(
+                      _formatBytes(remaining),
+                      style: context.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: context.colorScheme.primary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     LinearProgressIndicator(
                       value: progress,
                       backgroundColor:
                           context.colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(4),
-                      minHeight: 8,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '总计: ${_formatBytes(total)}',
-                      style: context.textTheme.bodySmall
-                          ?.copyWith(color: Colors.grey),
+                      minHeight: 6,
                     ),
                   ],
                 ),

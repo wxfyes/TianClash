@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -63,7 +64,17 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
           response.data.toString().isNotEmpty) {
         
         print('OSS Config Content: ${response.data}');
-        final lines = response.data.toString()
+        String configContent = response.data.toString();
+        try {
+          // Try Base64 decode
+          final decoded = utf8.decode(base64Decode(configContent.replaceAll(RegExp(r'\s'), '')));
+          print('Decoded OSS Config: $decoded');
+          configContent = decoded;
+        } catch (e) {
+          print('Base64 decode failed, using original content: $e');
+        }
+
+        final lines = configContent
             .split(RegExp(r'\r?\n'))
             .map((e) => e.trim())
             .where((e) => e.isNotEmpty && e.startsWith('http'))
@@ -568,9 +579,10 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                 ),
               ),
             ],
-          );
-        },
-      ),
-    );
+          ),
+        );
+      },
+    ),
+  );
   }
 }

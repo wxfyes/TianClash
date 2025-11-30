@@ -167,9 +167,10 @@ class AppSidebarContainer extends ConsumerWidget {
 
   void _updateSideBarWidth(WidgetRef ref, double contentWidth) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(sideWidthProvider.notifier).value =
-          ref.read(viewSizeProvider.select((state) => state.width)) -
-          contentWidth;
+      final viewWidth = ref.read(viewSizeProvider.select((state) => state.width));
+      if (viewWidth > 0 && contentWidth > 0 && viewWidth >= contentWidth) {
+        ref.read(sideWidthProvider.notifier).value = viewWidth - contentWidth;
+      }
     });
   }
 

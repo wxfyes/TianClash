@@ -199,44 +199,51 @@ class ProxiesTabViewState extends ConsumerState<ProxiesTabView>
                 scrollNotification.metrics.maxScrollExtent > 0;
             return false;
           },
-          child: ValueListenableBuilder(
-            valueListenable: _hasMoreButtonNotifier,
-            builder: (_, value, child) {
-              return Stack(
-                alignment: AlignmentDirectional.centerStart,
-                children: [
-                  TabBar(
-                    controller: _tabController,
-                    padding: EdgeInsets.only(
-                      left: 16,
-                      right: 16 + (value ? 16 : 0),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SizedBox(
+                width: constraints.maxWidth,
+                child: ValueListenableBuilder(
+                  valueListenable: _hasMoreButtonNotifier,
+                  builder: (_, value, child) {
+                    return Stack(
+                      alignment: AlignmentDirectional.centerStart,
+                      children: [
+                        TabBar(
+                          controller: _tabController,
+                          padding: EdgeInsets.only(
+                            left: 16,
+                            right: 16 + (value ? 16 : 0),
+                          ),
+                          dividerColor: Colors.transparent,
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          overlayColor: const WidgetStatePropertyAll(
+                            Colors.transparent,
+                          ),
+                          tabs: [for (final group in groups) Tab(text: group.name)],
+                        ),
+                        if (value) Positioned(right: 0, child: child!),
+                      ],
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          context.colorScheme.surface.opacity10,
+                          context.colorScheme.surface,
+                        ],
+                        stops: const [0.0, 0.1],
+                      ),
                     ),
-                    dividerColor: Colors.transparent,
-                    isScrollable: true,
-                    tabAlignment: TabAlignment.start,
-                    overlayColor: const WidgetStatePropertyAll(
-                      Colors.transparent,
-                    ),
-                    tabs: [for (final group in groups) Tab(text: group.name)],
+                    child: _buildMoreButton(),
                   ),
-                  if (value) Positioned(right: 0, child: child!),
-                ],
+                ),
               );
             },
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    context.colorScheme.surface.opacity10,
-                    context.colorScheme.surface,
-                  ],
-                  stops: const [0.0, 0.1],
-                ),
-              ),
-              child: _buildMoreButton(),
-            ),
           ),
         ),
         Expanded(
