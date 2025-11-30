@@ -130,7 +130,8 @@ class Build {
     return 'gcc';
   }
 
-  static String get tags => 'with_gvisor';
+  static String get tags =>
+      'with_gvisor,with_quic,with_dhcp,with_wireguard,with_ech,with_utls,with_reality_server,with_acme,with_clash_api';
 
   static Future<void> exec(
     List<String> executable, {

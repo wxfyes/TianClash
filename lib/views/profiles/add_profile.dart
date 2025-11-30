@@ -4,6 +4,8 @@ import 'package:fl_clash/state.dart';
 import 'package:fl_clash/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
+import 'v2board_login.dart';
+
 class AddProfileView extends StatelessWidget {
   final BuildContext context;
 
@@ -59,6 +61,15 @@ class AddProfileView extends StatelessWidget {
     }
   }
 
+  Future<void> _toV2Board() async {
+    final url = await globalState.showCommonDialog<String>(
+      child: const V2BoardLoginDialog(),
+    );
+    if (url != null) {
+      _handleAddProfileFormURL(url);
+    }
+  }
+
   @override
   Widget build(context) {
     return ListView(
@@ -80,6 +91,12 @@ class AddProfileView extends StatelessWidget {
           title: Text(appLocalizations.url),
           subtitle: Text(appLocalizations.urlDesc),
           onTap: _toAdd,
+        ),
+        ListItem(
+          leading: const Icon(Icons.web),
+          title: const Text('Import from V2Board'),
+          subtitle: const Text('Login to V2Board site to import subscription'),
+          onTap: _toV2Board,
         )
       ],
     );

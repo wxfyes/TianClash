@@ -7,7 +7,7 @@ import 'package:fl_clash/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_ext/window_ext.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:window_manager/window_manager.dart' hide WindowManager;
 
 class WindowManager extends ConsumerStatefulWidget {
   final Widget child;

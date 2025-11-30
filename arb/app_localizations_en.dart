@@ -892,48 +892,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'This software is only used for non-commercial purposes such as learning exchanges and scientific research. It is strictly prohibited to use this software for commercial purposes. Any commercial activity, if any, has nothing to do with this software.';
 
   @override
-  String get agree => 'Agree';
-
-  @override
-  String get hotkeyManagement => 'Hotkey Management';
-
-  @override
-  String get hotkeyManagementDesc => 'Use keyboard to control applications';
-
-  @override
-  String get pressKeyboard => 'Please press the keyboard.';
-
-  @override
-  String get inputCorrectHotkey => 'Please enter the correct hotkey';
-
-  @override
-  String get hotkeyConflict => 'Hotkey conflict';
-
-  @override
-  String get remove => 'Remove';
-
-  @override
-  String get noHotKey => 'No HotKey';
-
-  @override
-  String get noNetwork => 'No network';
-
-  @override
-  String get ipv6InboundDesc => 'Allow IPv6 inbound';
-
-  @override
-  String get exportLogs => 'Export logs';
-
-  @override
-  String get exportSuccess => 'Export Success';
-
-  @override
-  String get iconStyle => 'Icon style';
-
-  @override
-  String get onlyIcon => 'Icon';
-
-  @override
   String get noIcon => 'None';
 
   @override
@@ -1285,7 +1243,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creationTime => 'Creation time';
 
   @override
-  String get progress => 'Progress';
+  String get process => 'Process';
 
   @override
   String get host => 'Host';
@@ -1322,4 +1280,285 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get request => 'Request';
+
+  @override
+  String get connected => 'Connected';
+
+  @override
+  String get disconnected => 'Disconnected';
+
+  @override
+  String get invalidUrl => 'Invalid URL';
+
+  @override
+  String get enterEmail => 'Please enter email';
+
+  @override
+  String get enterPassword => 'Please enter password';
+
+  @override
+  String get loginFailed => 'Login failed or no subscription found';
+
+  @override
+  String get shop => 'Shop';
+
+  @override
+  String get user => 'Me';
+
+  @override
+  String get commissionBalance => 'Commission Balance';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get deposit => 'Deposit';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get customAmount => 'Custom Amount';
+
+  @override
+  String get userInfo => 'Me';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get expireDate => 'Expire Date';
+
+  @override
+  String get traffic => 'Traffic';
+
+  @override
+  String get resetSecurity => 'Reset Security';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get remoteConfig => 'Remote Config';
+
+  @override
+  String get remoteConfigUrl => 'Remote Config URL';
+
+  @override
+  String get loadConfig => 'Load Config';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get myOrders => 'My Orders';
+
+  @override
+  String get orderStatus => 'Order Status';
+
+  @override
+  String get cancelOrder => 'Cancel Order';
+
+  @override
+  String get pay => 'Pay';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get plan => 'Plan';
+
+  @override
+  String get subscribe => 'Subscribe';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get period => 'Period';
+
+  @override
+  String get appendSystemDns => 'Append System DNS';
+
+  @override
+  String get appendSystemDnsTip =>
+      'Forcefully append system DNS to the configuration';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get pressKeyboard => 'Press keyboard';
+
+  @override
+  String get crashlytics => 'Crash Analysis';
+
+  @override
+  String get crashlyticsTip =>
+      'When enabled, automatically uploads crash logs without sensitive information when the app crashes';
+
+  @override
+  String get exportLogs => 'Export logs';
+
+  @override
+  String get exportSuccess => 'Export success';
+
+  @override
+  String get iconStyle => 'Icon Style';
+
+  @override
+  String get onlyIcon => 'Only Icon';
+
+  @override
+  String get zoom => 'Zoom';
+
+  @override
+  String get noHotKey => 'No Hotkey';
+
+  @override
+  String get inputCorrectHotkey => 'Please input correct hotkey';
+
+  @override
+  String get hotkeyConflict => 'Hotkey conflict';
+
+  @override
+  String get dnsHijacking => 'DNS Hijacking';
+
+  @override
+  String get hotkeyManagement => 'Hotkey Management';
+
+  @override
+  String get hotkeyManagementDesc => 'Hotkey Management';
+
+  @override
+  String get ipv6InboundDesc =>
+      'When enabled, it will be able to receive IPv6 inbound traffic';
+
+  @override
+  String get connecting => 'Connecting...';
+
+  @override
+  String get restartCoreTip => 'Are you sure you want to restart the core?';
+
+  @override
+  String get forceRestartCoreTip =>
+      'Are you sure you want to force restart the core?';
+
+  @override
+  String get coreStatus => 'Core status';
+
+  @override
+  String get loginToV2Board => 'Login to V2Board';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get websiteUrl => 'Website URL';
+
+  @override
+  String get loginAndImport => 'Login & Import';
+
+  @override
+  String get enterUrl => 'Please enter URL';
+
+  @override
+  String get noNetwork => 'No network';
+
+  @override
+  String get agree => 'Agree';
+
+  @override
+  String get dataCollectionTip => 'Data Collection Notice';
+
+  @override
+  String get dataCollectionContent =>
+      'This app uses Firebase Crashlytics to collect crash information to improve app stability.\\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\\nYou can disable this feature in settings.';
+
+  @override
+  String get inviteManagement => 'Invite Management';
+
+  @override
+  String get commissionRate => 'Commission Rate';
+
+  @override
+  String get totalEarned => 'Total Earned';
+
+  @override
+  String get myCodes => 'My Codes';
+
+  @override
+  String get generateInviteCode => 'Generate Invite Code';
+
+  @override
+  String get inviteCodeGenerated => 'Invite code generated';
+
+  @override
+  String get failedToGenerateInviteCode => 'Failed to generate invite code';
+
+  @override
+  String get noInviteCodes => 'No invite codes';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get scanToPay => 'Scan to Pay';
+
+  @override
+  String get pleaseScanQrCode => 'Please scan the QR code to pay.';
+
+  @override
+  String get waitingForPayment => 'Waiting for payment...';
+
+  @override
+  String get openInBrowser => 'Open in Browser';
+
+  @override
+  String get payNowDeepLink => 'Pay Now (Deep Link)';
+
+  @override
+  String get paymentSuccessful => 'Payment successful';
+
+  @override
+  String get orderCancelled => 'Order cancelled';
+
+  @override
+  String get checkoutFailed => 'Checkout failed';
+
+  @override
+  String get unknownCheckoutResponse => 'Unknown checkout response';
+
+  @override
+  String get trafficDetails => 'Traffic Details';
+
+  @override
+  String get trafficLog => 'Traffic Log';
+
+  @override
+  String get noTrafficLog => 'No traffic log';
+
+  @override
+  String get total => 'Total';
 }

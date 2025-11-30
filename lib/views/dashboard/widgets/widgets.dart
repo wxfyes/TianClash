@@ -4,4 +4,5 @@ export 'network_speed.dart';
 export 'outbound_mode.dart';
 export 'quick_options.dart';
 export 'traffic_usage.dart';
+export 'remaining_traffic.dart';
 export 'memory_info.dart';

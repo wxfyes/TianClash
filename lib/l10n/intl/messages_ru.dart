@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(label) => "Вы уверены, что хотите удалить текущий ${label}?";
 
-  static String m2(label) => "Детали {}";
+  static String m2(label) => "Детали";
 
   static String m3(label) => "${label} не может быть пустым";
 
@@ -591,8 +591,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profiles": MessageLookupByLibrary.simpleMessage("Профили"),
     "profilesSort": MessageLookupByLibrary.simpleMessage("Сортировка профилей"),
-    "tianque": MessageLookupByLibrary.simpleMessage("天阙"),
-    "progress": MessageLookupByLibrary.simpleMessage("Прогресс"),
     "project": MessageLookupByLibrary.simpleMessage("Проект"),
     "providers": MessageLookupByLibrary.simpleMessage("Провайдеры"),
     "proxies": MessageLookupByLibrary.simpleMessage("Прокси"),
@@ -750,6 +748,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "themeMode": MessageLookupByLibrary.simpleMessage("Режим темы"),
     "threeColumns": MessageLookupByLibrary.simpleMessage("Три столбца"),
+    "tianque": MessageLookupByLibrary.simpleMessage("天阙"),
     "tight": MessageLookupByLibrary.simpleMessage("Плотный"),
     "time": MessageLookupByLibrary.simpleMessage("Время"),
     "tip": MessageLookupByLibrary.simpleMessage("подсказка"),
@@ -811,5 +810,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "years": MessageLookupByLibrary.simpleMessage("Лет"),
     "zh_CN": MessageLookupByLibrary.simpleMessage("Упрощенный китайский"),
+    "zoom": MessageLookupByLibrary.simpleMessage("Масштаб"),
   };
 }

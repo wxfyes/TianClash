@@ -113,6 +113,7 @@ class ApplicationState extends ConsumerState<Application> {
           appSettingProvider.select((state) => state.locale),
         );
         final themeProps = ref.watch(themeSettingProvider);
+        final profiles = ref.watch(profilesProvider);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: globalState.navigatorKey,
@@ -152,7 +153,9 @@ class ApplicationState extends ConsumerState<Application> {
               primaryColor: themeProps.primaryColor,
             ).toPureBlack(themeProps.pureBlack),
           ),
-          home: child!,
+          home: profiles.isEmpty
+              ? const V2BoardLoginPage()
+              : child!,
         );
       },
       child: const HomePage(),

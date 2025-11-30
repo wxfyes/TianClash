@@ -52,6 +52,7 @@ abstract class Profile with _$Profile {
     DateTime? lastUpdateDate,
     required Duration autoUpdateDuration,
     SubscriptionInfo? subscriptionInfo,
+    String? jwt,
     @Default(true) bool autoUpdate,
     @Default({}) SelectedMap selectedMap,
     @Default({}) Set<String> unfoldSet,
@@ -168,7 +169,8 @@ extension ProfileExtension on Profile {
     final userinfo = response.headers.value('subscription-userinfo');
     return await copyWith(
       label: label ?? utils.getFileNameForDisposition(disposition) ?? id,
-      subscriptionInfo: SubscriptionInfo.formHString(userinfo),
+      subscriptionInfo:
+          userinfo != null ? SubscriptionInfo.formHString(userinfo) : subscriptionInfo,
     ).saveFile(response.data);
   }
 

@@ -129,6 +129,22 @@ class GlobalState {
     packageInfo = await PackageInfo.fromPlatform();
     config =
         await preferences.getConfig() ?? Config(themeProps: defaultThemeProps);
+    
+    if (!config.appSetting.dashboardWidgets
+        .contains(DashboardWidget.remainingTraffic)) {
+      final newWidgets =
+          List<DashboardWidget>.from(config.appSetting.dashboardWidgets);
+      if (newWidgets.contains(DashboardWidget.networkSpeed)) {
+        final index = newWidgets.indexOf(DashboardWidget.networkSpeed);
+        newWidgets.insert(index + 1, DashboardWidget.remainingTraffic);
+      } else {
+        newWidgets.add(DashboardWidget.remainingTraffic);
+      }
+      config = config.copyWith(
+        appSetting: config.appSetting.copyWith(dashboardWidgets: newWidgets),
+      );
+      await preferences.saveConfig(config);
+    }
     await globalState.migrateOldData(config);
     await AppLocalizations.load(
       utils.getLocaleForString(config.appSetting.locale) ??

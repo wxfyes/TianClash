@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fl_clash/pages/pages.dart';
 
 import 'common/common.dart';
 import 'models/models.dart';
@@ -379,9 +380,7 @@ class AppController {
             proxiesStyleSettingProvider.select((state) => state.sortType),
           );
           final delayMap = _ref.read(delayDataSourceProvider);
-          final testUrl = _ref.read(
-            appSettingProvider.select((state) => state.testUrl),
-          );
+          final testUrl = _ref.read(appSettingProvider).testUrl;
           final selectedMap = _ref.read(
             currentProfileProvider.select((state) => state?.selectedMap ?? {}),
           );
@@ -595,7 +594,57 @@ class AppController {
     _ref.read(delayDataSourceProvider.notifier).setDelay(delay);
   }
 
+  Future<void> handleLogout() async {
+    final context = globalState.navigatorKey.currentContext;
+    if (context != null) {
+      final confirm = await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('退出登录'),
+            content: const Text('确定要退出当前账号吗？'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('取消'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('确定'),
+              ),
+            ],
+          );
+        },
+      );
+      if (confirm != true) return;
+    }
+
+    final currentProfileId = _ref.read(currentProfileIdProvider);
+    if (currentProfileId != null) {
+      await deleteProfile(currentProfileId);
+    }
+    
+    // Ensure the state is updated
+    await Future.delayed(const Duration(milliseconds: 100));
+    
+    final profiles = _ref.read(profilesProvider);
+    if (profiles.isEmpty) {
+      if (context != null && context.mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const V2BoardLoginPage()),
+          (route) => false,
+        );
+      }
+    } else {
+      _ref.read(currentPageLabelProvider.notifier).value = PageLabel.dashboard;
+    }
+  }
+
   void toPage(PageLabel pageLabel) {
+    if (pageLabel == PageLabel.logout) {
+      handleLogout();
+      return;
+    }
     _ref.read(currentPageLabelProvider.notifier).value = pageLabel;
   }
 
@@ -661,7 +710,7 @@ class AppController {
     if (!system.isAndroid) {
       return;
     }
-    if (_ref.read(appSettingProvider.select((state) => state.crashlyticsTip))) {
+    if (_ref.read(appSettingProvider).crashlyticsTip) {
       return;
     }
     await globalState.showMessage(
@@ -675,9 +724,7 @@ class AppController {
   }
 
   Future<void> _handlerDisclaimer() async {
-    if (_ref.read(
-      appSettingProvider.select((state) => state.disclaimerAccepted),
-    )) {
+    if (_ref.read(appSettingProvider).disclaimerAccepted) {
       return;
     }
     final isDisclaimerAccepted = await showDisclaimer();
@@ -690,7 +737,7 @@ class AppController {
     return;
   }
 
-  Future<void> addProfileFormURL(String url) async {
+  Future<void> addProfileFormURL(String url, {String? jwt}) async {
     if (globalState.navigatorKey.currentState?.canPop() ?? false) {
       globalState.navigatorKey.currentState?.popUntil((route) => route.isFirst);
     }
@@ -698,7 +745,11 @@ class AppController {
 
     final profile = await safeRun(
       () async {
-        return await Profile.normal(url: url).update();
+        var profile = Profile.normal(url: url);
+        if (jwt != null) {
+          profile = profile.copyWith(jwt: jwt);
+        }
+        return await profile.update();
       },
       needLoading: true,
       title: '${appLocalizations.add}${appLocalizations.profile}',
@@ -922,9 +973,7 @@ class AppController {
   }
 
   void _recovery(Config config, RecoveryOption recoveryOption) {
-    final recoveryStrategy = _ref.read(
-      appSettingProvider.select((state) => state.recoveryStrategy),
-    );
+    final recoveryStrategy = _ref.read(appSettingProvider).recoveryStrategy;
     final profiles = config.profiles;
     if (recoveryStrategy == RecoveryStrategy.override) {
       _ref.read(profilesProvider.notifier).value = profiles;

@@ -203,47 +203,39 @@ class AppSidebarContainer extends ConsumerWidget {
                     Expanded(
                       child: ScrollConfiguration(
                         behavior: HiddenBarScrollBehavior(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: NavigationRail(
-                                scrollable: true,
-                                minExtendedWidth: 200,
-                                backgroundColor: Colors.transparent,
-                                selectedLabelTextStyle: context
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                      color: context.colorScheme.onSurface,
+                        child: SingleChildScrollView(
+                          child: IntrinsicHeight(
+                            child: NavigationRail(
+                              minExtendedWidth: 200,
+                              backgroundColor: Colors.transparent,
+                              selectedLabelTextStyle: context.textTheme.labelLarge!
+                                  .copyWith(
+                                    color: context.colorScheme.onSurface,
+                                  ),
+                              unselectedLabelTextStyle: context.textTheme.labelLarge!
+                                  .copyWith(
+                                    color: context.colorScheme.onSurface,
+                                  ),
+                              destinations: navigationItems
+                                  .map(
+                                    (e) => NavigationRailDestination(
+                                      icon: e.icon,
+                                      label: Text(Intl.message(e.label.name)),
                                     ),
-                                unselectedLabelTextStyle: context
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                      color: context.colorScheme.onSurface,
-                                    ),
-                                destinations: navigationItems
-                                    .map(
-                                      (e) => NavigationRailDestination(
-                                        icon: e.icon,
-                                        label: Text(Intl.message(e.label.name)),
-                                      ),
-                                    )
-                                    .toList(),
-                                onDestinationSelected: (index) {
-                                  globalState.appController.toPage(
-                                    navigationItems[index].label,
-                                  );
-                                },
-                                extended: false,
-                                selectedIndex: currentIndex,
-                                labelType: showLabel
-                                    ? NavigationRailLabelType.all
-                                    : NavigationRailLabelType.none,
-                              ),
+                                  )
+                                  .toList(),
+                              onDestinationSelected: (index) {
+                                globalState.appController.toPage(
+                                  navigationItems[index].label,
+                                );
+                              },
+                              extended: false,
+                              selectedIndex: currentIndex,
+                              labelType: showLabel
+                                  ? NavigationRailLabelType.all
+                                  : NavigationRailLabelType.none,
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
@@ -263,19 +255,7 @@ class AppSidebarContainer extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    IconButton(
-                      onPressed: () async {
-                        const url = 'https://www.tianque.cc';
-                        final uri = Uri.parse(url);
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(uri, mode: LaunchMode.externalApplication);
-                        }
-                      },
-                      icon: Icon(
-                        Icons.language,
-                        color: context.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
+
                     const SizedBox(height: 16),
                   ],
                 ),

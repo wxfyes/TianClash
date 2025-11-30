@@ -903,50 +903,6 @@ class AppLocalizationsRu extends AppLocalizations {
       'Это программное обеспечение используется только в некоммерческих целях, таких как учебные обмены и научные исследования. Запрещено использовать это программное обеспечение в коммерческих целях. Любая коммерческая деятельность, если таковая имеется, не имеет отношения к этому программному обеспечению.';
 
   @override
-  String get agree => 'Согласен';
-
-  @override
-  String get hotkeyManagement => 'Управление горячими клавишами';
-
-  @override
-  String get hotkeyManagementDesc =>
-      'Использование клавиатуры для управления приложением';
-
-  @override
-  String get pressKeyboard => 'Пожалуйста, нажмите клавишу.';
-
-  @override
-  String get inputCorrectHotkey =>
-      'Пожалуйста, введите правильную горячую клавишу';
-
-  @override
-  String get hotkeyConflict => 'Конфликт горячих клавиш';
-
-  @override
-  String get remove => 'Удалить';
-
-  @override
-  String get noHotKey => 'Нет горячей клавиши';
-
-  @override
-  String get noNetwork => 'Нет сети';
-
-  @override
-  String get ipv6InboundDesc => 'Разрешить входящий IPv6';
-
-  @override
-  String get exportLogs => 'Экспорт логов';
-
-  @override
-  String get exportSuccess => 'Экспорт успешен';
-
-  @override
-  String get iconStyle => 'Стиль иконки';
-
-  @override
-  String get onlyIcon => 'Только иконка';
-
-  @override
   String get noIcon => 'Нет иконки';
 
   @override
@@ -1299,7 +1255,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get creationTime => 'Время создания';
 
   @override
-  String get progress => 'Прогресс';
+  String get process => 'процесс';
 
   @override
   String get host => 'Хост';
@@ -1336,4 +1292,286 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get request => 'Запрос';
+
+  @override
+  String get connected => 'Подключено';
+
+  @override
+  String get disconnected => 'Отключено';
+
+  @override
+  String get invalidUrl => 'Invalid URL';
+
+  @override
+  String get enterEmail => 'Please enter email';
+
+  @override
+  String get enterPassword => 'Please enter password';
+
+  @override
+  String get loginFailed => 'Login failed or no subscription found';
+
+  @override
+  String get shop => 'Shop';
+
+  @override
+  String get user => 'Me';
+
+  @override
+  String get commissionBalance => 'Commission Balance';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get deposit => 'Deposit';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get customAmount => 'Custom Amount';
+
+  @override
+  String get userInfo => 'Me';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get expireDate => 'Expire Date';
+
+  @override
+  String get traffic => 'Traffic';
+
+  @override
+  String get resetSecurity => 'Reset Security';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get remoteConfig => 'Remote Config';
+
+  @override
+  String get remoteConfigUrl => 'Remote Config URL';
+
+  @override
+  String get loadConfig => 'Load Config';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get myOrders => 'My Orders';
+
+  @override
+  String get orderStatus => 'Order Status';
+
+  @override
+  String get cancelOrder => 'Cancel Order';
+
+  @override
+  String get pay => 'Pay';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get plan => 'Plan';
+
+  @override
+  String get subscribe => 'Subscribe';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get period => 'Period';
+
+  @override
+  String get appendSystemDns => 'Добавить системный DNS';
+
+  @override
+  String get appendSystemDnsTip =>
+      'Принудительно добавить системный DNS к конфигурации';
+
+  @override
+  String get remove => 'Удалить';
+
+  @override
+  String get pressKeyboard => 'Пожалуйста, нажмите клавишу.';
+
+  @override
+  String get crashlytics => 'Анализ сбоев';
+
+  @override
+  String get crashlyticsTip =>
+      'При включении автоматически загружает журналы сбоев без конфиденциальной информации, когда приложение выходит из строя';
+
+  @override
+  String get exportLogs => 'Экспорт логов';
+
+  @override
+  String get exportSuccess => 'Экспорт успешен';
+
+  @override
+  String get iconStyle => 'Стиль иконки';
+
+  @override
+  String get onlyIcon => 'Только иконка';
+
+  @override
+  String get zoom => 'Масштаб';
+
+  @override
+  String get noHotKey => 'Нет горячей клавиши';
+
+  @override
+  String get inputCorrectHotkey =>
+      'Пожалуйста, введите правильную горячую клавишу';
+
+  @override
+  String get hotkeyConflict => 'Конфликт горячих клавиш';
+
+  @override
+  String get dnsHijacking => 'DNS-перехват';
+
+  @override
+  String get hotkeyManagement => 'Управление горячими клавишами';
+
+  @override
+  String get hotkeyManagementDesc =>
+      'Использование клавиатуры для управления приложением';
+
+  @override
+  String get ipv6InboundDesc => 'Разрешить входящий IPv6';
+
+  @override
+  String get connecting => 'Подключение...';
+
+  @override
+  String get restartCoreTip => 'Вы уверены, что хотите перезапустить ядро?';
+
+  @override
+  String get forceRestartCoreTip =>
+      'Вы уверены, что хотите принудительно перезапустить ядро?';
+
+  @override
+  String get coreStatus => 'Основной статус';
+
+  @override
+  String get loginToV2Board => 'Login to V2Board';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get websiteUrl => 'Website URL';
+
+  @override
+  String get loginAndImport => 'Login & Import';
+
+  @override
+  String get enterUrl => 'Please enter URL';
+
+  @override
+  String get noNetwork => 'Нет сети';
+
+  @override
+  String get agree => 'Согласен';
+
+  @override
+  String get dataCollectionTip => 'Уведомление о сборе данных';
+
+  @override
+  String get dataCollectionContent =>
+      'Это приложение использует Firebase Crashlytics для сбора информации о сбоях nhằm улучшения стабильности приложения.\nСобираемые данные включают информацию об устройстве и подробности о сбоях, но не содержат персональных конфиденциальных данных.\nВы можете отключить эту функцию в настройках.';
+
+  @override
+  String get inviteManagement => 'Invite Management';
+
+  @override
+  String get commissionRate => 'Commission Rate';
+
+  @override
+  String get totalEarned => 'Total Earned';
+
+  @override
+  String get myCodes => 'My Codes';
+
+  @override
+  String get generateInviteCode => 'Generate Invite Code';
+
+  @override
+  String get inviteCodeGenerated => 'Invite code generated';
+
+  @override
+  String get failedToGenerateInviteCode => 'Failed to generate invite code';
+
+  @override
+  String get noInviteCodes => 'No invite codes';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get scanToPay => 'Scan to Pay';
+
+  @override
+  String get pleaseScanQrCode => 'Please scan the QR code to pay.';
+
+  @override
+  String get waitingForPayment => 'Waiting for payment...';
+
+  @override
+  String get openInBrowser => 'Open in Browser';
+
+  @override
+  String get payNowDeepLink => 'Pay Now (Deep Link)';
+
+  @override
+  String get paymentSuccessful => 'Payment successful';
+
+  @override
+  String get orderCancelled => 'Order cancelled';
+
+  @override
+  String get checkoutFailed => 'Checkout failed';
+
+  @override
+  String get unknownCheckoutResponse => 'Unknown checkout response';
+
+  @override
+  String get trafficDetails => 'Traffic Details';
+
+  @override
+  String get trafficLog => 'Traffic Log';
+
+  @override
+  String get noTrafficLog => 'No traffic log';
+
+  @override
+  String get total => 'Total';
 }

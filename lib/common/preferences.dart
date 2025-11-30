@@ -42,7 +42,7 @@ class Preferences {
 
   Future<bool> saveConfig(Config config) async {
     final preferences = await sharedPreferencesCompleter.future;
-    return await preferences?.setString(configKey, json.encode(config)) ??
+    return await preferences?.setString(configKey, json.encode(config.toJson())) ??
         false;
   }
 

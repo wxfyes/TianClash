@@ -16,10 +16,20 @@ class Delegate {
 
 class RadioDelegate<T> extends Delegate {
   final T value;
-  final void Function()? onTab;
+  final T groupValue;
+  final ValueChanged<T?> onChanged;
 
-  const RadioDelegate({required this.value, this.onTab});
+  const RadioDelegate({
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+  });
 }
+
+// ... (skipping other classes)
+
+// Inside ListItem build method:
+
 
 class SwitchDelegate<T> extends Delegate {
   final bool value;
@@ -410,10 +420,14 @@ class ListItem<T> extends StatelessWidget {
     if (delegate is RadioDelegate) {
       final radioDelegate = delegate as RadioDelegate<T>;
       return _buildListTile(
-        onTap: radioDelegate.onTab,
+        onTap: () {
+          radioDelegate.onChanged(radioDelegate.value);
+        },
         leading: Radio<T>(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           value: radioDelegate.value,
+          groupValue: radioDelegate.groupValue,
+          onChanged: radioDelegate.onChanged,
           toggleable: true,
         ),
         trailing: trailing,

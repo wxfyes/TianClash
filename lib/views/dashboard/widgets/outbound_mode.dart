@@ -34,14 +34,6 @@ class OutboundMode extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 12, bottom: 16),
-                child: RadioGroup<Mode>(
-                  groupValue: mode,
-                  onChanged: (value) {
-                    if (value == null) {
-                      return;
-                    }
-                    globalState.appController.changeMode(value);
-                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,10 +47,11 @@ class OutboundMode extends StatelessWidget {
                             horizontalTitleGap: 4,
                             padding: EdgeInsets.only(left: 12.ap, right: 16.ap),
                             delegate: RadioDelegate(
-                              onTab: () {
+                              value: item,
+                              groupValue: mode,
+                              onChanged: (_) {
                                 globalState.appController.changeMode(item);
                               },
-                              value: item,
                             ),
                             title: Text(
                               Intl.message(item.name),
@@ -70,7 +63,6 @@ class OutboundMode extends StatelessWidget {
                         ),
                     ],
                   ),
-                ),
               ),
             ),
           );

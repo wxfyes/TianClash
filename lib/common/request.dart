@@ -46,6 +46,15 @@ class Request {
     return response;
   }
 
+  Future<Response?> getHeadResponseForUrl(String url) async {
+    try {
+      final response = await _clashDio.head(url);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<MemoryImage?> getImage(String url) async {
     if (url.isEmpty) return null;
     final response = await dio.get<Uint8List>(

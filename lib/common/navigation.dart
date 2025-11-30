@@ -28,19 +28,27 @@ class Navigation {
             : [],
       ),
       NavigationItem(
-        icon: Icon(Icons.folder),
-        label: PageLabel.profiles,
-        builder: (_) =>
-            const ProfilesView(key: GlobalObjectKey(PageLabel.profiles)),
-      ),
-      NavigationItem(
-        icon: Icon(Icons.language),
-        label: PageLabel.tianque,
-        builder: (_) => const TianqueView(
+        icon: Icon(Icons.shopping_cart),
+        label: PageLabel.shop,
+        builder: (_) => const ShopView(
           key: GlobalObjectKey(
-            PageLabel.tianque,
+            PageLabel.shop,
           ),
         ),
+      ),
+      NavigationItem(
+        icon: Icon(Icons.person),
+        label: PageLabel.user,
+        builder: (_) => const UserCenterPage(
+          key: GlobalObjectKey(
+            PageLabel.user,
+          ),
+        ),
+      ),
+      NavigationItem(
+        icon: Icon(Icons.logout),
+        label: PageLabel.logout,
+        builder: (_) => Container(),
       ),
       NavigationItem(
         icon: Icon(Icons.view_timeline),

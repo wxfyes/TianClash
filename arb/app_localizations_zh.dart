@@ -888,48 +888,6 @@ class AppLocalizationsZh extends AppLocalizations {
       'This software is only used for non-commercial purposes such as learning exchanges and scientific research. It is strictly prohibited to use this software for commercial purposes. Any commercial activity, if any, has nothing to do with this software.';
 
   @override
-  String get agree => 'Agree';
-
-  @override
-  String get hotkeyManagement => 'Hotkey Management';
-
-  @override
-  String get hotkeyManagementDesc => 'Use keyboard to control applications';
-
-  @override
-  String get pressKeyboard => 'Please press the keyboard.';
-
-  @override
-  String get inputCorrectHotkey => 'Please enter the correct hotkey';
-
-  @override
-  String get hotkeyConflict => 'Hotkey conflict';
-
-  @override
-  String get remove => 'Remove';
-
-  @override
-  String get noHotKey => 'No HotKey';
-
-  @override
-  String get noNetwork => 'No network';
-
-  @override
-  String get ipv6InboundDesc => 'Allow IPv6 inbound';
-
-  @override
-  String get exportLogs => 'Export logs';
-
-  @override
-  String get exportSuccess => 'Export Success';
-
-  @override
-  String get iconStyle => 'Icon style';
-
-  @override
-  String get onlyIcon => 'Icon';
-
-  @override
   String get noIcon => 'None';
 
   @override
@@ -1281,7 +1239,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get creationTime => 'Creation time';
 
   @override
-  String get progress => 'Progress';
+  String get process => 'Process';
 
   @override
   String get host => 'Host';
@@ -1318,6 +1276,287 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get request => 'Request';
+
+  @override
+  String get connected => 'Connected';
+
+  @override
+  String get disconnected => 'Disconnected';
+
+  @override
+  String get invalidUrl => 'Invalid URL';
+
+  @override
+  String get enterEmail => 'Please enter email';
+
+  @override
+  String get enterPassword => 'Please enter password';
+
+  @override
+  String get loginFailed => 'Login failed or no subscription found';
+
+  @override
+  String get shop => 'Shop';
+
+  @override
+  String get user => 'Me';
+
+  @override
+  String get commissionBalance => 'Commission Balance';
+
+  @override
+  String get wallet => 'Wallet';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get deposit => 'Deposit';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get customAmount => 'Custom Amount';
+
+  @override
+  String get userInfo => 'Me';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get expireDate => 'Expire Date';
+
+  @override
+  String get traffic => 'Traffic';
+
+  @override
+  String get resetSecurity => 'Reset Security';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get remoteConfig => 'Remote Config';
+
+  @override
+  String get remoteConfigUrl => 'Remote Config URL';
+
+  @override
+  String get loadConfig => 'Load Config';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get myOrders => 'My Orders';
+
+  @override
+  String get orderStatus => 'Order Status';
+
+  @override
+  String get cancelOrder => 'Cancel Order';
+
+  @override
+  String get pay => 'Pay';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get plan => 'Plan';
+
+  @override
+  String get subscribe => 'Subscribe';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get period => 'Period';
+
+  @override
+  String get appendSystemDns => 'Append System DNS';
+
+  @override
+  String get appendSystemDnsTip =>
+      'Forcefully append system DNS to the configuration';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get pressKeyboard => 'Press keyboard';
+
+  @override
+  String get crashlytics => 'Crash Analysis';
+
+  @override
+  String get crashlyticsTip =>
+      'When enabled, automatically uploads crash logs without sensitive information when the app crashes';
+
+  @override
+  String get exportLogs => 'Export logs';
+
+  @override
+  String get exportSuccess => 'Export success';
+
+  @override
+  String get iconStyle => 'Icon Style';
+
+  @override
+  String get onlyIcon => 'Only Icon';
+
+  @override
+  String get zoom => 'Zoom';
+
+  @override
+  String get noHotKey => 'No Hotkey';
+
+  @override
+  String get inputCorrectHotkey => 'Please input correct hotkey';
+
+  @override
+  String get hotkeyConflict => 'Hotkey conflict';
+
+  @override
+  String get dnsHijacking => 'DNS Hijacking';
+
+  @override
+  String get hotkeyManagement => 'Hotkey Management';
+
+  @override
+  String get hotkeyManagementDesc => 'Hotkey Management';
+
+  @override
+  String get ipv6InboundDesc =>
+      'When enabled, it will be able to receive IPv6 inbound traffic';
+
+  @override
+  String get connecting => 'Connecting...';
+
+  @override
+  String get restartCoreTip => 'Are you sure you want to restart the core?';
+
+  @override
+  String get forceRestartCoreTip =>
+      'Are you sure you want to force restart the core?';
+
+  @override
+  String get coreStatus => 'Core status';
+
+  @override
+  String get loginToV2Board => 'Login to V2Board';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get websiteUrl => 'Website URL';
+
+  @override
+  String get loginAndImport => 'Login & Import';
+
+  @override
+  String get enterUrl => 'Please enter URL';
+
+  @override
+  String get noNetwork => 'No network';
+
+  @override
+  String get agree => 'Agree';
+
+  @override
+  String get dataCollectionTip => 'Data Collection Notice';
+
+  @override
+  String get dataCollectionContent =>
+      'This app uses Firebase Crashlytics to collect crash information to improve app stability.\\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\\nYou can disable this feature in settings.';
+
+  @override
+  String get inviteManagement => 'Invite Management';
+
+  @override
+  String get commissionRate => 'Commission Rate';
+
+  @override
+  String get totalEarned => 'Total Earned';
+
+  @override
+  String get myCodes => 'My Codes';
+
+  @override
+  String get generateInviteCode => 'Generate Invite Code';
+
+  @override
+  String get inviteCodeGenerated => 'Invite code generated';
+
+  @override
+  String get failedToGenerateInviteCode => 'Failed to generate invite code';
+
+  @override
+  String get noInviteCodes => 'No invite codes';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get scanToPay => 'Scan to Pay';
+
+  @override
+  String get pleaseScanQrCode => 'Please scan the QR code to pay.';
+
+  @override
+  String get waitingForPayment => 'Waiting for payment...';
+
+  @override
+  String get openInBrowser => 'Open in Browser';
+
+  @override
+  String get payNowDeepLink => 'Pay Now (Deep Link)';
+
+  @override
+  String get paymentSuccessful => 'Payment successful';
+
+  @override
+  String get orderCancelled => 'Order cancelled';
+
+  @override
+  String get checkoutFailed => 'Checkout failed';
+
+  @override
+  String get unknownCheckoutResponse => 'Unknown checkout response';
+
+  @override
+  String get trafficDetails => 'Traffic Details';
+
+  @override
+  String get trafficLog => 'Traffic Log';
+
+  @override
+  String get noTrafficLog => 'No traffic log';
+
+  @override
+  String get total => 'Total';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -2190,48 +2429,6 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
       '本软件仅供学习交流、科研等非商业性质的用途，严禁将本软件用于商业目的。如有任何商业行为，均与本软件无关。';
 
   @override
-  String get agree => '同意';
-
-  @override
-  String get hotkeyManagement => '快捷键管理';
-
-  @override
-  String get hotkeyManagementDesc => '使用键盘控制应用程序';
-
-  @override
-  String get pressKeyboard => '请按下按键';
-
-  @override
-  String get inputCorrectHotkey => '请输入正确的快捷键';
-
-  @override
-  String get hotkeyConflict => '快捷键冲突';
-
-  @override
-  String get remove => '移除';
-
-  @override
-  String get noHotKey => '暂无快捷键';
-
-  @override
-  String get noNetwork => '无网络';
-
-  @override
-  String get ipv6InboundDesc => '允许IPv6入站';
-
-  @override
-  String get exportLogs => '导出日志';
-
-  @override
-  String get exportSuccess => '导出成功';
-
-  @override
-  String get iconStyle => '图标样式';
-
-  @override
-  String get onlyIcon => '仅图标';
-
-  @override
   String get noIcon => '无图标';
 
   @override
@@ -2579,7 +2776,7 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
   String get creationTime => '创建时间';
 
   @override
-  String get progress => '进度';
+  String get process => '进程';
 
   @override
   String get host => '主机';
@@ -2616,4 +2813,241 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
 
   @override
   String get request => '请求';
+
+  @override
+  String get connected => '已连接';
+
+  @override
+  String get disconnected => '已断开';
+
+  @override
+  String get invalidUrl => '无效的网址';
+
+  @override
+  String get enterEmail => '请输入邮箱';
+
+  @override
+  String get enterPassword => '请输入密码';
+
+  @override
+  String get loginFailed => '登录失败或未找到订阅';
+
+  @override
+  String get user => '我的';
+
+  @override
+  String get wallet => '钱包';
+
+  @override
+  String get balance => '余额';
+
+  @override
+  String get deposit => '充值';
+
+  @override
+  String get amount => '金额';
+
+  @override
+  String get customAmount => '自定义金额';
+
+  @override
+  String get userInfo => '我的';
+
+  @override
+  String get email => '邮箱';
+
+  @override
+  String get expireDate => '到期时间';
+
+  @override
+  String get traffic => '流量';
+
+  @override
+  String get resetSecurity => '重置订阅信息';
+
+  @override
+  String get changePassword => '修改密码';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get loading => '加载中...';
+
+  @override
+  String get error => '错误';
+
+  @override
+  String get success => '成功';
+
+  @override
+  String get remoteConfig => '远程配置';
+
+  @override
+  String get remoteConfigUrl => '远程配置 URL';
+
+  @override
+  String get loadConfig => '加载配置';
+
+  @override
+  String get orders => '订单';
+
+  @override
+  String get myOrders => '我的订单';
+
+  @override
+  String get orderStatus => '订单状态';
+
+  @override
+  String get cancelOrder => '取消订单';
+
+  @override
+  String get pay => '支付';
+
+  @override
+  String get pending => '待支付';
+
+  @override
+  String get completed => '已完成';
+
+  @override
+  String get cancelled => '已取消';
+
+  @override
+  String get remove => '移除';
+
+  @override
+  String get pressKeyboard => '请按下按键';
+
+  @override
+  String get exportLogs => '导出日志';
+
+  @override
+  String get exportSuccess => '导出成功';
+
+  @override
+  String get iconStyle => '图标样式';
+
+  @override
+  String get onlyIcon => '仅图标';
+
+  @override
+  String get zoom => '缩放';
+
+  @override
+  String get noHotKey => '暂无快捷键';
+
+  @override
+  String get inputCorrectHotkey => '请输入正确的快捷键';
+
+  @override
+  String get hotkeyConflict => '快捷键冲突';
+
+  @override
+  String get dnsHijacking => 'DNS劫持';
+
+  @override
+  String get hotkeyManagement => '快捷键管理';
+
+  @override
+  String get hotkeyManagementDesc => '使用键盘控制应用程序';
+
+  @override
+  String get ipv6InboundDesc => '允许IPv6入站';
+
+  @override
+  String get connecting => '连接中...';
+
+  @override
+  String get restartCoreTip => '您确定要重启核心吗？';
+
+  @override
+  String get forceRestartCoreTip => '您确定要强制重启核心吗？';
+
+  @override
+  String get loginToV2Board => '登录 V2Board';
+
+  @override
+  String get welcome => '欢迎';
+
+  @override
+  String get websiteUrl => '网站地址';
+
+  @override
+  String get loginAndImport => '登录并导入';
+
+  @override
+  String get enterUrl => '请输入网址';
+
+  @override
+  String get noNetwork => '无网络';
+
+  @override
+  String get agree => '同意';
+
+  @override
+  String get inviteManagement => '邀请管理';
+
+  @override
+  String get commissionRate => '佣金比例';
+
+  @override
+  String get totalEarned => '总收入';
+
+  @override
+  String get myCodes => '我的邀请码';
+
+  @override
+  String get generateInviteCode => '生成邀请码';
+
+  @override
+  String get inviteCodeGenerated => '邀请码已生成';
+
+  @override
+  String get failedToGenerateInviteCode => '生成邀请码失败';
+
+  @override
+  String get noInviteCodes => '暂无邀请码';
+
+  @override
+  String get paymentMethod => '支付方式';
+
+  @override
+  String get scanToPay => '扫码支付';
+
+  @override
+  String get pleaseScanQrCode => '请扫描二维码支付';
+
+  @override
+  String get waitingForPayment => '等待支付...';
+
+  @override
+  String get openInBrowser => '在浏览器打开';
+
+  @override
+  String get payNowDeepLink => '立即支付 (跳转)';
+
+  @override
+  String get paymentSuccessful => '支付成功';
+
+  @override
+  String get orderCancelled => '订单已取消';
+
+  @override
+  String get checkoutFailed => '下单失败';
+
+  @override
+  String get unknownCheckoutResponse => '未知的下单响应';
+
+  @override
+  String get trafficDetails => '流量明细';
+
+  @override
+  String get trafficLog => '流量日志';
+
+  @override
+  String get noTrafficLog => '暂无流量日志';
+
+  @override
+  String get total => '总计';
 }

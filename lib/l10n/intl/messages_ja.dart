@@ -430,8 +430,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profiles": MessageLookupByLibrary.simpleMessage("プロファイル一覧"),
     "profilesSort": MessageLookupByLibrary.simpleMessage("プロファイルの並び替え"),
-    "tianque": MessageLookupByLibrary.simpleMessage("天阙"),
-    "progress": MessageLookupByLibrary.simpleMessage("進捗"),
     "project": MessageLookupByLibrary.simpleMessage("プロジェクト"),
     "providers": MessageLookupByLibrary.simpleMessage("プロバイダー"),
     "proxies": MessageLookupByLibrary.simpleMessage("プロキシ"),
@@ -547,6 +545,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeDesc": MessageLookupByLibrary.simpleMessage("ダークモードの設定、色の調整"),
     "themeMode": MessageLookupByLibrary.simpleMessage("テーマモード"),
     "threeColumns": MessageLookupByLibrary.simpleMessage("3列"),
+    "tianque": MessageLookupByLibrary.simpleMessage("天阙"),
     "tight": MessageLookupByLibrary.simpleMessage("密"),
     "time": MessageLookupByLibrary.simpleMessage("時間"),
     "tip": MessageLookupByLibrary.simpleMessage("ヒント"),
@@ -590,5 +589,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "whitelistMode": MessageLookupByLibrary.simpleMessage("ホワイトリストモード"),
     "years": MessageLookupByLibrary.simpleMessage("年"),
     "zh_CN": MessageLookupByLibrary.simpleMessage("簡体字中国語"),
+    "zoom": MessageLookupByLibrary.simpleMessage("ズーム"),
   };
 }

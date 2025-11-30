@@ -89,6 +89,11 @@ class AppLocalizations {
     return Intl.message('Profiles', name: 'profiles', desc: '', args: []);
   }
 
+  /// `Tianque`
+  String get tianque {
+    return Intl.message('Tianque', name: 'tianque', desc: '', args: []);
+  }
+
   /// `Tools`
   String get tools {
     return Intl.message('Tools', name: 'tools', desc: '', args: []);
@@ -2209,111 +2214,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Agree`
-  String get agree {
-    return Intl.message('Agree', name: 'agree', desc: '', args: []);
-  }
-
-  /// `Hotkey Management`
-  String get hotkeyManagement {
-    return Intl.message(
-      'Hotkey Management',
-      name: 'hotkeyManagement',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Use keyboard to control applications`
-  String get hotkeyManagementDesc {
-    return Intl.message(
-      'Use keyboard to control applications',
-      name: 'hotkeyManagementDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please press the keyboard.`
-  String get pressKeyboard {
-    return Intl.message(
-      'Please press the keyboard.',
-      name: 'pressKeyboard',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please enter the correct hotkey`
-  String get inputCorrectHotkey {
-    return Intl.message(
-      'Please enter the correct hotkey',
-      name: 'inputCorrectHotkey',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Hotkey conflict`
-  String get hotkeyConflict {
-    return Intl.message(
-      'Hotkey conflict',
-      name: 'hotkeyConflict',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Remove`
-  String get remove {
-    return Intl.message('Remove', name: 'remove', desc: '', args: []);
-  }
-
-  /// `No HotKey`
-  String get noHotKey {
-    return Intl.message('No HotKey', name: 'noHotKey', desc: '', args: []);
-  }
-
-  /// `No network`
-  String get noNetwork {
-    return Intl.message('No network', name: 'noNetwork', desc: '', args: []);
-  }
-
-  /// `Allow IPv6 inbound`
-  String get ipv6InboundDesc {
-    return Intl.message(
-      'Allow IPv6 inbound',
-      name: 'ipv6InboundDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Export logs`
-  String get exportLogs {
-    return Intl.message('Export logs', name: 'exportLogs', desc: '', args: []);
-  }
-
-  /// `Export Success`
-  String get exportSuccess {
-    return Intl.message(
-      'Export Success',
-      name: 'exportSuccess',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Icon style`
-  String get iconStyle {
-    return Intl.message('Icon style', name: 'iconStyle', desc: '', args: []);
-  }
-
-  /// `Icon`
-  String get onlyIcon {
-    return Intl.message('Icon', name: 'onlyIcon', desc: '', args: []);
-  }
-
   /// `None`
   String get noIcon {
     return Intl.message('None', name: 'noIcon', desc: '', args: []);
@@ -3274,6 +3174,396 @@ class AppLocalizations {
     );
   }
 
+  /// `Invalid URL`
+  String get invalidUrl {
+    return Intl.message('Invalid URL', name: 'invalidUrl', desc: '', args: []);
+  }
+
+  /// `Please enter email`
+  String get enterEmail {
+    return Intl.message(
+      'Please enter email',
+      name: 'enterEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter password`
+  String get enterPassword {
+    return Intl.message(
+      'Please enter password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed or no subscription found`
+  String get loginFailed {
+    return Intl.message(
+      'Login failed or no subscription found',
+      name: 'loginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shop`
+  String get shop {
+    return Intl.message('Shop', name: 'shop', desc: '', args: []);
+  }
+
+  /// `Me`
+  String get user {
+    return Intl.message('Me', name: 'user', desc: '', args: []);
+  }
+
+  /// `Commission Balance`
+  String get commissionBalance {
+    return Intl.message(
+      'Commission Balance',
+      name: 'commissionBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet`
+  String get wallet {
+    return Intl.message('Wallet', name: 'wallet', desc: '', args: []);
+  }
+
+  /// `Balance`
+  String get balance {
+    return Intl.message('Balance', name: 'balance', desc: '', args: []);
+  }
+
+  /// `Deposit`
+  String get deposit {
+    return Intl.message('Deposit', name: 'deposit', desc: '', args: []);
+  }
+
+  /// `Amount`
+  String get amount {
+    return Intl.message('Amount', name: 'amount', desc: '', args: []);
+  }
+
+  /// `Custom Amount`
+  String get customAmount {
+    return Intl.message(
+      'Custom Amount',
+      name: 'customAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Me`
+  String get userInfo {
+    return Intl.message('Me', name: 'userInfo', desc: '', args: []);
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message('Email', name: 'email', desc: '', args: []);
+  }
+
+  /// `Expire Date`
+  String get expireDate {
+    return Intl.message('Expire Date', name: 'expireDate', desc: '', args: []);
+  }
+
+  /// `Traffic`
+  String get traffic {
+    return Intl.message('Traffic', name: 'traffic', desc: '', args: []);
+  }
+
+  /// `Reset Security`
+  String get resetSecurity {
+    return Intl.message(
+      'Reset Security',
+      name: 'resetSecurity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Telegram`
+  String get telegram {
+    return Intl.message('Telegram', name: 'telegram', desc: '', args: []);
+  }
+
+  /// `Loading...`
+  String get loading {
+    return Intl.message('Loading...', name: 'loading', desc: '', args: []);
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message('Error', name: 'error', desc: '', args: []);
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message('Success', name: 'success', desc: '', args: []);
+  }
+
+  /// `Remote Config`
+  String get remoteConfig {
+    return Intl.message(
+      'Remote Config',
+      name: 'remoteConfig',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remote Config URL`
+  String get remoteConfigUrl {
+    return Intl.message(
+      'Remote Config URL',
+      name: 'remoteConfigUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Config`
+  String get loadConfig {
+    return Intl.message('Load Config', name: 'loadConfig', desc: '', args: []);
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message('Orders', name: 'orders', desc: '', args: []);
+  }
+
+  /// `My Orders`
+  String get myOrders {
+    return Intl.message('My Orders', name: 'myOrders', desc: '', args: []);
+  }
+
+  /// `Order Status`
+  String get orderStatus {
+    return Intl.message(
+      'Order Status',
+      name: 'orderStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel Order`
+  String get cancelOrder {
+    return Intl.message(
+      'Cancel Order',
+      name: 'cancelOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay`
+  String get pay {
+    return Intl.message('Pay', name: 'pay', desc: '', args: []);
+  }
+
+  /// `Pending`
+  String get pending {
+    return Intl.message('Pending', name: 'pending', desc: '', args: []);
+  }
+
+  /// `Completed`
+  String get completed {
+    return Intl.message('Completed', name: 'completed', desc: '', args: []);
+  }
+
+  /// `Cancelled`
+  String get cancelled {
+    return Intl.message('Cancelled', name: 'cancelled', desc: '', args: []);
+  }
+
+  /// `Plan`
+  String get plan {
+    return Intl.message('Plan', name: 'plan', desc: '', args: []);
+  }
+
+  /// `Subscribe`
+  String get subscribe {
+    return Intl.message('Subscribe', name: 'subscribe', desc: '', args: []);
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message('Price', name: 'price', desc: '', args: []);
+  }
+
+  /// `Period`
+  String get period {
+    return Intl.message('Period', name: 'period', desc: '', args: []);
+  }
+
+  /// `Append System DNS`
+  String get appendSystemDns {
+    return Intl.message(
+      'Append System DNS',
+      name: 'appendSystemDns',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forcefully append system DNS to the configuration`
+  String get appendSystemDnsTip {
+    return Intl.message(
+      'Forcefully append system DNS to the configuration',
+      name: 'appendSystemDnsTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message('Remove', name: 'remove', desc: '', args: []);
+  }
+
+  /// `Press keyboard`
+  String get pressKeyboard {
+    return Intl.message(
+      'Press keyboard',
+      name: 'pressKeyboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crash Analysis`
+  String get crashlytics {
+    return Intl.message(
+      'Crash Analysis',
+      name: 'crashlytics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When enabled, automatically uploads crash logs without sensitive information when the app crashes`
+  String get crashlyticsTip {
+    return Intl.message(
+      'When enabled, automatically uploads crash logs without sensitive information when the app crashes',
+      name: 'crashlyticsTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export logs`
+  String get exportLogs {
+    return Intl.message('Export logs', name: 'exportLogs', desc: '', args: []);
+  }
+
+  /// `Export success`
+  String get exportSuccess {
+    return Intl.message(
+      'Export success',
+      name: 'exportSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Icon Style`
+  String get iconStyle {
+    return Intl.message('Icon Style', name: 'iconStyle', desc: '', args: []);
+  }
+
+  /// `Only Icon`
+  String get onlyIcon {
+    return Intl.message('Only Icon', name: 'onlyIcon', desc: '', args: []);
+  }
+
+  /// `Zoom`
+  String get zoom {
+    return Intl.message('Zoom', name: 'zoom', desc: '', args: []);
+  }
+
+  /// `No Hotkey`
+  String get noHotKey {
+    return Intl.message('No Hotkey', name: 'noHotKey', desc: '', args: []);
+  }
+
+  /// `Please input correct hotkey`
+  String get inputCorrectHotkey {
+    return Intl.message(
+      'Please input correct hotkey',
+      name: 'inputCorrectHotkey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotkey conflict`
+  String get hotkeyConflict {
+    return Intl.message(
+      'Hotkey conflict',
+      name: 'hotkeyConflict',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DNS Hijacking`
+  String get dnsHijacking {
+    return Intl.message(
+      'DNS Hijacking',
+      name: 'dnsHijacking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotkey Management`
+  String get hotkeyManagement {
+    return Intl.message(
+      'Hotkey Management',
+      name: 'hotkeyManagement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotkey Management`
+  String get hotkeyManagementDesc {
+    return Intl.message(
+      'Hotkey Management',
+      name: 'hotkeyManagementDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When enabled, it will be able to receive IPv6 inbound traffic`
+  String get ipv6InboundDesc {
+    return Intl.message(
+      'When enabled, it will be able to receive IPv6 inbound traffic',
+      name: 'ipv6InboundDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Connecting...`
   String get connecting {
     return Intl.message(
@@ -3304,19 +3594,59 @@ class AppLocalizations {
     );
   }
 
-  /// `DNS hijacking`
-  String get dnsHijacking {
+  /// `Core status`
+  String get coreStatus {
+    return Intl.message('Core status', name: 'coreStatus', desc: '', args: []);
+  }
+
+  /// `Login to V2Board`
+  String get loginToV2Board {
     return Intl.message(
-      'DNS hijacking',
-      name: 'dnsHijacking',
+      'Login to V2Board',
+      name: 'loginToV2Board',
       desc: '',
       args: [],
     );
   }
 
-  /// `Core status`
-  String get coreStatus {
-    return Intl.message('Core status', name: 'coreStatus', desc: '', args: []);
+  /// `Welcome`
+  String get welcome {
+    return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
+  }
+
+  /// `Website URL`
+  String get websiteUrl {
+    return Intl.message('Website URL', name: 'websiteUrl', desc: '', args: []);
+  }
+
+  /// `Login & Import`
+  String get loginAndImport {
+    return Intl.message(
+      'Login & Import',
+      name: 'loginAndImport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter URL`
+  String get enterUrl {
+    return Intl.message(
+      'Please enter URL',
+      name: 'enterUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No network`
+  String get noNetwork {
+    return Intl.message('No network', name: 'noNetwork', desc: '', args: []);
+  }
+
+  /// `Agree`
+  String get agree {
+    return Intl.message('Agree', name: 'agree', desc: '', args: []);
   }
 
   /// `Data Collection Notice`
@@ -3332,51 +3662,211 @@ class AppLocalizations {
   /// `This app uses Firebase Crashlytics to collect crash information to improve app stability.\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\nYou can disable this feature in settings.`
   String get dataCollectionContent {
     return Intl.message(
-      'This app uses Firebase Crashlytics to collect crash information to improve app stability.\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\nYou can disable this feature in settings.',
+      'This app uses Firebase Crashlytics to collect crash information to improve app stability.\\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\\nYou can disable this feature in settings.',
       name: 'dataCollectionContent',
       desc: '',
       args: [],
     );
   }
 
-  /// `Crash Analysis`
-  String get crashlytics {
+  /// `Invite Management`
+  String get inviteManagement {
     return Intl.message(
-      'Crash Analysis',
-      name: 'crashlytics',
+      'Invite Management',
+      name: 'inviteManagement',
       desc: '',
       args: [],
     );
   }
 
-  /// `When enabled, automatically uploads crash logs without sensitive information when the app crashes`
-  String get crashlyticsTip {
+  /// `Commission Rate`
+  String get commissionRate {
     return Intl.message(
-      'When enabled, automatically uploads crash logs without sensitive information when the app crashes',
-      name: 'crashlyticsTip',
+      'Commission Rate',
+      name: 'commissionRate',
       desc: '',
       args: [],
     );
   }
 
-  /// `Append System DNS`
-  String get appendSystemDns {
+  /// `Total Earned`
+  String get totalEarned {
     return Intl.message(
-      'Append System DNS',
-      name: 'appendSystemDns',
+      'Total Earned',
+      name: 'totalEarned',
       desc: '',
       args: [],
     );
   }
 
-  /// `Forcefully append system DNS to the configuration`
-  String get appendSystemDnsTip {
+  /// `My Codes`
+  String get myCodes {
+    return Intl.message('My Codes', name: 'myCodes', desc: '', args: []);
+  }
+
+  /// `Generate Invite Code`
+  String get generateInviteCode {
     return Intl.message(
-      'Forcefully append system DNS to the configuration',
-      name: 'appendSystemDnsTip',
+      'Generate Invite Code',
+      name: 'generateInviteCode',
       desc: '',
       args: [],
     );
+  }
+
+  /// `Invite code generated`
+  String get inviteCodeGenerated {
+    return Intl.message(
+      'Invite code generated',
+      name: 'inviteCodeGenerated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to generate invite code`
+  String get failedToGenerateInviteCode {
+    return Intl.message(
+      'Failed to generate invite code',
+      name: 'failedToGenerateInviteCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No invite codes`
+  String get noInviteCodes {
+    return Intl.message(
+      'No invite codes',
+      name: 'noInviteCodes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Method`
+  String get paymentMethod {
+    return Intl.message(
+      'Payment Method',
+      name: 'paymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan to Pay`
+  String get scanToPay {
+    return Intl.message('Scan to Pay', name: 'scanToPay', desc: '', args: []);
+  }
+
+  /// `Please scan the QR code to pay.`
+  String get pleaseScanQrCode {
+    return Intl.message(
+      'Please scan the QR code to pay.',
+      name: 'pleaseScanQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for payment...`
+  String get waitingForPayment {
+    return Intl.message(
+      'Waiting for payment...',
+      name: 'waitingForPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open in Browser`
+  String get openInBrowser {
+    return Intl.message(
+      'Open in Browser',
+      name: 'openInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay Now (Deep Link)`
+  String get payNowDeepLink {
+    return Intl.message(
+      'Pay Now (Deep Link)',
+      name: 'payNowDeepLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment successful`
+  String get paymentSuccessful {
+    return Intl.message(
+      'Payment successful',
+      name: 'paymentSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order cancelled`
+  String get orderCancelled {
+    return Intl.message(
+      'Order cancelled',
+      name: 'orderCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Checkout failed`
+  String get checkoutFailed {
+    return Intl.message(
+      'Checkout failed',
+      name: 'checkoutFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown checkout response`
+  String get unknownCheckoutResponse {
+    return Intl.message(
+      'Unknown checkout response',
+      name: 'unknownCheckoutResponse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Traffic Details`
+  String get trafficDetails {
+    return Intl.message(
+      'Traffic Details',
+      name: 'trafficDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Traffic Log`
+  String get trafficLog {
+    return Intl.message('Traffic Log', name: 'trafficLog', desc: '', args: []);
+  }
+
+  /// `No traffic log`
+  String get noTrafficLog {
+    return Intl.message(
+      'No traffic log',
+      name: 'noTrafficLog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message('Total', name: 'total', desc: '', args: []);
   }
 }
 
@@ -3388,6 +3878,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ja'),
       Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'zh'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
     ];
   }

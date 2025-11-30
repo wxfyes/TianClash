@@ -65,7 +65,7 @@ import 'app_localizations_zh.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -88,11 +88,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -100,7 +100,7 @@ abstract class AppLocalizations {
     Locale('ja'),
     Locale('ru'),
     Locale('zh'),
-    Locale('zh', 'CN')
+    Locale('zh', 'CN'),
   ];
 
   /// No description provided for @rule.
@@ -1831,90 +1831,6 @@ abstract class AppLocalizations {
   /// **'This software is only used for non-commercial purposes such as learning exchanges and scientific research. It is strictly prohibited to use this software for commercial purposes. Any commercial activity, if any, has nothing to do with this software.'**
   String get disclaimerDesc;
 
-  /// No description provided for @agree.
-  ///
-  /// In en, this message translates to:
-  /// **'Agree'**
-  String get agree;
-
-  /// No description provided for @hotkeyManagement.
-  ///
-  /// In en, this message translates to:
-  /// **'Hotkey Management'**
-  String get hotkeyManagement;
-
-  /// No description provided for @hotkeyManagementDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Use keyboard to control applications'**
-  String get hotkeyManagementDesc;
-
-  /// No description provided for @pressKeyboard.
-  ///
-  /// In en, this message translates to:
-  /// **'Please press the keyboard.'**
-  String get pressKeyboard;
-
-  /// No description provided for @inputCorrectHotkey.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter the correct hotkey'**
-  String get inputCorrectHotkey;
-
-  /// No description provided for @hotkeyConflict.
-  ///
-  /// In en, this message translates to:
-  /// **'Hotkey conflict'**
-  String get hotkeyConflict;
-
-  /// No description provided for @remove.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove'**
-  String get remove;
-
-  /// No description provided for @noHotKey.
-  ///
-  /// In en, this message translates to:
-  /// **'No HotKey'**
-  String get noHotKey;
-
-  /// No description provided for @noNetwork.
-  ///
-  /// In en, this message translates to:
-  /// **'No network'**
-  String get noNetwork;
-
-  /// No description provided for @ipv6InboundDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Allow IPv6 inbound'**
-  String get ipv6InboundDesc;
-
-  /// No description provided for @exportLogs.
-  ///
-  /// In en, this message translates to:
-  /// **'Export logs'**
-  String get exportLogs;
-
-  /// No description provided for @exportSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Export Success'**
-  String get exportSuccess;
-
-  /// No description provided for @iconStyle.
-  ///
-  /// In en, this message translates to:
-  /// **'Icon style'**
-  String get iconStyle;
-
-  /// No description provided for @onlyIcon.
-  ///
-  /// In en, this message translates to:
-  /// **'Icon'**
-  String get onlyIcon;
-
   /// No description provided for @noIcon.
   ///
   /// In en, this message translates to:
@@ -2569,11 +2485,11 @@ abstract class AppLocalizations {
   /// **'Creation time'**
   String get creationTime;
 
-  /// No description provided for @progress.
+  /// No description provided for @process.
   ///
   /// In en, this message translates to:
-  /// **'Progress'**
-  String get progress;
+  /// **'Process'**
+  String get process;
 
   /// No description provided for @host.
   ///
@@ -2646,6 +2562,558 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Request'**
   String get request;
+
+  /// No description provided for @connected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get connected;
+
+  /// No description provided for @disconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnected'**
+  String get disconnected;
+
+  /// No description provided for @invalidUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid URL'**
+  String get invalidUrl;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter email'**
+  String get enterEmail;
+
+  /// No description provided for @enterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter password'**
+  String get enterPassword;
+
+  /// No description provided for @loginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed or no subscription found'**
+  String get loginFailed;
+
+  /// No description provided for @shop.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop'**
+  String get shop;
+
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'Me'**
+  String get user;
+
+  /// No description provided for @commissionBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Commission Balance'**
+  String get commissionBalance;
+
+  /// No description provided for @wallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get wallet;
+
+  /// No description provided for @balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balance;
+
+  /// No description provided for @deposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit'**
+  String get deposit;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @customAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Amount'**
+  String get customAmount;
+
+  /// No description provided for @userInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Me'**
+  String get userInfo;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @expireDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Expire Date'**
+  String get expireDate;
+
+  /// No description provided for @traffic.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic'**
+  String get traffic;
+
+  /// No description provided for @resetSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Security'**
+  String get resetSecurity;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
+
+  /// No description provided for @telegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Telegram'**
+  String get telegram;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @remoteConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote Config'**
+  String get remoteConfig;
+
+  /// No description provided for @remoteConfigUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote Config URL'**
+  String get remoteConfigUrl;
+
+  /// No description provided for @loadConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Load Config'**
+  String get loadConfig;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get orders;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My Orders'**
+  String get myOrders;
+
+  /// No description provided for @orderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Status'**
+  String get orderStatus;
+
+  /// No description provided for @cancelOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Order'**
+  String get cancelOrder;
+
+  /// No description provided for @pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get pay;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get cancelled;
+
+  /// No description provided for @plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get plan;
+
+  /// No description provided for @subscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscribe;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @period.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get period;
+
+  /// No description provided for @appendSystemDns.
+  ///
+  /// In en, this message translates to:
+  /// **'Append System DNS'**
+  String get appendSystemDns;
+
+  /// No description provided for @appendSystemDnsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Forcefully append system DNS to the configuration'**
+  String get appendSystemDnsTip;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @pressKeyboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Press keyboard'**
+  String get pressKeyboard;
+
+  /// No description provided for @crashlytics.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash Analysis'**
+  String get crashlytics;
+
+  /// No description provided for @crashlyticsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, automatically uploads crash logs without sensitive information when the app crashes'**
+  String get crashlyticsTip;
+
+  /// No description provided for @exportLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Export logs'**
+  String get exportLogs;
+
+  /// No description provided for @exportSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Export success'**
+  String get exportSuccess;
+
+  /// No description provided for @iconStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon Style'**
+  String get iconStyle;
+
+  /// No description provided for @onlyIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Only Icon'**
+  String get onlyIcon;
+
+  /// No description provided for @zoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom'**
+  String get zoom;
+
+  /// No description provided for @noHotKey.
+  ///
+  /// In en, this message translates to:
+  /// **'No Hotkey'**
+  String get noHotKey;
+
+  /// No description provided for @inputCorrectHotkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Please input correct hotkey'**
+  String get inputCorrectHotkey;
+
+  /// No description provided for @hotkeyConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotkey conflict'**
+  String get hotkeyConflict;
+
+  /// No description provided for @dnsHijacking.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS Hijacking'**
+  String get dnsHijacking;
+
+  /// No description provided for @hotkeyManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotkey Management'**
+  String get hotkeyManagement;
+
+  /// No description provided for @hotkeyManagementDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotkey Management'**
+  String get hotkeyManagementDesc;
+
+  /// No description provided for @ipv6InboundDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, it will be able to receive IPv6 inbound traffic'**
+  String get ipv6InboundDesc;
+
+  /// No description provided for @connecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting...'**
+  String get connecting;
+
+  /// No description provided for @restartCoreTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to restart the core?'**
+  String get restartCoreTip;
+
+  /// No description provided for @forceRestartCoreTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to force restart the core?'**
+  String get forceRestartCoreTip;
+
+  /// No description provided for @coreStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Core status'**
+  String get coreStatus;
+
+  /// No description provided for @loginToV2Board.
+  ///
+  /// In en, this message translates to:
+  /// **'Login to V2Board'**
+  String get loginToV2Board;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get welcome;
+
+  /// No description provided for @websiteUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Website URL'**
+  String get websiteUrl;
+
+  /// No description provided for @loginAndImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Login & Import'**
+  String get loginAndImport;
+
+  /// No description provided for @enterUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter URL'**
+  String get enterUrl;
+
+  /// No description provided for @noNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'No network'**
+  String get noNetwork;
+
+  /// No description provided for @agree.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get agree;
+
+  /// No description provided for @dataCollectionTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Collection Notice'**
+  String get dataCollectionTip;
+
+  /// No description provided for @dataCollectionContent.
+  ///
+  /// In en, this message translates to:
+  /// **'This app uses Firebase Crashlytics to collect crash information to improve app stability.\\nThe collected data includes device information and crash details, but does not contain personal sensitive data.\\nYou can disable this feature in settings.'**
+  String get dataCollectionContent;
+
+  /// No description provided for @inviteManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Management'**
+  String get inviteManagement;
+
+  /// No description provided for @commissionRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Commission Rate'**
+  String get commissionRate;
+
+  /// No description provided for @totalEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Earned'**
+  String get totalEarned;
+
+  /// No description provided for @myCodes.
+  ///
+  /// In en, this message translates to:
+  /// **'My Codes'**
+  String get myCodes;
+
+  /// No description provided for @generateInviteCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Invite Code'**
+  String get generateInviteCode;
+
+  /// No description provided for @inviteCodeGenerated.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite code generated'**
+  String get inviteCodeGenerated;
+
+  /// No description provided for @failedToGenerateInviteCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate invite code'**
+  String get failedToGenerateInviteCode;
+
+  /// No description provided for @noInviteCodes.
+  ///
+  /// In en, this message translates to:
+  /// **'No invite codes'**
+  String get noInviteCodes;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @scanToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan to Pay'**
+  String get scanToPay;
+
+  /// No description provided for @pleaseScanQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Please scan the QR code to pay.'**
+  String get pleaseScanQrCode;
+
+  /// No description provided for @waitingForPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for payment...'**
+  String get waitingForPayment;
+
+  /// No description provided for @openInBrowser.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Browser'**
+  String get openInBrowser;
+
+  /// No description provided for @payNowDeepLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now (Deep Link)'**
+  String get payNowDeepLink;
+
+  /// No description provided for @paymentSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment successful'**
+  String get paymentSuccessful;
+
+  /// No description provided for @orderCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Order cancelled'**
+  String get orderCancelled;
+
+  /// No description provided for @checkoutFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout failed'**
+  String get checkoutFailed;
+
+  /// No description provided for @unknownCheckoutResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown checkout response'**
+  String get unknownCheckoutResponse;
+
+  /// No description provided for @trafficDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic Details'**
+  String get trafficDetails;
+
+  /// No description provided for @trafficLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic Log'**
+  String get trafficLog;
+
+  /// No description provided for @noTrafficLog.
+  ///
+  /// In en, this message translates to:
+  /// **'No traffic log'**
+  String get noTrafficLog;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
 }
 
 class _AppLocalizationsDelegate
@@ -2691,8 +3159,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }
