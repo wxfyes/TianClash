@@ -23,7 +23,9 @@ releases:
 makers_config:
   deb:
     display_name: TianQue
-    maintainer: wxfyes
+    package_name: fl-clash
+    maintainer: wxfyes <wxfyes@users.noreply.github.com>
+    description: A multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free.
     homepage: https://github.com/wxfyes/FlClash
     section: utils
     priority: optional
