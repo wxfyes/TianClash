@@ -39,6 +39,8 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
   bool _loading = false;
   bool _rememberMe = false;
   bool _autoLogin = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   LoginMode _loginMode = LoginMode.login;
 
   Future<String> _fetchBaseUrl() async {
@@ -238,42 +240,38 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                   ],
                 ),
               ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    bottom: 40,
-                    left: 40,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'OpenClash',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          '安全高效的网络管理工具',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontSize: 24,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        Text(
-                          '© 2025 OpenClash. 保留所有权利。',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.6),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '天阙 VPN',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 56,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    Text(
+                      '安全高效的网络管理工具',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 20,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+                    Text(
+                      '© 2026 天阙 VPN. 保留所有权利。',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.5),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -371,15 +369,26 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: _loginMode == LoginMode.forgotPassword ? '请输入新密码' : '请输入密码',
-                            border: const OutlineInputBorder(),
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            suffixIcon: const Icon(Icons.visibility_outlined),
-                          ),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: _obscurePassword,
+                            decoration: InputDecoration(
+                              hintText: _loginMode == LoginMode.forgotPassword ? '请输入新密码' : '请输入密码',
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              ),
+                            ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppLocalizations.of(context).enterPassword;
@@ -393,12 +402,23 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                           const SizedBox(height: 8),
                           TextFormField(
                             controller: _confirmPasswordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
+                            obscureText: _obscureConfirmPassword,
+                            decoration: InputDecoration(
                               hintText: '请再次输入密码',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.lock_outline),
-                              suffixIcon: Icon(Icons.visibility_outlined),
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword = !_obscureConfirmPassword;
+                                  });
+                                },
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
