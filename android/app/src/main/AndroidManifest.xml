@@ -86,7 +86,7 @@
         <service
             android:name=".TileService"
             android:exported="true"
-            android:icon="@drawable/ic"
+            android:icon="@mipmap/ic_launcher"
             android:label="天阙"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

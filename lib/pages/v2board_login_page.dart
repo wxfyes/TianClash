@@ -308,9 +308,26 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                 flex: 1,
                 child: Center(
                   child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isDesktop ? 0 : 24,
+                      vertical: isDesktop ? 0 : 40,
+                    ),
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 400),
                       padding: const EdgeInsets.all(40),
+                      decoration: isDesktop
+                          ? null
+                          : BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                            ),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -332,7 +349,7 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                             const SizedBox(height: 8),
                             Text(
                               _loginMode == LoginMode.login
-                                  ? '欢迎回来，请登录您的账号'
+                                  ? '欢迎回来,请登录您的账号'
                                   : _loginMode == LoginMode.register
                                       ? '创建一个新账号'
                                       : '重置您的密码',
