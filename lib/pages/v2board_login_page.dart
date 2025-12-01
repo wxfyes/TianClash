@@ -7,6 +7,7 @@ import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/state.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fl_clash/l10n/l10n.dart';
 import 'home.dart';
@@ -211,12 +212,50 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedCredentials();
+  }
+
+  Future<void> _loadSavedCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _rememberMe = prefs.getBool('v2board_remember_me') ?? false;
+      _autoLogin = prefs.getBool('v2board_auto_login') ?? false;
+      
+      if (_rememberMe) {
+        _emailController.text = prefs.getString('v2board_email') ?? '';
+        _passwordController.text = prefs.getString('v2board_password') ?? '';
+      }
+    });
+
+    if (_autoLogin && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      _submit();
+    }
+  }
+
+  Future<void> _saveCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('v2board_remember_me', _rememberMe);
+    await prefs.setBool('v2board_auto_login', _autoLogin);
+    
+    if (_rememberMe) {
+      await prefs.setString('v2board_email', _emailController.text);
+      await prefs.setString('v2board_password', _passwordController.text);
+    } else {
+      await prefs.remove('v2board_email');
+      await prefs.remove('v2board_password');
+    }
+  }
+
   Future<void> _handleLoginResult(({String token, String url})? result) async {
     setState(() {
       _loading = false;
     });
 
     if (result != null && mounted) {
+      await _saveCredentials();
       await globalState.appController
           .addProfileFormURL(result.url, jwt: result.token);
       if (mounted) {

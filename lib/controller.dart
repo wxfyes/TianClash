@@ -101,7 +101,9 @@ class AppController {
       await globalState.appController.tryStartCore();
       await globalState.handleStart([updateRunTime, updateTraffic]);
       if (system.isAndroid) {
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 1500));
+        coreController.closeConnections();
+        await Future.delayed(const Duration(milliseconds: 200));
         final groups = getCurrentGroups();
         for (final group in groups) {
           if (group.type == GroupType.Selector && group.now != null) {
