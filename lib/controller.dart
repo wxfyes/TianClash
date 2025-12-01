@@ -100,14 +100,27 @@ class AppController {
     if (isStart) {
       await globalState.appController.tryStartCore();
       await globalState.handleStart([updateRunTime, updateTraffic]);
+      if (system.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        final groups = getCurrentGroups();
+        for (final group in groups) {
+          if (group.type == GroupType.Selector && group.now != null) {
+            await changeProxy(
+              groupName: group.name,
+              proxyName: group.now!,
+            );
+          }
+        }
+      }
       final currentLastModified = await _ref
           .read(currentProfileProvider)
           ?.profileLastModified;
-      if (currentLastModified == null || lastProfileModified == null) {
+      if (currentLastModified == null) {
         addCheckIpNumDebounce();
         return;
       }
-      if (currentLastModified <= (lastProfileModified ?? 0)) {
+      if (lastProfileModified != null &&
+          currentLastModified <= lastProfileModified!) {
         addCheckIpNumDebounce();
         return;
       }
