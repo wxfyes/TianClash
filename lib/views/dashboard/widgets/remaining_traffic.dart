@@ -40,7 +40,7 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
       SubscriptionInfo? info;
       if (currentProfile.jwt != null) {
         final uri = Uri.parse(currentProfile.url);
-        final baseUrl = '${uri.scheme}://${uri.host}';
+        final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
         print('[RemainingTraffic] Fetching user info from V2Board API: $baseUrl');
         final userInfoMap = await _v2boardService.getUserInfo(
             baseUrl, currentProfile.jwt!);

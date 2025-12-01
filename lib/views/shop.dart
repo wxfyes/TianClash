@@ -40,7 +40,7 @@ class _ShopViewState extends ConsumerState<ShopView> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final plansData = await _v2boardService.fetchPlans(baseUrl, currentProfile.jwt!);
       
       if (plansData != null) {

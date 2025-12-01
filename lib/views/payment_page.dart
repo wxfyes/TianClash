@@ -43,7 +43,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
 
       // 获取订单详情和支付方式
       final orders = await _v2boardService.fetchOrders(baseUrl, currentProfile.jwt!);
@@ -91,7 +91,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
 
       // 调用checkout API
       final result = await _v2boardService.checkoutOrder(

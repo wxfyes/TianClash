@@ -42,7 +42,7 @@ class _InvitePageState extends ConsumerState<InvitePage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       final inviteData = await _v2boardService.getInviteData(baseUrl, currentProfile.jwt!);
       final inviteDetails = await _v2boardService.getInviteDetails(baseUrl, currentProfile.jwt!);
@@ -77,7 +77,7 @@ class _InvitePageState extends ConsumerState<InvitePage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.generateInviteCode(baseUrl, currentProfile.jwt!);
       if (success) {
         if (mounted) {
@@ -108,7 +108,7 @@ class _InvitePageState extends ConsumerState<InvitePage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.transferCommission(baseUrl, currentProfile.jwt!, amount);
       if (success) {
         if (mounted) {
@@ -140,7 +140,7 @@ class _InvitePageState extends ConsumerState<InvitePage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.withdrawCommission(baseUrl, currentProfile.jwt!, amount, method, account);
       if (success) {
         if (mounted) {
@@ -479,7 +479,7 @@ class _InvitePageState extends ConsumerState<InvitePage> {
                   String domain = 'https://example.com';
                   if (currentProfile != null) {
                     final uri = Uri.parse(currentProfile.url);
-                    domain = '${uri.scheme}://${uri.host}';
+                    domain = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
                   }
                   
                   final inviteUrl = '$domain/#/register?code=$codeStr';

@@ -56,7 +56,7 @@ class _BalanceTopUpPageState extends ConsumerState<BalanceTopUpPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final userInfo = await _v2boardService.getUserInfo(baseUrl, currentProfile.jwt!);
       if (userInfo != null && mounted) {
         setState(() {
@@ -99,7 +99,7 @@ class _BalanceTopUpPageState extends ConsumerState<BalanceTopUpPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       final tradeNo = await _v2boardService.submitDepositOrder(baseUrl, currentProfile.jwt!, amount);
       

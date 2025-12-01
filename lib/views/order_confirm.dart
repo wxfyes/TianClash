@@ -83,7 +83,7 @@ class _OrderConfirmPageState extends ConsumerState<OrderConfirmPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final result = await _v2boardService.verifyCoupon(
         baseUrl,
         currentProfile.jwt!,
@@ -119,7 +119,7 @@ class _OrderConfirmPageState extends ConsumerState<OrderConfirmPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       // Helper function to submit order
       Future<String?> submit() {

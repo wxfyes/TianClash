@@ -36,7 +36,7 @@ class _TrafficDetailsPageState extends ConsumerState<TrafficDetailsPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final log = await _v2boardService.getTrafficLog(baseUrl, currentProfile.jwt!);
       print('Traffic Log Response: $log'); // Debug log
       if (log != null && log is List) {

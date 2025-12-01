@@ -56,7 +56,7 @@ class _PaymentSheetState extends ConsumerState<PaymentSheet> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final methodsData = await _v2boardService.getPaymentMethods(baseUrl, currentProfile.jwt!);
       
       if (methodsData != null && mounted) {
@@ -90,7 +90,7 @@ class _PaymentSheetState extends ConsumerState<PaymentSheet> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       final result = await _v2boardService.checkoutOrder(
         baseUrl,
@@ -218,7 +218,7 @@ class _PaymentSheetState extends ConsumerState<PaymentSheet> {
       if (currentProfile == null || currentProfile.jwt == null) return;
       
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       final orders = await _v2boardService.fetchOrders(baseUrl, currentProfile.jwt!);
       if (orders != null) {

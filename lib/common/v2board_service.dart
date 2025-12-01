@@ -304,7 +304,7 @@ class V2BoardService {
       
       // 构造Referer URL（PaymentService需要用它来构建return_url）
       final uri = Uri.parse(baseUrl);
-      final refererUrl = '${uri.scheme}://${uri.host}/';
+      final refererUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}/';
       
       final response = await _dio.post(url,
           data: FormData.fromMap({

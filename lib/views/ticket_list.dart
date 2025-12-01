@@ -41,7 +41,7 @@ class _TicketListPageState extends ConsumerState<TicketListPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final tickets = await _v2boardService.fetchTickets(baseUrl, currentProfile.jwt!);
       if (tickets != null) {
         setState(() {
@@ -216,7 +216,7 @@ class _TicketListPageState extends ConsumerState<TicketListPage> {
                       }
 
                       final uri = Uri.parse(currentProfile.url);
-                      final baseUrl = '${uri.scheme}://${uri.host}';
+                      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
                       final success = await _v2boardService.createTicket(
                         baseUrl,
                         currentProfile.jwt!,

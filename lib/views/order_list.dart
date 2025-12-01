@@ -38,7 +38,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final ordersData = await _v2boardService.fetchOrders(baseUrl, currentProfile.jwt!);
       if (ordersData != null) {
         setState(() {
@@ -66,7 +66,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.cancelOrder(baseUrl, currentProfile.jwt!, tradeNo);
       if (success) {
         if (mounted) {
@@ -91,7 +91,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final paymentUrl = '${uri.scheme}://${uri.host}/#/order/${tradeNo}';
+      final paymentUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}/#/order/${tradeNo}';
       final url = Uri.parse(paymentUrl);
       
       if (await canLaunchUrl(url)) {

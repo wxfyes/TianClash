@@ -49,7 +49,7 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final userInfoMap =
           await _v2boardService.getUserInfo(baseUrl, currentProfile.jwt!);
       final commConfig = await _v2boardService.getCommConfig(baseUrl);
@@ -284,7 +284,7 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
   Widget _buildMenuSection(BuildContext context) {
     final currentProfile = ref.read(currentProfileProvider);
     final uri = currentProfile != null ? Uri.parse(currentProfile.url) : null;
-    final baseUrl = uri != null ? '${uri.scheme}://${uri.host}' : '';
+    final baseUrl = uri != null ? '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}' : '';
 
     return Container(
       decoration: BoxDecoration(

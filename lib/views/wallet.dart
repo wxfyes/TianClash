@@ -45,7 +45,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final methodsData = await _v2boardService.getPaymentMethods(baseUrl, currentProfile.jwt!);
       if (methodsData != null) {
         setState(() {
@@ -95,7 +95,7 @@ class _WalletPageState extends ConsumerState<WalletPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       
       // Usually deposit involves creating an order with a specific plan or type.
       // V2Board deposit API might be different.

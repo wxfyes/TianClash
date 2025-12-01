@@ -46,7 +46,7 @@ class _TicketDetailPageState extends ConsumerState<TicketDetailPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final details = await _v2boardService.getTicketDetail(baseUrl, currentProfile.jwt!, widget.ticketId);
       if (details != null) {
         if (details is List) {
@@ -112,7 +112,7 @@ class _TicketDetailPageState extends ConsumerState<TicketDetailPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.replyTicket(
         baseUrl,
         currentProfile.jwt!,
@@ -172,7 +172,7 @@ class _TicketDetailPageState extends ConsumerState<TicketDetailPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}';
+      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
       final success = await _v2boardService.closeTicket(baseUrl, currentProfile.jwt!, widget.ticketId);
 
       if (success) {
