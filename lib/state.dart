@@ -145,6 +145,7 @@ class GlobalState {
       );
       await preferences.saveConfig(config);
     }
+    
     await globalState.migrateOldData(config);
     await AppLocalizations.load(
       utils.getLocaleForString(config.appSetting.locale) ??

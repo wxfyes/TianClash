@@ -18,23 +18,24 @@ class Navigation {
         builder: (_) =>
             const DashboardView(key: GlobalObjectKey(PageLabel.dashboard)),
       ),
+      // Proxies hidden from main navigation, accessible from dashboard
       NavigationItem(
         icon: const Icon(Icons.article),
         label: PageLabel.proxies,
         builder: (_) =>
             const ProxiesView(key: GlobalObjectKey(PageLabel.proxies)),
-        modes: hasProxies
-            ? [NavigationItemMode.mobile, NavigationItemMode.desktop]
-            : [],
+        modes: [], // Hidden from all navigation modes
       ),
+      // Shop renamed to Package (套餐)
       NavigationItem(
-        icon: Icon(Icons.shopping_cart),
+        icon: Icon(Icons.card_membership),
         label: PageLabel.shop,
         builder: (_) => const ShopView(
           key: GlobalObjectKey(
             PageLabel.shop,
           ),
         ),
+        modes: [NavigationItemMode.mobile, NavigationItemMode.desktop],
       ),
       NavigationItem(
         icon: Icon(Icons.person),
@@ -44,27 +45,30 @@ class Navigation {
             PageLabel.user,
           ),
         ),
+        modes: [NavigationItemMode.mobile, NavigationItemMode.desktop],
       ),
       NavigationItem(
         icon: Icon(Icons.logout),
         label: PageLabel.logout,
         builder: (_) => Container(),
       ),
-      NavigationItem(
-        icon: Icon(Icons.view_timeline),
-        label: PageLabel.requests,
-        builder: (_) =>
-            const RequestsView(key: GlobalObjectKey(PageLabel.requests)),
-        description: 'requestsDesc',
-        modes: [NavigationItemMode.desktop, NavigationItemMode.more],
-      ),
+      // Move Connections to More
       NavigationItem(
         icon: Icon(Icons.ballot),
         label: PageLabel.connections,
         builder: (_) =>
             const ConnectionsView(key: GlobalObjectKey(PageLabel.connections)),
         description: 'connectionsDesc',
-        modes: [NavigationItemMode.desktop, NavigationItemMode.more],
+        modes: [NavigationItemMode.more],
+      ),
+      // Move Requests to More
+      NavigationItem(
+        icon: Icon(Icons.view_timeline),
+        label: PageLabel.requests,
+        builder: (_) =>
+            const RequestsView(key: GlobalObjectKey(PageLabel.requests)),
+        description: 'requestsDesc',
+        modes: [NavigationItemMode.more],
       ),
       NavigationItem(
         icon: Icon(Icons.storage),
@@ -79,15 +83,13 @@ class Navigation {
         label: PageLabel.logs,
         builder: (_) => const LogsView(key: GlobalObjectKey(PageLabel.logs)),
         description: 'logsDesc',
-        modes: openLogs
-            ? [NavigationItemMode.desktop, NavigationItemMode.more]
-            : [],
+        modes: openLogs ? [NavigationItemMode.more] : [],
       ),
       NavigationItem(
         icon: Icon(Icons.construction),
         label: PageLabel.tools,
         builder: (_) => const ToolsView(key: GlobalObjectKey(PageLabel.tools)),
-        modes: [NavigationItemMode.desktop, NavigationItemMode.mobile],
+        modes: [NavigationItemMode.more],
       ),
     ];
   }

@@ -58,8 +58,17 @@ class ProxiesTabViewState extends ConsumerState<ProxiesTabView>
   }
 
   Future<void> delayTestCurrentGroup() async {
-    final currentGroupName = globalState.appController.getCurrentGroupName();
-    final currentState = _keyMap[currentGroupName]?.currentState;
+    var currentGroupName = globalState.appController.getCurrentGroupName();
+    if (currentGroupName == null && _tabController != null) {
+      final state = ref.read(proxiesTabStateProvider);
+      final groups = state.groups;
+      if (groups.isNotEmpty) {
+        currentGroupName = groups[_tabController!.index].name;
+        globalState.appController.updateCurrentGroupName(currentGroupName);
+      }
+    }
+    final key = _keyMap[currentGroupName];
+    final currentState = key?.currentState;
     await delayTest(currentState?.currentProxies ?? [], currentState?.testUrl);
   }
 

@@ -37,14 +37,16 @@ const defaultAccessControl = AccessControl();
 final defaultThemeProps = ThemeProps(primaryColor: defaultPrimaryColor);
 
 const List<DashboardWidget> defaultDashboardWidgets = [
-  DashboardWidget.networkSpeed,
+  DashboardWidget.userInfoCard,
   DashboardWidget.remainingTraffic,
-  DashboardWidget.systemProxyButton,
-  DashboardWidget.tunButton,
+  DashboardWidget.networkSpeed,
+  DashboardWidget.trafficUsage,
   DashboardWidget.outboundMode,
   DashboardWidget.networkDetection,
-  DashboardWidget.trafficUsage,
   DashboardWidget.intranetIp,
+  DashboardWidget.tunButton,
+  DashboardWidget.systemProxyButton,
+  DashboardWidget.vpnButton,
 ];
 
 List<DashboardWidget> dashboardWidgetsSafeFormJson(

@@ -44,7 +44,7 @@ class _NetworkSpeedState extends State<NetworkSpeed> {
       child: CommonCard(
         onPressed: () {},
         info: Info(
-          label: appLocalizations.networkSpeed,
+          label: '网速',
           iconData: Icons.speed_sharp,
         ),
         child: Consumer(

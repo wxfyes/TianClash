@@ -3,6 +3,7 @@ import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/models/v2board.dart';
 import 'package:fl_clash/providers/providers.dart';
+import 'package:fl_clash/state.dart';
 import 'package:fl_clash/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,17 +38,18 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
     }
 
     try {
+      // 1. Update Profile (Download latest config)
+      await globalState.appController.updateProfile(currentProfile);
+      
+      // 2. Fetch traffic info (existing logic)
       SubscriptionInfo? info;
       if (currentProfile.jwt != null) {
         final uri = Uri.parse(currentProfile.url);
         final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
-        print('[RemainingTraffic] Fetching user info from V2Board API: $baseUrl');
         final userInfoMap = await _v2boardService.getUserInfo(
             baseUrl, currentProfile.jwt!);
         if (userInfoMap != null) {
-          print('[RemainingTraffic] User info fetched successfully: $userInfoMap');
           final userInfo = UserInfo.fromJson(userInfoMap);
-          // Only use API info if it has valid used traffic, or if we haven't tried HEAD yet
           if (userInfo.transferUsed > 0) {
              info = SubscriptionInfo(
               total: userInfo.transferEnable,
@@ -55,43 +57,32 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
               download: 0,
               expire: userInfo.expiredAt ?? 0,
             );
-          } else {
-             print('[RemainingTraffic] API returned 0 used traffic, will try HEAD request');
           }
-        } else {
-          print('[RemainingTraffic] User info is null');
         }
       } 
       
-      // Always try HEAD request if info is null (or was rejected due to 0 used)
       if (info == null && currentProfile.url.isNotEmpty) {
-        print('[RemainingTraffic] Fetching HEAD response for: ${currentProfile.url}');
         final response =
             await request.getHeadResponseForUrl(currentProfile.url);
         if (response != null) {
           final userinfo = response.headers.value('subscription-userinfo');
-          print('[RemainingTraffic] HEAD response headers: ${response.headers}');
-          print('[RemainingTraffic] subscription-userinfo: $userinfo');
           if (userinfo != null) {
             info = SubscriptionInfo.formHString(userinfo);
-            print('[RemainingTraffic] Parsed SubscriptionInfo: $info');
           }
-        } else {
-           print('[RemainingTraffic] HEAD response is null');
         }
       }
 
       if (info != null && mounted) {
-        print('[RemainingTraffic] Updating profile with new info');
         ref.read(profilesProvider.notifier).updateProfile(
               currentProfile.id,
               (p) => p.copyWith(subscriptionInfo: info),
             );
-      } else {
-        print('[RemainingTraffic] No info to update');
       }
     } catch (e) {
       print('[RemainingTraffic] Error: $e');
+      if (mounted) {
+        context.showNotifier(e.toString());
+      }
     } finally {
       if (mounted) {
         setState(() {
@@ -127,37 +118,59 @@ class _RemainingTrafficState extends ConsumerState<RemainingTraffic> {
     return SizedBox(
       height: getWidgetHeight(2),
       child: CommonCard(
-        info: Info(
-          label: '剩余流量',
-          iconData: Icons.data_usage,
-        ),
-        onPressed: _loadUserInfo,
-        child: _loading && total == 0
-            ? const Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _formatBytes(remaining),
-                      style: context.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: context.colorScheme.primary,
-                      ),
+        onPressed: _loading ? null : _loadUserInfo,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  if (_loading)
+                    const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  else
+                    Icon(
+                      Icons.data_usage,
+                      size: 16,
+                      color: context.colorScheme.onSurfaceVariant,
                     ),
-                    const SizedBox(height: 4),
-                    LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor:
-                          context.colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(4),
-                      minHeight: 6,
+                  const SizedBox(width: 8),
+                  Text(
+                    '剩余流量',
+                    style: context.textTheme.titleSmall?.copyWith(
+                      color: context.colorScheme.onSurfaceVariant,
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  _formatBytes(remaining),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: context.colorScheme.primary,
+                  ),
                 ),
               ),
+              const SizedBox(height: 2),
+              LinearProgressIndicator(
+                value: progress,
+                backgroundColor:
+                    context.colorScheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(4),
+                minHeight: 6,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

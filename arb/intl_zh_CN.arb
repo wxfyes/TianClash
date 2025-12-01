@@ -488,5 +488,6 @@
   "trafficDetails": "流量明细",
   "trafficLog": "流量日志",
   "noTrafficLog": "暂无流量日志",
-  "total": "总计"
+  "total": "总计",
+  "shop": "套餐"
 }
