@@ -69,19 +69,44 @@ class _ProxySelectorState extends ConsumerState<ProxySelector> {
   @override
   Widget build(BuildContext context) {
     print('ProxySelector: build called');
-    final groups = ref.watch(currentGroupsStateProvider).value;
+    final groups = ref.watch(currentGroupsStateProvider).value ?? [];
     final selectedMap = ref.watch(selectedMapProvider);
     final mode = ref.watch(patchClashConfigProvider.select((state) => state.mode));
+    final currentProfile = ref.watch(currentProfileProvider);
 
     if (groups.isEmpty) {
+      String message = '未找到节点';
+      Color iconColor = Colors.orange;
+      IconData icon = Icons.error_outline;
+
+      if (currentProfile == null) {
+        message = '请订阅套餐';
+        iconColor = Colors.blue;
+        icon = Icons.shopping_cart_outlined;
+      } else {
+        final info = currentProfile.subscriptionInfo;
+        if (info != null) {
+          final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+          if (info.expire > 0 && info.expire < now) {
+            message = '套餐过期请续费';
+            iconColor = Colors.red;
+            icon = Icons.timer_off_outlined;
+          } else if (info.total > 0 && (info.upload + info.download) >= info.total) {
+            message = '流量用尽请续费';
+            iconColor = Colors.red;
+            icon = Icons.data_usage;
+          }
+        }
+      }
+
       return CommonCard(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              const Icon(Icons.error_outline, color: Colors.orange),
+              Icon(icon, color: iconColor),
               const SizedBox(width: 12),
-              Expanded(child: Text('未找到节点', style: context.textTheme.bodyMedium)),
+              Expanded(child: Text(message, style: context.textTheme.bodyMedium)),
               IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () {
