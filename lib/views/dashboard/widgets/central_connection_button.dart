@@ -114,7 +114,7 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
 
   @override
   Widget build(BuildContext context) {
-    final status = ref.watch(coreStatusProvider).value ?? CoreStatus.disconnected;
+    final status = ref.watch(coreStatusProvider);
     final isConnected = status == CoreStatus.connected;
     final isConnecting = status == CoreStatus.connecting;
 
