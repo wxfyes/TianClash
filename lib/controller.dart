@@ -98,6 +98,7 @@ class AppController {
 
   Future<void> updateStatus(bool isStart) async {
     if (isStart) {
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.connecting;
       await globalState.appController.tryStartCore();
       await globalState.handleStart([updateRunTime, updateTraffic]);
       if (system.isAndroid) {
@@ -127,6 +128,7 @@ class AppController {
         return;
       }
       applyProfileDebounce();
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
     } else {
       await globalState.handleStop();
       coreController.resetTraffic();
@@ -134,6 +136,7 @@ class AppController {
       _ref.read(totalTrafficProvider.notifier).value = Traffic();
       _ref.read(runTimeProvider.notifier).value = null;
       addCheckIpNumDebounce();
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.disconnected;
     }
   }
 
@@ -593,7 +596,7 @@ class AppController {
       }
       return;
     }
-    _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
+    // _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
   }
 
   Future<void> _initStatus() async {

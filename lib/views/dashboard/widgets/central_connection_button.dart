@@ -127,8 +127,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
         child: ScaleTransition(
           scale: _scaleController,
           child: SizedBox(
-            width: 180,
-            height: 180,
+            width: 140,
+            height: 140,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -144,8 +144,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
                           child: Transform.scale(
                             scale: 1.0 + (value * 0.5),
                             child: Container(
-                              width: 140,
-                              height: 140,
+                              width: 100,
+                              height: 100,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: _getStatusColor(status, context)
@@ -166,8 +166,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
                       return Transform.rotate(
                         angle: _rotateController.value * 2 * math.pi,
                         child: Container(
-                          width: 150,
-                          height: 150,
+                          width: 110,
+                          height: 110,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             gradient: SweepGradient(
@@ -186,8 +186,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
 
                 // Main Button
                 Container(
-                  width: 140,
-                  height: 140,
+                  width: 100,
+                  height: 100,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
@@ -223,19 +223,20 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
                     children: [
                       Icon(
                         Icons.power_settings_new_rounded,
-                        size: 48,
+                        size: 36,
                         color: isConnected || isConnecting
                             ? Colors.white
                             : context.colorScheme.onSurfaceVariant,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 4),
                       Text(
                         _getStatusText(status),
-                        style: context.textTheme.labelMedium?.copyWith(
+                        style: context.textTheme.labelSmall?.copyWith(
                           color: isConnected || isConnecting
                               ? Colors.white
                               : context.colorScheme.onSurfaceVariant,
                           fontWeight: FontWeight.bold,
+                          fontSize: 10,
                         ),
                       ),
                     ],
