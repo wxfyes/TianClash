@@ -639,9 +639,9 @@ class AppController {
       if (confirm != true) return;
     }
 
-    final currentProfileId = _ref.read(currentProfileIdProvider);
-    if (currentProfileId != null) {
-      await deleteProfile(currentProfileId);
+    final profiles = _ref.read(profilesProvider);
+    for (final profile in profiles) {
+      await deleteProfile(profile.id);
     }
     
     // 强制关闭内核
