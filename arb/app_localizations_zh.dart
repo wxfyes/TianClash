@@ -2833,6 +2833,9 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
   String get loginFailed => '登录失败或未找到订阅';
 
   @override
+  String get shop => '套餐';
+
+  @override
   String get user => '我的';
 
   @override

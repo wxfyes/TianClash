@@ -4,9 +4,35 @@ import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 
-class CentralConnectionButton extends ConsumerWidget {
+class CentralConnectionButton extends ConsumerStatefulWidget {
   const CentralConnectionButton({super.key});
+
+  @override
+  ConsumerState<CentralConnectionButton> createState() =>
+      _CentralConnectionButtonState();
+}
+
+class _CentralConnectionButtonState
+    extends ConsumerState<CentralConnectionButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Future<void> _handleConnection(
       BuildContext context, WidgetRef ref, CoreStatus displayStatus) async {
@@ -15,13 +41,11 @@ class CentralConnectionButton extends ConsumerWidget {
     }
 
     final isConnected = displayStatus == CoreStatus.connected;
-
-    // 如果已连接，点击则断开；如果未连接，点击则连接
     globalState.appController.updateStatus(!isConnected);
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final coreStatus = ref.watch(coreStatusProvider);
     final runTime = ref.watch(runTimeProvider);
 
@@ -34,41 +58,68 @@ class CentralConnectionButton extends ConsumerWidget {
       displayStatus = CoreStatus.disconnected;
     }
 
-    return Material(
-      color: Colors.transparent,
-      child: Ink(
-        width: 120,
-        height: 120,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: _getGradient(displayStatus, context),
-          boxShadow: [
-            BoxShadow(
-              color: _getShadowColor(displayStatus, context),
-              blurRadius: 20,
-              spreadRadius: 2,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+    // 根据状态控制动画
+    // 注意：这里假设 Lottie 动画是一个开关动画，0.0 是关闭，1.0 是开启
+    // 如果是循环动画，可以根据需要调整逻辑
+    if (displayStatus == CoreStatus.connecting) {
+      if (!_controller.isAnimating) {
+        _controller.repeat();
+      }
+    } else if (displayStatus == CoreStatus.connected) {
+      _controller.animateTo(1.0);
+    } else {
+      _controller.animateTo(0.0);
+    }
+
+    return Center(
+      child: Material(
+        color: Colors.transparent,
         child: InkWell(
           onTap: () => _handleConnection(context, ref, displayStatus),
           customBorder: const CircleBorder(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildIcon(displayStatus, context),
-              const SizedBox(height: 8),
-              Text(
-                _getStatusText(displayStatus),
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: _getTextColor(displayStatus, context),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          child: Lottie.asset(
+            'assets/images/connect.json',
+            width: 180,
+            height: 180,
+            controller: _controller,
+            errorBuilder: (context, error, stackTrace) {
+              return _buildOriginalButton(displayStatus, context);
+            },
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildOriginalButton(CoreStatus displayStatus, BuildContext context) {
+    return Ink(
+      width: 120,
+      height: 120,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: _getGradient(displayStatus, context),
+        boxShadow: [
+          BoxShadow(
+            color: _getShadowColor(displayStatus, context),
+            blurRadius: 20,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildIcon(displayStatus, context),
+          const SizedBox(height: 8),
+          Text(
+            _getStatusText(displayStatus),
+            style: context.textTheme.titleMedium?.copyWith(
+              color: _getTextColor(displayStatus, context),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
