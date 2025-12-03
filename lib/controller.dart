@@ -161,6 +161,7 @@ class AppController {
   Future<void> addProfile(Profile profile) async {
     _ref.read(profilesProvider.notifier).setProfile(profile);
     if (_ref.read(currentProfileIdProvider) != null) return;
+    await tryStartCore();
     _ref.read(currentProfileIdProvider.notifier).value = profile.id;
   }
 
@@ -643,7 +644,6 @@ class AppController {
     // 强制关闭内核
     try {
       await coreController.shutdown();
-      await coreController.destroy();
     } catch (e) {
       commonPrint.log('Failed to shutdown core: $e', logLevel: LogLevel.warning);
     }
