@@ -77,14 +77,38 @@ class _CentralConnectionButtonState
         child: InkWell(
           onTap: () => _handleConnection(context, ref, displayStatus),
           customBorder: const CircleBorder(),
-          child: Lottie.asset(
-            'assets/images/connect.json',
-            width: 180,
-            height: 180,
-            controller: _controller,
-            errorBuilder: (context, error, stackTrace) {
-              return _buildOriginalButton(displayStatus, context);
-            },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Lottie.asset(
+                'assets/images/connect.json',
+                width: 180,
+                height: 180,
+                controller: _controller,
+                errorBuilder: (context, error, stackTrace) {
+                  return _buildOriginalButton(displayStatus, context);
+                },
+              ),
+              // 状态文字覆盖
+              if (displayStatus != CoreStatus.connecting)
+                Positioned(
+                  bottom: 40, // 根据动画调整位置
+                  child: Text(
+                    _getStatusText(displayStatus),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: _getTextColor(displayStatus, context),
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        const Shadow(
+                          offset: Offset(0, 1),
+                          blurRadius: 2,
+                          color: Colors.black26,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),

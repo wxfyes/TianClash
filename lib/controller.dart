@@ -163,6 +163,9 @@ class AppController {
     if (_ref.read(currentProfileIdProvider) != null) return;
     await tryStartCore();
     _ref.read(currentProfileIdProvider.notifier).value = profile.id;
+    
+    // 强制更新配置，确保新账号的订阅能正确下发
+    await updateClashConfig();
   }
 
   Future<void> deleteProfile(String id) async {
