@@ -1,10 +1,11 @@
+import 'dart:math' as math;
 import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/enum/enum.dart';
+import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 
 class CentralConnectionButton extends ConsumerStatefulWidget {
   const CentralConnectionButton({super.key});
@@ -14,229 +15,246 @@ class CentralConnectionButton extends ConsumerStatefulWidget {
       _CentralConnectionButtonState();
 }
 
-class _CentralConnectionButtonState
-    extends ConsumerState<CentralConnectionButton>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
+class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButton>
+    with TickerProviderStateMixin {
+  late AnimationController _rippleController;
+  late AnimationController _rotateController;
+  late AnimationController _scaleController;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _rippleController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
+    )..repeat();
+
+    _rotateController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat();
+
+    _scaleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+      lowerBound: 0.95,
+      upperBound: 1.0,
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _rippleController.dispose();
+    _rotateController.dispose();
+    _scaleController.dispose();
     super.dispose();
   }
 
-  Future<void> _handleConnection(
-      BuildContext context, WidgetRef ref, CoreStatus displayStatus) async {
-    if (displayStatus == CoreStatus.connecting) {
+  void _handleConnection(
+      BuildContext context, WidgetRef ref, CoreStatus status) async {
+    _scaleController.forward().then((_) => _scaleController.reverse());
+
+    final currentProfile = ref.read(currentProfileProvider);
+    if (currentProfile == null) {
+      globalState.showMessage(
+        title: appLocalizations.tips,
+        message: '请先选择或者创建一个配置',
+      );
       return;
     }
 
-    final isConnected = displayStatus == CoreStatus.connected;
-    globalState.appController.updateStatus(!isConnected);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final coreStatus = ref.watch(coreStatusProvider);
-    final runTime = ref.watch(runTimeProvider);
-
-    CoreStatus displayStatus;
-    if (coreStatus == CoreStatus.connecting) {
-      displayStatus = CoreStatus.connecting;
-    } else if (runTime != null) {
-      displayStatus = CoreStatus.connected;
+    if (status == CoreStatus.connected) {
+      globalState.appController.stopSystemProxy();
     } else {
-      displayStatus = CoreStatus.disconnected;
-    }
-
-    // 根据状态控制动画
-    // 注意：这里假设 Lottie 动画是一个开关动画，0.0 是关闭，1.0 是开启
-    // 如果是循环动画，可以根据需要调整逻辑
-    if (displayStatus == CoreStatus.connecting) {
-      if (!_controller.isAnimating) {
-        _controller.repeat();
-      }
-    } else if (displayStatus == CoreStatus.connected) {
-      _controller.animateTo(1.0);
-    } else {
-      _controller.animateTo(0.0);
-    }
-
-    return Center(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () => _handleConnection(context, ref, displayStatus),
-          customBorder: const CircleBorder(),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Lottie.asset(
-                'assets/images/connect.json',
-                width: 180,
-                height: 180,
-                controller: _controller,
-                errorBuilder: (context, error, stackTrace) {
-                  return _buildOriginalButton(displayStatus, context);
-                },
-              ),
-              // 状态文字覆盖
-              if (displayStatus != CoreStatus.connecting)
-                Positioned(
-                  bottom: 40, // 根据动画调整位置
-                  child: Text(
-                    _getStatusText(displayStatus),
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: _getTextColor(displayStatus, context),
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        const Shadow(
-                          offset: Offset(0, 1),
-                          blurRadius: 2,
-                          color: Colors.black26,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOriginalButton(CoreStatus displayStatus, BuildContext context) {
-    return Ink(
-      width: 120,
-      height: 120,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: _getGradient(displayStatus, context),
-        boxShadow: [
-          BoxShadow(
-            color: _getShadowColor(displayStatus, context),
-            blurRadius: 20,
-            spreadRadius: 2,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildIcon(displayStatus, context),
-          const SizedBox(height: 8),
-          Text(
-            _getStatusText(displayStatus),
-            style: context.textTheme.titleMedium?.copyWith(
-              color: _getTextColor(displayStatus, context),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildIcon(CoreStatus status, BuildContext context) {
-    switch (status) {
-      case CoreStatus.connecting:
-        return SizedBox(
-          width: 48,
-          height: 48,
-          child: CircularProgressIndicator(
-            strokeWidth: 4,
-            valueColor: AlwaysStoppedAnimation<Color>(
-              _getTextColor(status, context),
-            ),
-          ),
-        );
-      case CoreStatus.connected:
-        return Icon(
-          Icons.power_settings_new,
-          size: 48,
-          color: _getTextColor(status, context),
-        );
-      case CoreStatus.disconnected:
-        return Icon(
-          Icons.power_settings_new,
-          size: 48,
-          color: _getTextColor(status, context),
-        );
-    }
-  }
-
-  Gradient _getGradient(CoreStatus status, BuildContext context) {
-    switch (status) {
-      case CoreStatus.connecting:
-        return LinearGradient(
-          colors: [
-            context.colorScheme.primary.withValues(alpha: 0.8),
-            context.colorScheme.primaryContainer,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      case CoreStatus.connected:
-        return const LinearGradient(
-          colors: [
-            Color(0xFF4CAF50),
-            Color(0xFF81C784),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      case CoreStatus.disconnected:
-        return LinearGradient(
-          colors: [
-            context.colorScheme.errorContainer,
-            context.colorScheme.error.withValues(alpha: 0.6),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-    }
-  }
-
-  Color _getShadowColor(CoreStatus status, BuildContext context) {
-    switch (status) {
-      case CoreStatus.connecting:
-        return context.colorScheme.primary.withValues(alpha: 0.4);
-      case CoreStatus.connected:
-        return const Color(0xFF4CAF50).withValues(alpha: 0.4);
-      case CoreStatus.disconnected:
-        return context.colorScheme.error.withValues(alpha: 0.3);
-    }
-  }
-
-  Color _getTextColor(CoreStatus status, BuildContext context) {
-    switch (status) {
-      case CoreStatus.connecting:
-      case CoreStatus.connected:
-        return Colors.white;
-      case CoreStatus.disconnected:
-        return context.colorScheme.onErrorContainer;
+      globalState.appController.startSystemProxy();
     }
   }
 
   String _getStatusText(CoreStatus status) {
     switch (status) {
-      case CoreStatus.connecting:
-        return appLocalizations.connecting;
       case CoreStatus.connected:
-        return appLocalizations.connected;
-      case CoreStatus.disconnected:
-        return appLocalizations.disconnected;
+        return '已连接';
+      case CoreStatus.connecting:
+      case CoreStatus.reconnecting:
+        return '连接中...';
+      default:
+        return '点击连接';
     }
+  }
+
+  Color _getStatusColor(CoreStatus status, BuildContext context) {
+    switch (status) {
+      case CoreStatus.connected:
+        return const Color(0xFF4CAF50); // Green
+      case CoreStatus.connecting:
+      case CoreStatus.reconnecting:
+        return const Color(0xFFFF9800); // Orange
+      default:
+        return context.colorScheme.primary; // Blue
+    }
+  }
+
+  List<Color> _getGradientColors(CoreStatus status, BuildContext context) {
+    switch (status) {
+      case CoreStatus.connected:
+        return [
+          const Color(0xFF43A047),
+          const Color(0xFF66BB6A),
+        ];
+      case CoreStatus.connecting:
+      case CoreStatus.reconnecting:
+        return [
+          const Color(0xFFF57C00),
+          const Color(0xFFFFB74D),
+        ];
+      default:
+        return [
+          context.colorScheme.primary,
+          context.colorScheme.primary.withOpacity(0.8),
+        ];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final status = ref.watch(clashStatusProvider).value ?? CoreStatus.stopped;
+    final isConnected = status == CoreStatus.connected;
+    final isConnecting = status == CoreStatus.connecting ||
+        status == CoreStatus.reconnecting;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: () => _handleConnection(context, ref, status),
+          onTapDown: (_) => _scaleController.reverse(),
+          onTapUp: (_) => _scaleController.forward(),
+          onTapCancel: () => _scaleController.forward(),
+          child: ScaleTransition(
+            scale: _scaleController,
+            child: SizedBox(
+              width: 200,
+              height: 200,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Ripples for connected state
+                  if (isConnected)
+                    ...List.generate(3, (index) {
+                      return AnimatedBuilder(
+                        animation: _rippleController,
+                        builder: (context, child) {
+                          final value = (_rippleController.value + index * 0.33) % 1.0;
+                          return Opacity(
+                            opacity: (1 - value) * 0.5,
+                            child: Transform.scale(
+                              scale: 1.0 + (value * 0.5),
+                              child: Container(
+                                width: 140,
+                                height: 140,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _getStatusColor(status, context)
+                                      .withOpacity(0.3),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }),
+
+                  // Rotating border for connecting state
+                  if (isConnecting)
+                    AnimatedBuilder(
+                      animation: _rotateController,
+                      builder: (context, child) {
+                        return Transform.rotate(
+                          angle: _rotateController.value * 2 * math.pi,
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: SweepGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  _getStatusColor(status, context),
+                                  Colors.transparent,
+                                ],
+                                stops: const [0.0, 0.5, 1.0],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                  // Main Button
+                  Container(
+                    width: 140,
+                    height: 140,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: isConnected || isConnecting
+                            ? _getGradientColors(status, context)
+                            : [
+                                context.colorScheme.surfaceContainerHighest,
+                                context.colorScheme.surface,
+                              ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: (isConnected || isConnecting
+                                  ? _getStatusColor(status, context)
+                                  : Colors.black)
+                              .withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                        if (!isConnected && !isConnecting)
+                          const BoxShadow(
+                            color: Colors.white,
+                            blurRadius: 20,
+                            offset: Offset(-5, -5),
+                            blurStyle: BlurStyle.inner,
+                          ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.power_settings_new_rounded,
+                        size: 64,
+                        color: isConnected || isConnecting
+                            ? Colors.white
+                            : context.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: Text(
+            _getStatusText(status),
+            key: ValueKey(status),
+            style: context.textTheme.titleMedium?.copyWith(
+              color: isConnected || isConnecting
+                  ? _getStatusColor(status, context)
+                  : context.colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
