@@ -653,10 +653,10 @@ class AppController {
     
     final profiles = _ref.read(profilesProvider);
     if (profiles.isEmpty) {
-      if (context != null &amp;&amp; context.mounted) {
+      if (context != null && context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) =&gt; const V2BoardLoginPage()),
-          (route) =&gt; false,
+          MaterialPageRoute(builder: (context) => const V2BoardLoginPage()),
+          (route) => false,
         );
       }
     } else {
