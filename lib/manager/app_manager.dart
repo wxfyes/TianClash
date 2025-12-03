@@ -72,6 +72,19 @@ class _AppStateManagerState extends ConsumerState<AppStateManager>
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     commonPrint.log('$state');
+    
+    // 当应用完全退出时关闭内核
+    if (state == AppLifecycleState.detached) {
+      try {
+        await globalState.appController.coreController.shutdown();
+        await globalState.appController.coreController.destroy();
+        commonPrint.log('Core shutdown on app detached', logLevel: LogLevel.info);
+      } catch (e) {
+        commonPrint.log('Failed to shutdown core on detached: $e', logLevel: LogLevel.warning);
+      }
+      return;
+    }
+    
     if (state == AppLifecycleState.resumed) {
       render?.resume();
     }
