@@ -53,16 +53,4 @@ class OutboundMode extends StatelessWidget {
     );
   }
 }
-          },
-          showSelectedIcon: false,
-          style: ButtonStyle(
-            visualDensity: VisualDensity.comfortable,
-            padding: WidgetStateProperty.all(
-              const EdgeInsets.symmetric(vertical: 12),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+
