@@ -1,3 +1,17 @@
+## v0.8.97
+
+- Fix HTML entity encoding in handleLogout
+
+## v0.8.96
+
+- Remove disclaimer and data collection tips on startup
+
+## v0.8.95
+
+- Add renew button, change shop to plan, force shutdown core on logout
+
+- Update changelog
+
 ## v0.8.94
 
 - Fix node selection and persistent loading bar issues
