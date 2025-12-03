@@ -26,121 +26,67 @@ class _NetworkDetectionState extends ConsumerState<NetworkDetection> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: getWidgetHeight(1),
-      child: ValueListenableBuilder<NetworkDetectionState>(
-        valueListenable: detectionState.state,
-        builder: (_, state, _) {
-          final ipInfo = state.ipInfo;
-          final isLoading = state.isLoading;
-          return CommonCard(
-            onPressed: () {},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ValueListenableBuilder<NetworkDetectionState>(
+      valueListenable: detectionState.state,
+      builder: (_, state, _) {
+        final ipInfo = state.ipInfo;
+        final isLoading = state.isLoading;
+
+        return CommonCard(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               children: [
-                Container(
-                  height: globalState.measure.titleMediumHeight + 16,
-                  padding: baseInfoEdgeInsets.copyWith(bottom: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
+                Icon(
+                  Icons.network_check,
+                  color: context.colorScheme.primary,
+                  size: 24,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ipInfo != null
-                          ? Text(
-                              _countryCodeToEmoji(ipInfo.countryCode),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.toLight
-                                  .copyWith(
-                                    fontFamily: FontFamily.twEmoji.value,
-                                  ),
-                            )
-                          : Icon(
-                              Icons.network_check,
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurfaceVariant,
-                            ),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        flex: 1,
-                        child: TooltipText(
-                          text: Text(
-                            appLocalizations.networkDetection,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleSmall
-                                ?.copyWith(
-                                  color: context.colorScheme.onSurfaceVariant,
-                                ),
-                          ),
+                      Text(
+                        appLocalizations.networkDetection,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.colorScheme.onSurfaceVariant,
                         ),
                       ),
-                      SizedBox(width: 2),
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
-                            globalState.showMessage(
-                              title: appLocalizations.tip,
-                              message: TextSpan(
-                                text: appLocalizations.detectionTip,
-                              ),
-                              cancelable: false,
-                            );
-                          },
-                          icon: Icon(
-                            size: 16.ap,
-                            Icons.info_outline,
-                            color: context.colorScheme.onSurfaceVariant,
-                          ),
+                      const SizedBox(height: 4),
+                      if (isLoading)
+                        const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      else if (ipInfo != null)
+                        Text(
+                          '${_countryCodeToEmoji(ipInfo.countryCode)} ${ipInfo.ip}',
+                          style: context.textTheme.titleMedium?.toSoftBold,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      else
+                        Text(
+                          '检测失败',
+                          style: context.textTheme.titleMedium?.toSoftBold,
                         ),
-                      ),
                     ],
                   ),
                 ),
-                Container(
-                  padding: baseInfoEdgeInsets.copyWith(top: 0),
-                  child: SizedBox(
-                    height: globalState.measure.bodyMediumHeight + 2,
-                    child: FadeThroughBox(
-                      child: ipInfo != null
-                          ? TooltipText(
-                              text: Text(
-                                ipInfo.ip,
-                                style: context.textTheme.bodyMedium?.toLight
-                                    .adjustSize(1),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          : isLoading == false && ipInfo == null
-                          ? Text(
-                              'timeout',
-                              style: context.textTheme.bodyMedium
-                                  ?.copyWith(color: Colors.red)
-                                  .adjustSize(1),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          : Container(
-                              padding: const EdgeInsets.all(2),
-                              child: const AspectRatio(
-                                aspectRatio: 1,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            ),
-                    ),
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    detectionState.startCheck();
+                  },
+                  tooltip: '刷新',
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

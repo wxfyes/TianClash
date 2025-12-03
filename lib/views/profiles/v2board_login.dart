@@ -25,7 +25,7 @@ class _V2BoardLoginDialogState extends State<V2BoardLoginDialog> {
     });
 
     final service = V2BoardService();
-    final url = await service.loginAndGetSubscribeUrl(
+    final result = await service.loginAndGetSubscribeUrl(
       _urlController.text,
       _emailController.text,
       _passwordController.text,
@@ -35,8 +35,8 @@ class _V2BoardLoginDialogState extends State<V2BoardLoginDialog> {
       _loading = false;
     });
 
-    if (url != null && mounted) {
-      Navigator.of(context).pop(url);
+    if (result != null && mounted) {
+      Navigator.of(context).pop(result.url);
     } else if (mounted) {
       // Show error
       ScaffoldMessenger.of(context).showSnackBar(

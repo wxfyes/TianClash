@@ -1,4 +1,3 @@
-import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/models/v2board.dart';

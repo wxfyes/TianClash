@@ -1,0 +1,42 @@
+﻿Building Windows application...                                 
+flutter : D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targ
+ets(166,5): error MSB3073: 鍛戒护鈥渟etlocal [E:\GitHub\TianClash\build
+\windows\x64\INSTALL.vcxproj]
+所在位置 行:1 字符: 1
++ flutter build windows 2>&1 | Out-File -FilePath build_log.txt -E
+ncodi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\vs\MSBuild\M...NS 
+   TALL.vcxproj]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: D:\vs\Common7\IDE\CommonExtensions\Microsoft\CMak
+e\CMake\bin\cmake.exe -DBUILD_TYPE=Release -P cmake_install.cmake 
+[E:\GitHub\TianClash\build\windows\x64\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: if %errorlevel% neq 0 goto :cmEnd [E:\GitHub\Tian
+Clash\build\windows\x64\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: :cmEnd [E:\GitHub\TianClash\build\windows\x64\INS
+TALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: endlocal & call :cmErrorLevel %errorlevel% & goto
+ :cmDone [E:\GitHub\TianClash\build\windows\x64\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: :cmErrorLevel [E:\GitHub\TianClash\build\windows\
+x64\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: exit /b %1 [E:\GitHub\TianClash\build\windows\x64
+\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: :cmDone [E:\GitHub\TianClash\build\windows\x64\IN
+STALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: if %errorlevel% neq 0 goto :VCEnd [E:\GitHub\Tian
+Clash\build\windows\x64\INSTALL.vcxproj]
+D:\vs\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(166,5)
+: error MSB3073: :VCEnd鈥濆凡閫€鍑猴紝浠ｇ爜涓?1銆?[E:\GitHub\TianClash\build\
+windows\x64\INSTALL.vcxproj]
+Building Windows application...                                    26.2s
+Build process failed.

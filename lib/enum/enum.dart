@@ -289,7 +289,7 @@ enum DashboardWidget {
       child: NetworkSpeed(),
     )),
   outboundMode(GridItem(crossAxisCellCount: 8, child: OutboundMode())),
-  outboundModeV2(GridItem(crossAxisCellCount: 8, child: OutboundMode())), // Keep it to satisfy g.dart
+  outboundModeV2(GridItem(crossAxisCellCount: 8, child: OutboundMode())),
   trafficUsage(GridItem(crossAxisCellCount: 4, child: TrafficUsage())),
   networkDetection(GridItem(crossAxisCellCount: 4, child: NetworkDetection())),
   remainingTraffic(GridItem(
