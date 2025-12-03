@@ -77,6 +77,7 @@ class _AppStateManagerState extends ConsumerState<AppStateManager>
     // 当应用完全退出时关闭内核
     if (state == AppLifecycleState.detached) {
       try {
+        await globalState.appController.stopSystemProxy();
         await coreController.shutdown();
         await coreController.destroy();
         commonPrint.log('Core shutdown on app detached', logLevel: LogLevel.info);

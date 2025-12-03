@@ -639,6 +639,9 @@ class AppController {
       if (confirm != true) return;
     }
 
+    // 停止系统代理，防止退出后无法上网
+    await stopSystemProxy();
+
     final profiles = _ref.read(profilesProvider);
     for (final profile in profiles) {
       await deleteProfile(profile.id);
