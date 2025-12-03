@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:fl_clash/core/core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppStateManager extends ConsumerStatefulWidget {
@@ -76,8 +77,8 @@ class _AppStateManagerState extends ConsumerState<AppStateManager>
     // 当应用完全退出时关闭内核
     if (state == AppLifecycleState.detached) {
       try {
-        await globalState.appController.coreController.shutdown();
-        await globalState.appController.coreController.destroy();
+        await coreController.shutdown();
+        await coreController.destroy();
         commonPrint.log('Core shutdown on app detached', logLevel: LogLevel.info);
       } catch (e) {
         commonPrint.log('Failed to shutdown core on detached: $e', logLevel: LogLevel.warning);
