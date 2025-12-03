@@ -437,6 +437,7 @@ class AppController {
     if (_ref.read(appSettingProvider).closeConnections) {
       coreController.closeConnections();
     }
+    updateCurrentSelectedMap(groupName, proxyName);
     addCheckIpNumDebounce();
   }
 
@@ -1046,7 +1047,9 @@ class AppController {
       }
       return null;
     } finally {
-      _ref.read(loadingProvider.notifier).value = false;
+      if (needLoading) {
+        _ref.read(loadingProvider.notifier).value = false;
+      }
     }
   }
 }
