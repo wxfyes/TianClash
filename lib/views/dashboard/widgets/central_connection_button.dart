@@ -57,8 +57,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
     final currentProfile = ref.read(currentProfileProvider);
     if (currentProfile == null) {
       globalState.showMessage(
-        title: appLocalizations.tips,
-        message: '请先选择或者创建一个配置',
+        title: appLocalizations.tip,
+        message: const TextSpan(text: '请先选择或者创建一个配置'),
       );
       return;
     }
@@ -75,7 +75,6 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
       case CoreStatus.connected:
         return '已连接';
       case CoreStatus.connecting:
-      case CoreStatus.reconnecting:
         return '连接中...';
       default:
         return '点击连接';
@@ -87,7 +86,6 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
       case CoreStatus.connected:
         return const Color(0xFF4CAF50); // Green
       case CoreStatus.connecting:
-      case CoreStatus.reconnecting:
         return const Color(0xFFFF9800); // Orange
       default:
         return context.colorScheme.primary; // Blue
@@ -102,7 +100,6 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
           const Color(0xFF66BB6A),
         ];
       case CoreStatus.connecting:
-      case CoreStatus.reconnecting:
         return [
           const Color(0xFFF57C00),
           const Color(0xFFFFB74D),
@@ -117,10 +114,9 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
 
   @override
   Widget build(BuildContext context) {
-    final status = ref.watch(clashStatusProvider).value ?? CoreStatus.stopped;
+    final status = ref.watch(coreStatusProvider).value ?? CoreStatus.disconnected;
     final isConnected = status == CoreStatus.connected;
-    final isConnecting = status == CoreStatus.connecting ||
-        status == CoreStatus.reconnecting;
+    final isConnecting = status == CoreStatus.connecting;
 
     return Column(
       mainAxisSize: MainAxisSize.min,

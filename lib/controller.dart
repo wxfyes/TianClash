@@ -657,8 +657,7 @@ class AppController {
     // Ensure the state is updated
     await Future.delayed(const Duration(milliseconds: 100));
     
-    final profiles = _ref.read(profilesProvider);
-    if (profiles.isEmpty) {
+    if (_ref.read(profilesProvider).isEmpty) {
       if (context != null && context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const V2BoardLoginPage()),
@@ -668,6 +667,15 @@ class AppController {
     } else {
       _ref.read(currentPageLabelProvider.notifier).value = PageLabel.dashboard;
     }
+  }
+
+  Future<void> stopSystemProxy() async {
+    await updateStatus(false);
+    await proxy?.stopProxy();
+  }
+
+  Future<void> startSystemProxy() async {
+    await updateStatus(true);
   }
 
   void toPage(PageLabel pageLabel) {
