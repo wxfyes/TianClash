@@ -640,15 +640,23 @@ class AppController {
       await deleteProfile(currentProfileId);
     }
     
+    // 强制关闭内核
+    try {
+      await coreController.shutdown();
+      await coreController.destroy();
+    } catch (e) {
+      commonPrint.log('Failed to shutdown core: $e', logLevel: LogLevel.warning);
+    }
+    
     // Ensure the state is updated
     await Future.delayed(const Duration(milliseconds: 100));
     
     final profiles = _ref.read(profilesProvider);
     if (profiles.isEmpty) {
-      if (context != null && context.mounted) {
+      if (context != null &amp;&amp; context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const V2BoardLoginPage()),
-          (route) => false,
+          MaterialPageRoute(builder: (context) =&gt; const V2BoardLoginPage()),
+          (route) =&gt; false,
         );
       }
     } else {

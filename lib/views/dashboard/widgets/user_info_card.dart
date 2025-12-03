@@ -257,6 +257,28 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
                   color: context.colorScheme.primary,
                 ),
               ),
+              
+              const SizedBox(height: 12),
+              
+              // Row 4: Renew Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    globalState.appController.toPage(PageLabel.shop);
+                  },
+                  icon: const Icon(Icons.autorenew, size: 18),
+                  label: const Text('续费套餐'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: context.colorScheme.primaryContainer,
+                    foregroundColor: context.colorScheme.onPrimaryContainer,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
