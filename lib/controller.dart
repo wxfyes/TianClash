@@ -314,10 +314,10 @@ class AppController {
     return Result.success(enableTun);
   }
 
-  Future<void> setupClashConfig() async {
+  Future<void> setupClashConfig({bool needLoading = true}) async {
     await safeRun(() async {
       await _setupClashConfig();
-    }, needLoading: true);
+    }, needLoading: needLoading);
   }
 
   Future<void> _setupClashConfig() async {
@@ -338,18 +338,18 @@ class AppController {
     }
   }
 
-  Future _applyProfile() async {
-    await setupClashConfig();
+  Future _applyProfile({bool needLoading = true}) async {
+    await setupClashConfig(needLoading: needLoading);
     await updateGroups();
     await updateProviders();
   }
 
   Future applyProfile({bool silence = false}) async {
     if (silence) {
-      await _applyProfile();
+      await _applyProfile(needLoading: false);
     } else {
       await safeRun(() async {
-        await _applyProfile();
+        await _applyProfile(needLoading: false);
       }, needLoading: true);
     }
     addCheckIpNumDebounce();
