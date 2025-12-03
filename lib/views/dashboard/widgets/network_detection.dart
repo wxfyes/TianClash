@@ -24,6 +24,14 @@ class _NetworkDetectionState extends ConsumerState<NetworkDetection> {
     return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
 
+  String _maskIp(String ip) {
+    final parts = ip.split('.');
+    if (parts.length == 4) {
+      return '${parts[0]}.***.***.${parts[3]}';
+    }
+    return ip;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<NetworkDetectionState>(
@@ -62,7 +70,7 @@ class _NetworkDetectionState extends ConsumerState<NetworkDetection> {
                         )
                       else if (ipInfo != null)
                         Text(
-                          '${_countryCodeToEmoji(ipInfo.countryCode)} ${ipInfo.ip}',
+                          '${_countryCodeToEmoji(ipInfo.countryCode)} ${_maskIp(ipInfo.ip)}',
                           style: context.textTheme.titleMedium?.toSoftBold,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

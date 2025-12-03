@@ -5,6 +5,7 @@ import 'package:fl_clash/models/v2board.dart';
 import 'package:fl_clash/enum/enum.dart';
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
+import 'package:fl_clash/views/order_confirm.dart';
 import 'package:fl_clash/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -264,8 +265,24 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    globalState.appController.toPage(PageLabel.shop);
+                  onPressed: () async {
+                    final planId = _userInfo?.planId;
+                    if (planId != null && planId > 0) {
+                      // 如果有当前套餐,直接跳转到续费确认页面
+                      final currentPlan = _plans.firstWhere(
+                        (p) => p.id == planId,
+                        orElse: () => Plan(id: planId, name: _getPlanName(planId), content: ''),
+                      );
+                      
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => OrderConfirmPage(plan: currentPlan),
+                        ),
+                      );
+                    } else {
+                      // 如果没有套餐,跳转到套餐选择页面
+                      globalState.appController.toPage(PageLabel.shop);
+                    }
                   },
                   icon: const Icon(Icons.autorenew, size: 18),
                   label: const Text('续费套餐'),
