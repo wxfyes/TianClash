@@ -95,7 +95,14 @@ class _ProxySelectorState extends ConsumerState<ProxySelector> {
             message = '流量用尽请续费';
             iconColor = Colors.red;
             icon = Icons.data_usage;
+          } else {
+             // Profile exists, info exists, but no nodes found.
+             // This could happen if the subscription returns an empty list but is valid.
+             message = '订阅内容为空';
           }
+        } else {
+           // Profile exists but no info.
+           message = '无法获取订阅信息';
         }
       }
 

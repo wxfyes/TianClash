@@ -84,11 +84,11 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
   Color _getStatusColor(CoreStatus status, BuildContext context) {
     switch (status) {
       case CoreStatus.connected:
-        return const Color(0xFF4CAF50); // Green
+        return context.colorScheme.primary; // Blue for connected
       case CoreStatus.connecting:
         return const Color(0xFFFF9800); // Orange
       default:
-        return context.colorScheme.primary; // Blue
+        return Colors.grey; // Grey for disconnected
     }
   }
 
@@ -96,8 +96,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
     switch (status) {
       case CoreStatus.connected:
         return [
-          const Color(0xFF43A047),
-          const Color(0xFF66BB6A),
+          context.colorScheme.primary,
+          context.colorScheme.primary.withOpacity(0.8),
         ];
       case CoreStatus.connecting:
         return [
@@ -106,8 +106,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
         ];
       default:
         return [
-          context.colorScheme.primary,
-          context.colorScheme.primary.withOpacity(0.8),
+          Colors.grey.shade400,
+          Colors.grey.shade300,
         ];
     }
   }
@@ -118,139 +118,134 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
     final isConnected = status == CoreStatus.connected;
     final isConnecting = status == CoreStatus.connecting;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GestureDetector(
-          onTap: () => _handleConnection(context, ref, status),
-          onTapDown: (_) => _scaleController.reverse(),
-          onTapUp: (_) => _scaleController.forward(),
-          onTapCancel: () => _scaleController.forward(),
-          child: ScaleTransition(
-            scale: _scaleController,
-            child: SizedBox(
-              width: 200,
-              height: 200,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Ripples for connected state
-                  if (isConnected)
-                    ...List.generate(3, (index) {
-                      return AnimatedBuilder(
-                        animation: _rippleController,
-                        builder: (context, child) {
-                          final value = (_rippleController.value + index * 0.33) % 1.0;
-                          return Opacity(
-                            opacity: (1 - value) * 0.5,
-                            child: Transform.scale(
-                              scale: 1.0 + (value * 0.5),
-                              child: Container(
-                                width: 140,
-                                height: 140,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: _getStatusColor(status, context)
-                                      .withOpacity(0.3),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }),
-
-                  // Rotating border for connecting state
-                  if (isConnecting)
-                    AnimatedBuilder(
-                      animation: _rotateController,
+    return Center(
+      child: GestureDetector(
+        onTap: () => _handleConnection(context, ref, status),
+        onTapDown: (_) => _scaleController.reverse(),
+        onTapUp: (_) => _scaleController.forward(),
+        onTapCancel: () => _scaleController.forward(),
+        child: ScaleTransition(
+          scale: _scaleController,
+          child: SizedBox(
+            width: 180,
+            height: 180,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Ripples for connected state
+                if (isConnected)
+                  ...List.generate(3, (index) {
+                    return AnimatedBuilder(
+                      animation: _rippleController,
                       builder: (context, child) {
-                        return Transform.rotate(
-                          angle: _rotateController.value * 2 * math.pi,
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: SweepGradient(
-                                colors: [
-                                  Colors.transparent,
-                                  _getStatusColor(status, context),
-                                  Colors.transparent,
-                                ],
-                                stops: const [0.0, 0.5, 1.0],
+                        final value = (_rippleController.value + index * 0.33) % 1.0;
+                        return Opacity(
+                          opacity: (1 - value) * 0.5,
+                          child: Transform.scale(
+                            scale: 1.0 + (value * 0.5),
+                            child: Container(
+                              width: 140,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _getStatusColor(status, context)
+                                    .withOpacity(0.3),
                               ),
                             ),
                           ),
                         );
                       },
-                    ),
+                    );
+                  }),
 
-                  // Main Button
-                  Container(
-                    width: 140,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: isConnected || isConnecting
-                            ? _getGradientColors(status, context)
-                            : [
-                                context.colorScheme.surfaceContainerHighest,
-                                context.colorScheme.surface,
+                // Rotating border for connecting state
+                if (isConnecting)
+                  AnimatedBuilder(
+                    animation: _rotateController,
+                    builder: (context, child) {
+                      return Transform.rotate(
+                        angle: _rotateController.value * 2 * math.pi,
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: SweepGradient(
+                              colors: [
+                                Colors.transparent,
+                                _getStatusColor(status, context),
+                                Colors.transparent,
                               ],
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: (isConnected || isConnecting
-                                  ? _getStatusColor(status, context)
-                                  : Colors.black)
-                              .withOpacity(0.3),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                        if (!isConnected && !isConnecting)
-                          const BoxShadow(
-                            color: Colors.white,
-                            blurRadius: 20,
-                            offset: Offset(-5, -5),
-                            blurStyle: BlurStyle.inner,
+                              stops: const [0.0, 0.5, 1.0],
+                            ),
                           ),
-                      ],
+                        ),
+                      );
+                    },
+                  ),
+
+                // Main Button
+                Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: isConnected || isConnecting
+                          ? _getGradientColors(status, context)
+                          : [
+                              context.colorScheme.surfaceContainerHighest,
+                              context.colorScheme.surface,
+                            ],
                     ),
-                    child: Center(
-                      child: Icon(
+                    boxShadow: [
+                      BoxShadow(
+                        color: (isConnected || isConnecting
+                                ? _getStatusColor(status, context)
+                                : Colors.black)
+                            .withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                      if (!isConnected && !isConnecting)
+                        const BoxShadow(
+                          color: Colors.white,
+                          blurRadius: 20,
+                          offset: Offset(-5, -5),
+                          blurStyle: BlurStyle.inner,
+                        ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
                         Icons.power_settings_new_rounded,
-                        size: 64,
+                        size: 48,
                         color: isConnected || isConnecting
                             ? Colors.white
                             : context.colorScheme.onSurfaceVariant,
                       ),
-                    ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _getStatusText(status),
+                        style: context.textTheme.labelMedium?.copyWith(
+                          color: isConnected || isConnecting
+                              ? Colors.white
+                              : context.colorScheme.onSurfaceVariant,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-        const SizedBox(height: 16),
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: Text(
-            _getStatusText(status),
-            key: ValueKey(status),
-            style: context.textTheme.titleMedium?.copyWith(
-              color: isConnected || isConnecting
-                  ? _getStatusColor(status, context)
-                  : context.colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
