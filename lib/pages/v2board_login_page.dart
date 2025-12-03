@@ -576,7 +576,7 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                                       children: [
                                         Text(
                                           _loginMode == LoginMode.login
-                                              ? AppLocalizations.of(context).loginAndImport
+                                              ? '登录'
                                               : _loginMode == LoginMode.register
                                                   ? '注册'
                                                   : '重置密码',

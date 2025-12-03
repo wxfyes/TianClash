@@ -63,7 +63,7 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
       return;
     }
 
-    if (status == CoreStatus.connected) {
+    if (status == CoreStatus.connected || status == CoreStatus.connecting) {
       globalState.appController.stopSystemProxy();
     } else {
       globalState.appController.startSystemProxy();
@@ -73,9 +73,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
   String _getStatusText(CoreStatus status) {
     switch (status) {
       case CoreStatus.connected:
-        return '已连接';
       case CoreStatus.connecting:
-        return '连接中...';
+        return '已连接';
       default:
         return '点击连接';
     }
@@ -84,9 +83,8 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
   Color _getStatusColor(CoreStatus status, BuildContext context) {
     switch (status) {
       case CoreStatus.connected:
-        return context.colorScheme.primary; // Blue for connected
       case CoreStatus.connecting:
-        return const Color(0xFFFF9800); // Orange
+        return context.colorScheme.primary; // Blue for connected
       default:
         return Colors.grey; // Grey for disconnected
     }
@@ -95,14 +93,10 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
   List<Color> _getGradientColors(CoreStatus status, BuildContext context) {
     switch (status) {
       case CoreStatus.connected:
+      case CoreStatus.connecting:
         return [
           context.colorScheme.primary,
           context.colorScheme.primary.withOpacity(0.8),
-        ];
-      case CoreStatus.connecting:
-        return [
-          const Color(0xFFF57C00),
-          const Color(0xFFFFB74D),
         ];
       default:
         return [

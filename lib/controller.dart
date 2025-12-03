@@ -100,6 +100,7 @@ class AppController {
     if (isStart) {
       _ref.read(coreStatusProvider.notifier).value = CoreStatus.connecting;
       await globalState.appController.tryStartCore();
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
       await globalState.handleStart([updateRunTime, updateTraffic]);
       if (system.isAndroid) {
         await Future.delayed(const Duration(milliseconds: 1500));
