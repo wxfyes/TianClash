@@ -1,3 +1,922 @@
+## v0.8.94
+
+- Fix node selection and persistent loading bar issues
+
+## v0.8.93
+
+- Fix GitHub Actions permission error: Add contents write permission to changelog job
+
+## v0.8.92
+
+- Fix Linux build error: Import PageLabel
+
+## v0.8.91
+
+- Fix dashboard loading bug and refactor user info card
+
+- Fix: missing import in user_info_card.dart
+
+- Fix: syntax error in outbound_mode.dart
+
+- Fix: V2Board login return type and Android build signing config
+
+- feat: 初始化TianClash项目 - 重构导航栏：隐藏节点入口，商店改为套餐 - 添加仪表盘重构计划文档 - 完成第一阶段准备工作 - 基于FlClash v0.8.88
+
+- feat: optimize android startup delay to 1.5s, fix profile reload on restart, and add remember me to login
+
+- fix: resolve android startup connection issue and profile reload on restart
+
+- fix: preserve port number when parsing V2Board base URL
+
+- fix: replace missing ic_launcher_round with ic_launcher in AppPlugin
+
+- fix: update android 12 splash screen resources to use valid icons
+
+- chore: trigger rebuild to verify android icon fix
+
+- fix: remove duplicate webp icons to fix android build
+
+- chore: update remaining internal app icons (black/white variants)
+
+- fix: remove legacy adaptive icon resources to fix android build
+
+- chore: update app icons for all platforms
+
+- feat: enable ipv6 by default
+
+- fix: correct app name in macOS DMG config
+
+- fix: restore and fix deb make_config.yaml with all required fields
+
+- fix: add missing priority and section fields to deb config
+
+- Update make_config.yaml
+
+- Update distribute_options.yaml
+
+- 1
+
+- fix: 补全Debian打包所需的display_name和homepage字段
+
+- fix: 添加Debian打包所需的maintainer配置
+
+- - 添加makers_config.deb.maintainer字段
+- - 配置Linux deb打包参数
+- - 修复Linux ARM64/x64打包失败问题
+
+- feat: 优化UI设置和GitHub Actions配置
+
+- - 修改默认主题为自动模式，主题色为蓝紫色
+- - IPv6开关默认打开
+- - 侧边栏默认显示图标+文字
+- - 优化剩余流量卡片布局，解决溢出问题
+- - 修复代理标签页潜在的空指针问题
+- - 更新GitHub Actions仓库引用为wxfyes/FlClash
+- - 添加侧边栏宽度安全检查
+
+- 1
+
+- .
+
+- .
+
+- 。
+
+- 修复布局
+
+- Update distribute_options.yaml
+
+- name renew
+
+- 1
+
+- fix: 仅在 SERVICE_JSON secret 存在时才覆盖 google-services.json
+
+- fix: 使用完整有效的 google-services.json 格式,包含所有必需的 Firebase 字段
+
+- fix: 进一步完善 google-services.json,添加 firebase_url 和有效的 API key 格式
+
+- UI更新
+
+- fix: 修复 google-services.json 格式错误,添加 configuration_version 字段
+
+- fix: 修复 DropdownMenuEntry 泛型类型错误
+
+- 更新yaml
+
+- feat: enhance ticket system, fix oss login with dns fallback, and update traffic display
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update build.yaml
+
+- Update changelog
+
+- Update build.yaml
+
+- update
+
+- 更新
+
+- 更新官网页面UI
+
+- 优化细节
+
+- Update build.yaml
+
+- Update build.yaml
+
+- .
+
+- 版本
+
+- 增加按钮
+
+- 增加按钮
+
+- Update changelog
+
+- Fix android tile service
+
+- Support append system DNS
+
+- Fix some issues
+
+- Update changelog
+
+- Fix some issues
+
+- Optimize Windows service mode
+
+- Update core
+
+- Update changelog
+
+- Add android separates the core process
+
+- Support core status check and force restart
+
+- Optimize proxies page and access page
+
+- Update flutter and pub dependencies
+
+- Update go version
+
+- Optimize more details
+
+- Update changelog
+
+- Optimize desktop view
+
+- Optimize logs, requests, connection pages
+
+- Optimize windows tray auto hide
+
+- Optimize some details
+
+- Update core
+
+- Update changelog
+
+- Fix windows tun issues
+
+- Optimize android get system dns
+
+- Optimize more details
+
+- Update changelog
+
+- Support override script
+
+- Support proxies search
+
+- Support svg display
+
+- Optimize config persistence
+
+- Add some scenes auto close connections
+
+- Update core
+
+- Optimize more details
+
+- Fix issues that TUN repeat failed to open.
+
+- Update changelog
+
+- Fix windows service verify issues
+
+- Update changelog
+
+- Add windows server mode start process verify
+
+- Add linux deb dependencies
+
+- Add backup recovery strategy select
+
+- Support custom text scaling
+
+- Optimize the display of different text scale
+
+- Optimize windows setup experience
+
+- Optimize startTun performance
+
+- Optimize android tv experience
+
+- Optimize default option
+
+- Optimize computed text size
+
+- Optimize hyperOS freeform window
+
+- Add developer mode
+
+- Update core
+
+- Optimize more details
+
+- Add issues template
+
+- Update changelog
+
+- Optimize android vpn performance
+
+- Add custom primary color and color scheme
+
+- Add linux nad windows arm release
+
+- Optimize requests and logs page
+
+- Fix map input page delete issues
+
+- Update changelog
+
+- Add rule override
+
+- Update core
+
+- Optimize more details
+
+- Update changelog
+
+- Optimize dashboard performance
+
+- Fix some issues
+
+- Fix unselected proxy group delay issues
+
+- Fix asn url issues
+
+- Update changelog
+
+- Fix tab delay view issues
+
+- Fix tray action issues
+
+- Fix get profile redirect client ua issues
+
+- Fix proxy card delay view issues
+
+- Add Russian, Japanese adaptation
+
+- Fix some issues
+
+- Update changelog
+
+- Fix list form input view issues
+
+- Fix traffic view issues
+
+- Update changelog
+
+- Optimize performance
+
+- Update core
+
+- Optimize core stability
+
+- Fix linux tun authority check error
+
+- Fix some issues
+
+- Fix scroll physics error
+
+- Update changelog
+
+- Add windows storage corruption detection
+
+- Fix core crash caused by windows resource manager restart
+
+- Optimize logs, requests, access to pages
+
+- Fix macos bypass domain issues
+
+- Update changelog
+
+- Fix some issues
+
+- Update changelog
+
+- Update popup menu
+
+- Add file editor
+
+- Fix android service issues
+
+- Optimize desktop background performance
+
+- Optimize android main process performance
+
+- Optimize delay test
+
+- Optimize vpn protect
+
+- Update changelog
+
+- Update core
+
+- Fix some issues
+
+- Update changelog
+
+- Remake dashboard
+
+- Optimize theme
+
+- Optimize more details
+
+- Update flutter version
+
+- Update changelog
+
+- Support better window position memory
+
+- Add windows arm64 and linux arm64 build script
+
+- Optimize some details
+
+- Remake desktop
+
+- Optimize change proxy
+
+- Optimize network check
+
+- Fix fallback issues
+
+- Optimize lots of details
+
+- Update change.yaml
+
+- Fix android tile issues
+
+- Fix windows tray issues
+
+- Support setting bypassDomain
+
+- Update flutter version
+
+- Fix android service issues
+
+- Fix macos dock exit button issues
+
+- Add route address setting
+
+- Optimize provider view
+
+- Update changelog
+
+- Update CHANGELOG.md
+
+- Add android shortcuts
+
+- Fix init params issues
+
+- Fix dynamic color issues
+
+- Optimize navigator animate
+
+- Optimize window init
+
+- Optimize fab
+
+- Optimize save
+
+- Fix the collapse issues
+
+- Add fontFamily options
+
+- Update core version
+
+- Update flutter version
+
+- Optimize ip check
+
+- Optimize url-test
+
+- Update release message
+
+- Init auto gen changelog
+
+- Fix windows tray issues
+
+- Fix urltest issues
+
+- Add auto changelog
+
+- Fix windows admin auto launch issues
+
+- Add android vpn options
+
+- Support proxies icon configuration
+
+- Optimize android immersion display
+
+- Fix some issues
+
+- Optimize ip detection
+
+- Support android vpn ipv6 inbound switch
+
+- Support log export
+
+- Optimize more details
+
+- Fix android system dns issues
+
+- Optimize dns default option
+
+- Fix some issues
+
+- Update readme
+
+- Fix build error2
+
+- Fix build error
+
+- Support desktop hotkey
+
+- Support android ipv6 inbound
+
+- Support android system dns
+
+- fix some bugs
+
+- Fix delete profile error
+
+- Fix submit error 2
+
+- Fix submit error
+
+- Optimize DNS strategy
+
+- Fix the problem that the tray is not displayed in some cases
+
+- Optimize tray
+
+- Update core
+
+- Fix some error
+
+- Fix tun update issues
+
+- Add DNS override
+- Fixed some bugs
+- Optimize more detail
+
+- Add Hosts override
+
+- fix android tip error
+- fix windows auto launch error
+
+- Fix windows tray issues
+
+- Optimize windows logic
+
+- Optimize app logic
+
+- Support windows administrator auto launch
+
+- Support android close vpn
+
+- Change flutter version
+
+- Support profiles sort
+
+- Support windows country flags display
+
+- Optimize proxies page and profiles page columns
+
+- Update flutter version
+
+- Update version
+
+- Update timeout time
+
+- Update access control page
+
+- Fix bug
+
+- Optimize provider page
+
+- Optimize delay test
+
+- Support local backup and recovery
+
+- Fix android tile service issues
+
+- Fix linux core build error
+
+- Add proxy-only traffic statistics
+
+- Update core
+
+- Optimize more details
+
+- Add fdroid-repo
+
+- Optimize proxies page
+
+- Fix ua issues
+
+- Optimize more details
+
+- Fix windows build error
+
+- Update app icon
+
+- Fix desktop backup error
+
+- Optimize request ua
+
+- Change android icon
+
+- Optimize dashboard
+
+- Remove request validate certificate
+
+- Sync core
+
+- Fix windows error
+
+- Fix setup.dart error
+
+- Fix android system proxy not effective
+
+- Add macos arm64
+
+- Optimize proxies page
+
+- Support mouse drag scroll
+
+- Adjust desktop ui
+
+- Revert "Fix android vpn issues"
+
+- This reverts commit 891977408e6938e2acd74e9b9adb959c48c79988.
+
+- Fix android vpn issues
+
+- Fix android vpn issues
+
+- Rollback partial modification
+
+- Fix the problem that ui can't be synchronized when android vpn is occupied by an external
+
+- Override default socksPort,port
+
+- Fix fab issues
+
+- Update version
+
+- Fix the problem that vpn cannot be started in some cases
+
+- Fix the problem that geodata url does not take effect
+
+- Update ua
+
+- Fix change outbound mode without check ip issues
+
+- Separate android ui and vpn
+
+- Fix url validate issues 2
+
+- Add android hidden from the recent task
+
+- Add geoip file
+
+- Support modify geoData URL
+
+- Fix url validate issues
+
+- Fix check ip performance problem
+
+- Optimize resources page
+
+- Add ua selector
+
+- Support modify test url
+
+- Optimize android proxy
+
+- Fix the error that async proxy provider could not selected the proxy
+
+- Fix android proxy error
+
+- Fix submit error
+
+- Add windows tun
+
+- Optimize android proxy
+
+- Optimize change profile
+
+- Update application ua
+
+- Optimize delay test
+
+- Fix android repeated request notification issues
+
+- Fix memory overflow issues
+
+- Optimize proxies expansion panel 2
+
+- Fix android scan qrcode error
+
+- Optimize proxies expansion panel
+
+- Fix text error
+
+- Optimize proxy
+
+- Optimize delayed sorting performance
+
+- Add expansion panel proxies page
+
+- Support to adjust the proxy card size
+
+- Support to adjust proxies columns number
+
+- Fix autoRun show issues
+
+- Fix Android 10 issues
+
+- Optimize ip show
+
+- Add intranet IP display
+
+- Add connections page
+
+- Add search in connections, requests
+
+- Add keyword search in connections, requests, logs
+
+- Add basic viewing editing capabilities
+
+- Optimize update profile
+
+- Update version
+
+- Fix the problem of excessive memory usage in traffic usage.
+
+- Add lightBlue theme color
+
+- Fix start unable to update profile issues
+
+- Fix flashback caused by process
+
+- Add build version
+
+- Optimize quick start
+
+- Update system default option
+
+- Update build.yml
+
+- Fix android vpn close issues
+
+- Add requests page
+
+- Fix checkUpdate dark mode style error
+
+- Fix quickStart error open app
+
+- Add memory proxies tab index
+
+- Support hidden group
+
+- Optimize logs
+
+- Fix externalController hot load error
+
+- Add tcp concurrent switch
+
+- Add system proxy switch
+
+- Add geodata loader switch
+
+- Add external controller switch
+
+- Add auto gc on trim memory
+
+- Fix android notification error
+
+- Fix ipv6 error
+
+- Fix android udp direct error
+
+- Add ipv6 switch
+
+- Add access all selected button
+
+- Remove android low version splash
+
+- Update version
+
+- Add allowBypass
+
+- Fix Android only pick .text file issues
+
+- Fix search issues
+
+- Fix LoadBalance, Relay load error
+
+- Fix build.yml4
+
+- Fix build.yml3
+
+- Fix build.yml2
+
+- Fix build.yml
+
+- Add search function at access control
+
+- Fix the issues with the profile add button to cover the edit button
+
+- Adapt LoadBalance and Relay
+
+- Add arm
+
+- Fix android notification icon error
+
+- Add one-click update all profiles
+- Add expire show
+
+- Temp remove tun mode
+
+- Remove macos in workflow
+
+- Change go version
+
+- Update Version
+
+- Fix tun unable to open
+
+- Optimize delay test2
+
+- Optimize delay test
+
+- Add check ip
+
+- add check ip request
+
+- Fix the problem that the download of remote resources failed after GeodataMode was turned on, which caused the application to flash back.
+
+- Fix edit profile error
+
+- Fix quickStart change proxy error
+
+- Fix core version
+
+- Fix core version
+
+- Update file_picker
+
+- Add resources page
+
+- Optimize more detail
+
+- Add access selected sorted
+
+- Fix notification duplicate creation issue
+
+- Fix AccessControl click issue
+
+- Fix Workflow
+
+- Fix Linux unable to open
+
+- Update README.md 3
+
+- Create LICENSE
+- Update README.md 2
+
+- Update README.md
+
+- Optimize workFlow
+
+- optimize checkUpdate
+
+- Fix submit error
+
+- add WebDAV
+
+- add Auto check updates
+
+- Optimize more details
+
+- optimize delayTest
+
+- upgrade flutter version
+
+- Update kernel
+- Add import profile via QR code image
+
+- Add compatibility mode and adapt clash scheme.
+
+- update Version
+
+- Reconstruction application proxy logic
+
+- Fix Tab destroy error
+
+- Optimize repeat healthcheck
+
+- Optimize Direct mode ui
+
+- Optimize Healthcheck
+
+- Remove proxies position animation, improve performance
+- Add Telegram Link
+
+- Update healthcheck policy
+
+- New Check URLTest
+
+- Fix the problem of invalid auto-selection
+
+- New Async UpdateConfig
+
+- add changeProfileDebounce
+
+- Update Workflow
+
+- Fix ChangeProfile block
+
+- Fix Release Message Error
+
+- Update Selector 2
+
+- Update Version
+
+- Fix Proxies Select Error
+
+- Fix the problem that the proxy group is empty in global mode.
+
+- Fix the problem that the proxy group is empty in global mode.
+
+- Add ProxyProvider2
+
+- Add ProxyProvider
+
+- Update Version
+
+- Update ProxyGroup Sort
+
+- Fix Android quickStart VpnService some problems
+
+- Update version
+
+- Set Android notification low importance
+
+- Fix the issue that VpnService can't be closed correctly in special cases
+
+- Fix the problem that TileService is not destroyed correctly in some cases
+
+- Adjust tab animation defaults
+
+- Add Telegram in README_zh_CN.md
+
+- Add Telegram
+
+- update mobile_scanner
+
+- Initial commit
+
 ## v0.8.90
 
 - Fix android tile service
