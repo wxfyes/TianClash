@@ -73,20 +73,26 @@ class _AppStateManagerState extends ConsumerState<AppStateManager>
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     commonPrint.log('$state');
-    
+
     // 当应用完全退出时关闭内核
     if (state == AppLifecycleState.detached) {
       try {
         await globalState.appController.stopSystemProxy();
         await coreController.shutdown();
         await coreController.destroy();
-        commonPrint.log('Core shutdown on app detached', logLevel: LogLevel.info);
+        commonPrint.log(
+          'Core shutdown on app detached',
+          logLevel: LogLevel.info,
+        );
       } catch (e) {
-        commonPrint.log('Failed to shutdown core on detached: $e', logLevel: LogLevel.warning);
+        commonPrint.log(
+          'Failed to shutdown core on detached: $e',
+          logLevel: LogLevel.warning,
+        );
       }
       return;
     }
-    
+
     if (state == AppLifecycleState.resumed) {
       render?.resume();
     }
@@ -182,7 +188,9 @@ class AppSidebarContainer extends ConsumerWidget {
 
   void _updateSideBarWidth(WidgetRef ref, double contentWidth) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final viewWidth = ref.read(viewSizeProvider.select((state) => state.width));
+      final viewWidth = ref.read(
+        viewSizeProvider.select((state) => state.width),
+      );
       if (viewWidth > 0 && contentWidth > 0 && viewWidth >= contentWidth) {
         ref.read(sideWidthProvider.notifier).value = viewWidth - contentWidth;
       }
@@ -224,22 +232,75 @@ class AppSidebarContainer extends ConsumerWidget {
                             child: NavigationRail(
                               minExtendedWidth: 200,
                               backgroundColor: Colors.transparent,
-                              selectedLabelTextStyle: context.textTheme.labelLarge!
+                              selectedLabelTextStyle: context
+                                  .textTheme
+                                  .labelLarge!
                                   .copyWith(
                                     color: context.colorScheme.onSurface,
                                   ),
-                              unselectedLabelTextStyle: context.textTheme.labelLarge!
+                              unselectedLabelTextStyle: context
+                                  .textTheme
+                                  .labelLarge!
                                   .copyWith(
                                     color: context.colorScheme.onSurface,
                                   ),
-                              destinations: navigationItems
-                                  .map(
-                                    (e) => NavigationRailDestination(
-                                      icon: e.icon,
-                                      label: Text(Intl.message(e.label.name)),
+                              destinations: navigationItems.asMap().entries.map(
+                                (entry) {
+                                  final index = entry.key;
+                                  final e = entry.value;
+
+                                  // 为每个导航项定义不同的颜色
+                                  final colors = [
+                                    {
+                                      'icon': Colors.blue.shade700,
+                                      'bg': Colors.blue.shade50,
+                                    },
+                                    {
+                                      'icon': Colors.green.shade700,
+                                      'bg': Colors.green.shade50,
+                                    },
+                                    {
+                                      'icon': Colors.orange.shade700,
+                                      'bg': Colors.orange.shade50,
+                                    },
+                                    {
+                                      'icon': Colors.purple.shade700,
+                                      'bg': Colors.purple.shade50,
+                                    },
+                                    {
+                                      'icon': Colors.red.shade700,
+                                      'bg': Colors.red.shade50,
+                                    },
+                                  ];
+
+                                  final colorSet =
+                                      colors[index % colors.length];
+                                  final isSelected = currentIndex == index;
+
+                                  return NavigationRailDestination(
+                                    icon: Container(
+                                      width: 48,
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        color: isSelected
+                                            ? colorSet['bg']
+                                            : colorSet['bg']!.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Icon(
+                                        (e.icon as Icon).icon,
+                                        color: isSelected
+                                            ? colorSet['icon']
+                                            : colorSet['icon']!.withOpacity(
+                                                0.6,
+                                              ),
+                                        size: 24,
+                                      ),
                                     ),
-                                  )
-                                  .toList(),
+                                    label: Text(Intl.message(e.label.name)),
+                                  );
+                                },
+                              ).toList(),
                               onDestinationSelected: (index) {
                                 globalState.appController.toPage(
                                   navigationItems[index].label,

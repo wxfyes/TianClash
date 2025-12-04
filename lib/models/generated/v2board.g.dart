@@ -121,3 +121,23 @@ Map<String, dynamic> _$UserInfoToJson(_UserInfo instance) => <String, dynamic>{
   'avatar_url': instance.avatarUrl,
   'telegram_id': instance.telegramId,
 };
+
+_Notice _$NoticeFromJson(Map<String, dynamic> json) => _Notice(
+  id: (json['id'] as num).toInt(),
+  title: json['title'] as String,
+  content: json['content'] as String,
+  show: (json['show'] as num?)?.toInt() ?? 1,
+  tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  createdAt: (json['created_at'] as num?)?.toInt() ?? 0,
+  updatedAt: (json['updated_at'] as num?)?.toInt() ?? 0,
+);
+
+Map<String, dynamic> _$NoticeToJson(_Notice instance) => <String, dynamic>{
+  'id': instance.id,
+  'title': instance.title,
+  'content': instance.content,
+  'show': instance.show,
+  'tags': instance.tags,
+  'created_at': instance.createdAt,
+  'updated_at': instance.updatedAt,
+};

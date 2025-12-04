@@ -49,12 +49,17 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
 
     try {
       final uri = Uri.parse(currentProfile.url);
-      final baseUrl = '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
-      final userInfoMap =
-          await _v2boardService.getUserInfo(baseUrl, currentProfile.jwt!);
+      final baseUrl =
+          '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}';
+      final userInfoMap = await _v2boardService.getUserInfo(
+        baseUrl,
+        currentProfile.jwt!,
+      );
       final commConfig = await _v2boardService.getCommConfig(baseUrl);
-      final plansMap =
-          await _v2boardService.fetchPlans(baseUrl, currentProfile.jwt!);
+      final plansMap = await _v2boardService.fetchPlans(
+        baseUrl,
+        currentProfile.jwt!,
+      );
 
       if (userInfoMap != null) {
         setState(() {
@@ -155,7 +160,8 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
     final total = apiTotal > 0 ? apiTotal : subTotal;
 
     final apiUsed = _userInfo?.transferUsed ?? 0;
-    final subUsed = (subscriptionInfo?.upload ?? 0) + (subscriptionInfo?.download ?? 0);
+    final subUsed =
+        (subscriptionInfo?.upload ?? 0) + (subscriptionInfo?.download ?? 0);
     final used = apiUsed > subUsed ? apiUsed : subUsed;
 
     final progress = total > 0 ? (used / total).clamp(0.0, 1.0) : 0.0;
@@ -189,30 +195,36 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
                   children: [
                     Text(
                       _userInfo?.email ?? currentProfile?.label ?? 'Guest',
-                      style: context.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: context.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: context.colorScheme.primary.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         _getPlanName(_userInfo?.planId),
-                        style: context.textTheme.bodySmall
-                            ?.copyWith(color: context.colorScheme.primary),
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.colorScheme.primary,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: context.colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(20),
@@ -234,15 +246,19 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
           const SizedBox(height: 24),
           Row(
             children: [
-              Icon(Icons.data_usage,
-                  size: 16, color: context.colorScheme.primary),
+              Icon(
+                Icons.data_usage,
+                size: 16,
+                color: context.colorScheme.primary,
+              ),
               const SizedBox(width: 8),
               Text('已用流量', style: context.textTheme.bodyMedium),
               const Spacer(),
               Text(
                 '${_formatBytes(used)} / ${_formatBytes(total)}',
-                style: context.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -274,8 +290,9 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
         label: const Text('续费套餐'),
         style: FilledButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );
@@ -284,7 +301,9 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
   Widget _buildMenuSection(BuildContext context) {
     final currentProfile = ref.read(currentProfileProvider);
     final uri = currentProfile != null ? Uri.parse(currentProfile.url) : null;
-    final baseUrl = uri != null ? '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}' : '';
+    final baseUrl = uri != null
+        ? '${uri.scheme}://${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'
+        : '';
 
     return Container(
       decoration: BoxDecoration(
@@ -298,12 +317,18 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Icon(Icons.headset_mic,
-                    size: 20, color: context.colorScheme.primary),
+                Icon(
+                  Icons.headset_mic,
+                  size: 20,
+                  color: context.colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
-                Text('帮助与支持',
-                    style: context.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  '帮助与支持',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -312,6 +337,8 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             context,
             icon: Icons.receipt_long,
             title: '订单记录',
+            iconColor: Colors.blue.shade700,
+            iconBackgroundColor: Colors.blue.shade50,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const OrderListPage()),
@@ -322,10 +349,13 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             context,
             icon: Icons.pie_chart_outline,
             title: '流量明细',
+            iconColor: Colors.green.shade700,
+            iconBackgroundColor: Colors.green.shade50,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => const TrafficDetailsPage()),
+                  builder: (context) => const TrafficDetailsPage(),
+                ),
               );
             },
           ),
@@ -333,6 +363,8 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             context,
             icon: Icons.confirmation_number_outlined,
             title: '我的工单',
+            iconColor: Colors.orange.shade700,
+            iconBackgroundColor: Colors.orange.shade50,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const TicketListPage()),
@@ -343,10 +375,13 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             context,
             icon: Icons.account_balance_wallet,
             title: '余额充值',
+            iconColor: Colors.purple.shade700,
+            iconBackgroundColor: Colors.purple.shade50,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => const BalanceTopUpPage()),
+                  builder: (context) => const BalanceTopUpPage(),
+                ),
               );
             },
           ),
@@ -354,6 +389,8 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
             context,
             icon: Icons.language,
             title: '官方网站',
+            iconColor: Colors.teal.shade700,
+            iconBackgroundColor: Colors.teal.shade50,
             onTap: () {
               if (baseUrl.isNotEmpty) _launchUrl(baseUrl);
             },
@@ -364,12 +401,16 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
               context,
               icon: Icons.group_add,
               title: '加入群组',
+              iconColor: Colors.cyan.shade700,
+              iconBackgroundColor: Colors.cyan.shade50,
               onTap: () => _launchUrl(_commConfig!['telegram_discuss_link']),
             ),
           _buildMenuItem(
             context,
             icon: Icons.person_add_alt,
             title: '邀请管理',
+            iconColor: Colors.pink.shade700,
+            iconBackgroundColor: Colors.pink.shade50,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const InvitePage()),
@@ -381,17 +422,33 @@ class _UserCenterPageState extends ConsumerState<UserCenterPage> {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context,
-      {required IconData icon,
-      required String title,
-      required VoidCallback onTap}) {
+  Widget _buildMenuItem(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    Color? iconColor,
+    Color? iconBackgroundColor,
+  }) {
+    // 如果没有指定颜色,使用默认灰色
+    final bgColor = iconBackgroundColor ?? Colors.grey.withOpacity(0.1);
+    final fgColor = iconColor ?? Colors.grey;
+
     return InkWell(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
-            Icon(icon, size: 24, color: Colors.grey),
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, size: 22, color: fgColor),
+            ),
             const SizedBox(width: 16),
             Expanded(child: Text(title, style: context.textTheme.bodyLarge)),
             const Icon(Icons.chevron_right, color: Colors.grey),

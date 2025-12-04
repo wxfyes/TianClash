@@ -84,3 +84,18 @@ abstract class UserInfo with _$UserInfo {
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
 }
+
+@freezed
+abstract class Notice with _$Notice {
+  const factory Notice({
+    required int id,
+    required String title,
+    required String content,
+    @JsonKey(name: 'show') @Default(1) int show,
+    @JsonKey(name: 'tags') List<String>? tags,
+    @JsonKey(name: 'created_at') @Default(0) int createdAt,
+    @JsonKey(name: 'updated_at') @Default(0) int updatedAt,
+  }) = _Notice;
+
+  factory Notice.fromJson(Map<String, dynamic> json) => _$NoticeFromJson(json);
+}

@@ -7,3 +7,4 @@ export 'quick_options.dart';
 export 'traffic_usage.dart';
 export 'remaining_traffic.dart';
 export 'memory_info.dart';
+export 'announcement_card.dart';

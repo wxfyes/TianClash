@@ -615,4 +615,23 @@ class V2BoardService {
     }
     return null;
   }
+
+  Future<Map<String, dynamic>?> fetchNotices(String baseUrl, String token, {int current = 1, int pageSize = 5}) async {
+    final url = '$baseUrl/api/v1/user/notice/fetch?current=$current&pageSize=$pageSize';
+    try {
+      final response = await _dio.get(url,
+          options: Options(headers: {
+            'Authorization': token,
+          }));
+      if (response.statusCode == 200 && response.data['data'] != null) {
+        return {
+          'data': response.data['data'],
+          'total': response.data['total'] ?? 0,
+        };
+      }
+    } catch (e) {
+      print('Error fetching notices: $e');
+    }
+    return null;
+  }
 }

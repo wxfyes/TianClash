@@ -11,6 +11,7 @@ import 'widgets/network_detection.dart';
 import 'widgets/outbound_mode.dart';
 import 'widgets/proxy_selector.dart';
 import 'widgets/user_info_card.dart';
+import 'widgets/announcement_card.dart';
 
 class DashboardView extends ConsumerStatefulWidget {
   const DashboardView({super.key});
@@ -33,7 +34,17 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
             const SizedBox(height: 12),
             const ProxySelector(),
             const SizedBox(height: 12),
-            const NetworkDetection(),
+            Row(
+              children: [
+                Expanded(
+                  child: NetworkDetection(),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: AnnouncementCard(),
+                ),
+              ],
+            ),
             const SizedBox(height: 32),
             const Center(child: CentralConnectionButton()),
             const SizedBox(height: 32),
