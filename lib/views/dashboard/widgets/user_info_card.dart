@@ -281,7 +281,7 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
                       );
                     } else {
                       // 如果没有套餐,跳转到套餐选择页面
-                      globalState.appController.toPage(PageLabel.shop);
+                      globalState.appController.toPage(app_enum.PageLabel.shop);
                     }
                   },
                   icon: const Icon(Icons.autorenew, size: 18),
