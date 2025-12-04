@@ -63,10 +63,14 @@ class _CentralConnectionButtonState extends ConsumerState<CentralConnectionButto
       return;
     }
 
+    // If connected or connecting, disconnect
+    // Otherwise, connect
     if (status == CoreStatus.connected || status == CoreStatus.connecting) {
-      globalState.appController.stopSystemProxy();
+      print('CentralConnectionButton: Stopping system proxy...');
+      await globalState.appController.stopSystemProxy();
     } else {
-      globalState.appController.startSystemProxy();
+      print('CentralConnectionButton: Starting system proxy...');
+      await globalState.appController.startSystemProxy();
     }
   }
 

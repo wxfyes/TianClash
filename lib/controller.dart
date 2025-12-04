@@ -618,47 +618,74 @@ class AppController {
     print('AppController: _initStatus - isServiceRunning: $isServiceRunning, autoRun: $autoRun');
 
     if (isServiceRunning) {
-      // If service is running, we MUST sync the UI to connected state
-      // and ensure the core is initialized properly.
-      print('AppController: Service is running, syncing state...');
-      _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
+      // CRITICAL: Verify the core is actually running, not just the service
+      // Check if we can get a valid response from the core
+      print('AppController: Service reports running, verifying core...');
       
-      // Ensure we have a current profile selected
-      if (_ref.read(currentProfileIdProvider) == null && _ref.read(profilesProvider).isNotEmpty) {
-         final firstProfileId = _ref.read(profilesProvider).first.id;
-         print('AppController: No current profile, selecting first: $firstProfileId');
-         _ref.read(currentProfileIdProvider.notifier).value = firstProfileId;
-      }
-      
-      // Force update groups to ensure UI has data, with TIMEOUT
+      bool coreIsActuallyRunning = false;
       try {
-        print('AppController: Updating groups with timeout...');
-        await updateGroups().timeout(const Duration(seconds: 3));
+        // Try to get proxies with a short timeout
+        final testProxies = await coreController.getProxies().timeout(
+          const Duration(seconds: 2),
+          onTimeout: () => throw TimeoutException('Core not responding'),
+        );
+        coreIsActuallyRunning = testProxies.isNotEmpty;
+        print('AppController: Core verification - running: $coreIsActuallyRunning');
       } catch (e) {
-        print('AppController: Update groups timed out or failed: $e');
-        // If timeout, assume core is stuck. Force restart.
-        print('AppController: Core might be stuck. Restarting core...');
-        await restartCore();
-        return;
+        print('AppController: Core verification failed: $e');
+        coreIsActuallyRunning = false;
       }
-      
-      // If we are "connected" but have no groups, something is wrong. 
-      // Try to re-apply the profile.
-      if (getCurrentGroups().isEmpty) {
-         print('AppController: Connected but no groups, re-applying profile...');
-         try {
-            await applyProfile(silence: true).timeout(const Duration(seconds: 5));
-         } catch (e) {
-            print('AppController: Apply profile timed out: $e');
-            await restartCore();
-         }
+
+      if (coreIsActuallyRunning) {
+        // Core is truly running, sync UI state
+        print('AppController: Core is running, syncing state to connected...');
+        _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
+        
+        // Ensure we have a current profile selected
+        if (_ref.read(currentProfileIdProvider) == null && _ref.read(profilesProvider).isNotEmpty) {
+           final firstProfileId = _ref.read(profilesProvider).first.id;
+           print('AppController: No current profile, selecting first: $firstProfileId');
+           _ref.read(currentProfileIdProvider.notifier).value = firstProfileId;
+        }
+        
+        // Update groups
+        try {
+          print('AppController: Updating groups with timeout...');
+          await updateGroups().timeout(const Duration(seconds: 3));
+        } catch (e) {
+          print('AppController: Update groups timed out or failed: $e');
+        }
+        
+        // If we are "connected" but have no groups, something is wrong. 
+        // Try to re-apply the profile.
+        if (getCurrentGroups().isEmpty) {
+           print('AppController: Connected but no groups, re-applying profile...');
+           try {
+              await applyProfile(silence: true).timeout(const Duration(seconds: 5));
+           } catch (e) {
+              print('AppController: Apply profile timed out: $e');
+           }
+        }
+      } else {
+        // Service says running but core is not responding
+        // This is a stale state, clean it up
+        print('AppController: Service running but core dead, cleaning up...');
+        await globalState.handleStop();
+        _ref.read(coreStatusProvider.notifier).value = CoreStatus.disconnected;
+        
+        // If autoRun is enabled, start fresh
+        if (autoRun) {
+          print('AppController: AutoRun enabled, starting fresh...');
+          await Future.delayed(const Duration(milliseconds: 500));
+          await updateStatus(true);
+        }
       }
-      
     } else if (autoRun) {
       print('AppController: AutoRun is enabled, starting...');
       await updateStatus(true);
     } else {
       print('AppController: Not running, idle.');
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.disconnected;
       addCheckIpNumDebounce();
     }
   }
@@ -723,8 +750,21 @@ class AppController {
   }
 
   Future<void> stopSystemProxy() async {
+    // First update status to trigger UI change immediately
     await updateStatus(false);
-    await proxy?.stopProxy();
+    
+    // Then stop proxy with timeout to avoid hanging
+    try {
+      await proxy?.stopProxy().timeout(
+        const Duration(seconds: 2),
+        onTimeout: () {
+          print('AppController: stopProxy timed out, forcing stop');
+          return;
+        },
+      );
+    } catch (e) {
+      print('AppController: Error stopping proxy: $e');
+    }
   }
 
   Future<void> startSystemProxy() async {
