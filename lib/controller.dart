@@ -630,14 +630,28 @@ class AppController {
          _ref.read(currentProfileIdProvider.notifier).value = firstProfileId;
       }
       
-      // Force update groups to ensure UI has data
-      await updateGroups();
+      // Force update groups to ensure UI has data, with TIMEOUT
+      try {
+        print('AppController: Updating groups with timeout...');
+        await updateGroups().timeout(const Duration(seconds: 3));
+      } catch (e) {
+        print('AppController: Update groups timed out or failed: $e');
+        // If timeout, assume core is stuck. Force restart.
+        print('AppController: Core might be stuck. Restarting core...');
+        await restartCore();
+        return;
+      }
       
       // If we are "connected" but have no groups, something is wrong. 
       // Try to re-apply the profile.
       if (getCurrentGroups().isEmpty) {
          print('AppController: Connected but no groups, re-applying profile...');
-         await applyProfile(silence: true);
+         try {
+            await applyProfile(silence: true).timeout(const Duration(seconds: 5));
+         } catch (e) {
+            print('AppController: Apply profile timed out: $e');
+            await restartCore();
+         }
       }
       
     } else if (autoRun) {

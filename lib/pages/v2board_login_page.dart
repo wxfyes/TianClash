@@ -609,10 +609,7 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                                         color: Colors.white,
                                       ),
                                     )
-                                  : Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
+                                      child: Text(
                                           _loginMode == LoginMode.login
                                               ? '登录'
                                               : _loginMode == LoginMode.register
@@ -620,9 +617,6 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                                                   : '重置密码',
                                           style: const TextStyle(fontSize: 16),
                                         ),
-                                        const SizedBox(width: 8),
-                                        const Icon(Icons.arrow_forward, size: 20),
-                                      ],
                                     ),
                             ),
                             const SizedBox(height: 24),
