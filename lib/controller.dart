@@ -609,12 +609,42 @@ class AppController {
     if (system.isAndroid) {
       await globalState.updateStartTime();
     }
-    final status = globalState.isStart == true
-        ? true
-        : _ref.read(appSettingProvider).autoRun;
+    
+    // Check if VPN is actually running (system level)
+    // If startTime is not null, it means the service is running
+    final isServiceRunning = globalState.isStart;
+    final autoRun = _ref.read(appSettingProvider).autoRun;
 
-    await updateStatus(status);
-    if (!status) {
+    print('AppController: _initStatus - isServiceRunning: $isServiceRunning, autoRun: $autoRun');
+
+    if (isServiceRunning) {
+      // If service is running, we MUST sync the UI to connected state
+      // and ensure the core is initialized properly.
+      print('AppController: Service is running, syncing state...');
+      _ref.read(coreStatusProvider.notifier).value = CoreStatus.connected;
+      
+      // Ensure we have a current profile selected
+      if (_ref.read(currentProfileIdProvider) == null && _ref.read(profilesProvider).isNotEmpty) {
+         final firstProfileId = _ref.read(profilesProvider).first.id;
+         print('AppController: No current profile, selecting first: $firstProfileId');
+         _ref.read(currentProfileIdProvider.notifier).value = firstProfileId;
+      }
+      
+      // Force update groups to ensure UI has data
+      await updateGroups();
+      
+      // If we are "connected" but have no groups, something is wrong. 
+      // Try to re-apply the profile.
+      if (getCurrentGroups().isEmpty) {
+         print('AppController: Connected but no groups, re-applying profile...');
+         await applyProfile(silence: true);
+      }
+      
+    } else if (autoRun) {
+      print('AppController: AutoRun is enabled, starting...');
+      await updateStatus(true);
+    } else {
+      print('AppController: Not running, idle.');
       addCheckIpNumDebounce();
     }
   }

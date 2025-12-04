@@ -127,9 +127,24 @@ class GlobalState {
 
   Future<void> init() async {
     packageInfo = await PackageInfo.fromPlatform();
-    config =
-        await preferences.getConfig() ?? Config(themeProps: defaultThemeProps);
     
+    // Attempt to load config with retries or error handling
+    Config? loadedConfig;
+    try {
+      loadedConfig = await preferences.getConfig();
+      print('GlobalState: Loaded config from preferences: ${loadedConfig != null}');
+    } catch (e) {
+      print('GlobalState: Error loading config: $e');
+    }
+
+    if (loadedConfig == null) {
+      print('GlobalState: Config is null, using default.');
+      config = Config(themeProps: defaultThemeProps);
+    } else {
+      config = loadedConfig;
+    }
+    
+    // Ensure critical widgets are present
     if (!config.appSetting.dashboardWidgets
         .contains(DashboardWidget.remainingTraffic)) {
       final newWidgets =
@@ -143,6 +158,7 @@ class GlobalState {
       config = config.copyWith(
         appSetting: config.appSetting.copyWith(dashboardWidgets: newWidgets),
       );
+      // Only save if we modified it
       await preferences.saveConfig(config);
     }
     
