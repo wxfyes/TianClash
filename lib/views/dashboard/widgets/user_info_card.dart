@@ -2,7 +2,7 @@ import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/models/v2board.dart';
-import 'package:fl_clash/enum/enum.dart';
+import 'package:fl_clash/enum/enum.dart' as app_enum;
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
 import 'package:fl_clash/views/order_confirm.dart';
@@ -125,7 +125,7 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
     return CommonCard(
       child: InkWell(
         onTap: () {
-          globalState.appController.toPage(PageLabel.user);
+          globalState.appController.toPage(app_enum.PageLabel.user);
         },
         borderRadius: BorderRadius.circular(12),
         child: Padding(

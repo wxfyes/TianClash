@@ -1,0 +1,102 @@
+name: Build OEM Client
+
+on:
+  workflow_dispatch:
+    inputs:
+      appName:
+        description: 'App Name (应用名称)'
+        required: true
+        default: '天阙'
+      packageName:
+        description: 'Package Name (包名)'
+        required: true
+        default: 'com.follow.clash'
+      ossUrl:
+        description: 'OSS URL (配置接口)'
+        required: true
+        default: 'https://oss.tianque.cc/oss_config.txt'
+      imgbbApiKey:
+        description: 'ImgBB API Key (图床Key)'
+        required: true
+        default: '85719aefcab7c40a7eaed3b06784898a'
+      iconUrl:
+        description: 'Icon URL (图标链接, 可选)'
+        required: false
+        default: ''
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0'
+          
+      - name: Get Dependencies
+        run: flutter pub get
+        
+      - name: Update OEM Config
+        run: |
+          dart run scripts/update_oem.dart \
+            --appName="${{ github.event.inputs.appName }}" \
+            --packageName="${{ github.event.inputs.packageName }}" \
+            --ossUrl="${{ github.event.inputs.ossUrl }}" \
+            --imgbbApiKey="${{ github.event.inputs.imgbbApiKey }}" \
+            --iconPath="${{ github.event.inputs.iconUrl != '' && github.event.inputs.iconUrl || 'assets/images/icon_new.jpg' }}"
+            
+      - name: Build APK
+        run: flutter build apk --release
+        
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.appName }}-Android
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  build-windows:
+    name: Build Windows Client
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0'
+          
+      - name: Get Dependencies
+        run: flutter pub get
+        
+      - name: Update OEM Config
+        run: |
+          dart run scripts/update_oem.dart `
+            --appName="${{ github.event.inputs.appName }}" `
+            --packageName="${{ github.event.inputs.packageName }}" `
+            --ossUrl="${{ github.event.inputs.ossUrl }}" `
+            --imgbbApiKey="${{ github.event.inputs.imgbbApiKey }}" `
+            --iconPath="${{ github.event.inputs.iconUrl != '' && github.event.inputs.iconUrl || 'assets/images/icon_new.jpg' }}"
+            
+      - name: Build Windows
+        run: flutter build windows --release
+        
+      - name: Archive Windows Build
+        run: |
+          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath ${{ github.event.inputs.appName }}-Windows.zip
+          
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.appName }}-Windows
+          path: ${{ github.event.inputs.appName }}-Windows.zip
