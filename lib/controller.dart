@@ -625,7 +625,7 @@ class AppController {
       bool coreIsActuallyRunning = false;
       try {
         // Try to get proxies with a short timeout
-        final testProxies = await coreController.getProxies().timeout(
+        final testProxies = await coreController.getProxiesGroups().timeout(
           const Duration(seconds: 2),
           onTimeout: () => throw TimeoutException('Core not responding'),
         );
