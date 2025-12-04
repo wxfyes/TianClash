@@ -164,9 +164,11 @@ class AppController {
 
   Future<void> addProfile(Profile profile) async {
     _ref.read(profilesProvider.notifier).setProfile(profile);
+    await savePreferences();
     if (_ref.read(currentProfileIdProvider) != null) return;
     await tryStartCore();
     _ref.read(currentProfileIdProvider.notifier).value = profile.id;
+    await savePreferences();
     
     // 强制更新配置，确保新账号的订阅能正确下发
     await updateClashConfig();
@@ -186,6 +188,7 @@ class AppController {
         updateStatus(false);
       }
     }
+    await savePreferences();
   }
 
   Future<void> updateProviders() async {
@@ -207,6 +210,7 @@ class AppController {
     if (profile.id == _ref.read(currentProfileIdProvider)) {
       applyProfileDebounce(silence: true);
     }
+    savePreferencesDebounce();
   }
 
   void setProfile(Profile profile) {
@@ -279,6 +283,7 @@ class AppController {
       return;
     }
     setProfile(profile.copyWith(currentGroupName: groupName));
+    savePreferencesDebounce();
   }
 
   Future<void> updateClashConfig() async {
@@ -895,6 +900,7 @@ class AppController {
       _ref
           .read(profilesProvider.notifier)
           .setProfile(currentProfile.copyWith(selectedMap: selectedMap));
+      savePreferencesDebounce();
     }
   }
 

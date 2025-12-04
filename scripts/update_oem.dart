@@ -80,7 +80,7 @@ void main(List<String> args) async {
   await updateAndroidBuildGradle(packageName);
   await updateAndroidManifest(appName);
   await updateWindowsRunnerRc(appName, packageName);
-  await updateOssUrl(ossUrl);
+  await updateOssUrl(ossUrl, appName);
   await updateImgBBKey(imgbbApiKey);
   await updateIcons(iconPath);
 
@@ -151,15 +151,31 @@ Future<void> updateWindowsRunnerRc(String appName, String packageName) async {
   }
 }
 
-Future<void> updateOssUrl(String ossUrl) async {
-  print('🔄 更新 OSS 接口地址...');
+Future<void> updateOssUrl(String ossUrl, String appName) async {
+  print('🔄 更新 OSS 接口地址及应用名称...');
   final file = File('lib/pages/v2board_login_page.dart');
   if (await file.exists()) {
     var content = await file.readAsString();
+    
+    // Update OSS URL
     content = content.replaceAll(
       RegExp(r"const String kOssConfigUrl = '.*';"),
       "const String kOssConfigUrl = '$ossUrl';",
     );
+
+    // Update App Name (Title)
+    content = content.replaceAll(
+      RegExp(r"'天阙 VPN'"),
+      "'$appName'",
+    );
+
+    // Update Copyright
+    // Assuming the year 2026 is fixed or we just replace the name part
+    content = content.replaceAll(
+      RegExp(r"'© 2026 天阙 VPN. 保留所有权利。'"),
+      "'© 2026 $appName. 保留所有权利。'",
+    );
+
     await file.writeAsString(content);
   } else {
     print('⚠️ 警告: 找不到 lib/pages/v2board_login_page.dart');
