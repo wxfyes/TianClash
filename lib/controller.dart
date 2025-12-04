@@ -625,7 +625,21 @@ class AppController {
       bool coreIsActuallyRunning = false;
       try {
         // Try to get proxies with a short timeout
-        final testProxies = await coreController.getProxiesGroups().timeout(
+        final sortType = _ref.read(
+          proxiesStyleSettingProvider.select((state) => state.sortType),
+        );
+        final delayMap = _ref.read(delayDataSourceProvider);
+        final testUrl = _ref.read(appSettingProvider).testUrl;
+        final selectedMap = _ref.read(
+          currentProfileProvider.select((state) => state?.selectedMap ?? {}),
+        );
+        
+        final testProxies = await coreController.getProxiesGroups(
+          selectedMap: selectedMap,
+          sortType: sortType,
+          delayMap: delayMap,
+          defaultTestUrl: testUrl,
+        ).timeout(
           const Duration(seconds: 2),
           onTimeout: () => throw TimeoutException('Core not responding'),
         );
