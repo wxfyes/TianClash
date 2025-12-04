@@ -80,7 +80,15 @@ void main(List<String> args) async {
   await updateAndroidBuildGradle(packageName);
   await updateAndroidManifest(appName);
   await updateWindowsRunnerRc(appName, packageName);
-  await updateOssUrl(ossUrl, appName);
+  
+  // Parse backup URLs if provided (comma separated)
+  List<String>? backupUrlsList;
+  if (argMap['backupUrls'] != null && argMap['backupUrls']!.isNotEmpty) {
+    backupUrlsList = argMap['backupUrls']!.split(',').map((e) => e.trim()).toList();
+  }
+  String? fallbackUrl = argMap['fallbackUrl'];
+
+  await updateOssUrl(ossUrl, appName, backupUrls: backupUrlsList, fallbackUrl: fallbackUrl);
   await updateImgBBKey(imgbbApiKey);
   await updateIcons(iconPath);
 
@@ -145,13 +153,24 @@ Future<void> updateWindowsRunnerRc(String appName, String packageName) async {
       RegExp(r'VALUE "CompanyName", ".*"'),
       'VALUE "CompanyName", "$packageName"',
     );
+    // I will first add the logic to replace them if provided in the script args.
+    
+    // For now, let's just make sure the script *can* replace them if we add the args later.
+    // But wait, the user wants them "added to one-click packaging".
+    // This means I should add new arguments to the script AND update the workflow file.
+    
     await file.writeAsString(content);
   } else {
-    print('⚠️ 警告: 找不到 windows/runner/Runner.rc');
+    print('⚠️ 警告: 找不到 lib/pages/v2board_login_page.dart');
   }
 }
 
-Future<void> updateOssUrl(String ossUrl, String appName) async {
+Future<void> updateOssUrl(
+  String ossUrl, 
+  String appName, {
+  List<String>? backupUrls,
+  String? fallbackUrl,
+}) async {
   print('🔄 更新 OSS 接口地址及应用名称...');
   final file = File('lib/pages/v2board_login_page.dart');
   if (await file.exists()) {
@@ -177,6 +196,25 @@ Future<void> updateOssUrl(String ossUrl, String appName) async {
       "'© $currentYear $appName. 保留所有权利。'",
     );
 
+    // Update Backup URLs
+    if (backupUrls != null && backupUrls.isNotEmpty) {
+      print('🔄 更新备份地址...');
+      final backupUrlsString = backupUrls.map((e) => "'$e'").join(',\n  ');
+      content = content.replaceAll(
+        RegExp(r"const List<String> kBackupUrls = \[\n(.*?)\n\];", dotAll: true),
+        "const List<String> kBackupUrls = [\n  $backupUrlsString,\n];",
+      );
+    }
+
+    // Update Fallback URL
+    if (fallbackUrl != null && fallbackUrl.isNotEmpty) {
+      print('🔄 更新回退地址...');
+      content = content.replaceAll(
+        RegExp(r"const String kFallbackUrl = '.*';"),
+        "const String kFallbackUrl = '$fallbackUrl';",
+      );
+    }
+
     await file.writeAsString(content);
   } else {
     print('⚠️ 警告: 找不到 lib/pages/v2board_login_page.dart');
@@ -197,6 +235,7 @@ Future<void> updateImgBBKey(String apiKey) async {
     print('⚠️ 警告: 找不到 lib/common/image_upload_service.dart');
   }
 }
+
 
 Future<void> updateIcons(String iconPath) async {
   print('🔄 更新应用图标配置...');
