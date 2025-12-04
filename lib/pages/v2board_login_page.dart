@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fl_clash/l10n/l10n.dart';
+import 'package:fl_clash/common/image_upload_service.dart';
 import 'home.dart';
 
 // TODO: Replace with actual OSS URL
@@ -78,11 +79,27 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
         final lines = configContent
             .split(RegExp(r'\r?\n'))
             .map((e) => e.trim())
-            .where((e) => e.isNotEmpty && e.startsWith('http'))
+            .where((e) => e.isNotEmpty)
             .toList();
 
-        if (lines.isNotEmpty) {
-          for (final url in lines) {
+        // Extract ImgBB Key if present (Format: IMGBB:key)
+        final imgbbLine = lines.firstWhere(
+            (e) => e.toUpperCase().startsWith('IMGBB:'), 
+            orElse: () => '');
+        if (imgbbLine.isNotEmpty) {
+          final key = imgbbLine.substring(6).trim();
+          if (key.isNotEmpty) {
+            print('Found ImgBB Key in OSS config');
+            ImageUploadService().imgbbApiKey = key;
+          }
+        }
+
+        final urls = lines
+            .where((e) => e.startsWith('http'))
+            .toList();
+
+        if (urls.isNotEmpty) {
+          for (final url in urls) {
             if (await _checkUrlAvailability(url)) {
               print('Found available URL from OSS: $url');
               return url;
