@@ -3,6 +3,7 @@ import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/models/models.dart';
 import 'package:fl_clash/models/v2board.dart';
 import 'package:fl_clash/enum/enum.dart' as app_enum;
+import 'package:fl_clash/enum/enum.dart'; // Add direct import for PageLabel if not using prefix
 import 'package:fl_clash/providers/providers.dart';
 import 'package:fl_clash/state.dart';
 import 'package:fl_clash/views/order_confirm.dart';
