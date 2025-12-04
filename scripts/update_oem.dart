@@ -170,10 +170,11 @@ Future<void> updateOssUrl(String ossUrl, String appName) async {
     );
 
     // Update Copyright
-    // Assuming the year 2026 is fixed or we just replace the name part
+    // Dynamically update the year and app name
+    final currentYear = DateTime.now().year.toString();
     content = content.replaceAll(
-      RegExp(r"'© 2026 天阙 VPN. 保留所有权利。'"),
-      "'© 2026 $appName. 保留所有权利。'",
+      RegExp(r"'© \d{4} .*? 保留所有权利。'"),
+      "'© $currentYear $appName. 保留所有权利。'",
     );
 
     await file.writeAsString(content);
