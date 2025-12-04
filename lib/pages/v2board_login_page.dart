@@ -6,7 +6,6 @@ import 'package:fl_clash/common/common.dart';
 import 'package:fl_clash/common/v2board_service.dart';
 import 'package:fl_clash/state.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fl_clash/l10n/l10n.dart';
@@ -609,14 +608,13 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
                                         color: Colors.white,
                                       ),
                                     )
-                                      child: Text(
-                                          _loginMode == LoginMode.login
-                                              ? '登录'
-                                              : _loginMode == LoginMode.register
-                                                  ? '注册'
-                                                  : '重置密码',
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
+                                  : Text(
+                                      _loginMode == LoginMode.login
+                                          ? '登录'
+                                          : _loginMode == LoginMode.register
+                                              ? '注册'
+                                              : '重置密码',
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                             ),
                             const SizedBox(height: 24),
