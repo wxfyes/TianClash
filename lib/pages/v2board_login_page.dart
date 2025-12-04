@@ -102,6 +102,11 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
           for (final url in urls) {
             if (await _checkUrlAvailability(url)) {
               print('Found available URL from OSS: $url');
+              if (mounted) {
+                 ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('通过 OSS 远程配置连接成功！'), duration: Duration(seconds: 1)),
+                );
+              }
               return url;
             }
           }
@@ -113,13 +118,29 @@ class _V2BoardLoginPageState extends State<V2BoardLoginPage> {
 
     // Try Backup URLs if OSS fails
     print('OSS fetch failed or no valid URLs. Trying backup URLs...');
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('OSS 连接失败，正在尝试备用连接...'), duration: Duration(seconds: 1)),
+      );
+    }
+    
     for (final url in kBackupUrls) {
       if (await _checkUrlAvailability(url)) {
         print('Found available backup URL: $url');
+        if (mounted) {
+           ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('已连接到备用服务器'), duration: Duration(seconds: 1)),
+          );
+        }
         return url;
       }
     }
 
+    if (mounted) {
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('所有连接尝试失败，使用回退地址'), duration: Duration(seconds: 1)),
+      );
+    }
     return kFallbackUrl;
   }
 
